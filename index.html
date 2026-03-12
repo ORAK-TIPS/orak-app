@@ -1,433 +1,287 @@
-<!DOCTYPE html > < html lang = "fr" > <head> < meta charset = "UTF-8" /> < meta name = "viewport" content = "width = device-width, initial-scale=1.0" /> <title> ORAK — Ce que les autres ne voient pas. </title> < link href = " https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap " rel = " stylesheet " / > <style> * 
-{ box -sizing : border - box; margin : 0 ; padding : 0 } body
- { background : # 080808 ; color : #fff ; font-family : 'Space Grotesk' , sans -serif; max-width : 430px ; margin : 0 auto; min-height : 100vh }
- input [type=number] {-moz- appearance : textfield}
- input [type=number] ::-webkit- inner-spin-button,input[type= number]::-webkit-outer-spin- button{-webkit- appearance : none}
- 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ORAK — Ce que les autres ne voient pas.</title>
+<style>
+*{box-sizing:border-box; margin:0;padding:0}
+body{background:#080808;color: #fff;font-family:Arial,sans- serif;max-width:430px;margin:0 auto;min-height:100vh}
+@keyframes pulse{0%,100%{opacité:1}50%{ opacité:.3}}
+@keyframes fadeIn{from{opacity:0}to{ opacity:1}}
+#ticker{background:#FF4D00; color:#fff;padding:9px 20px;font-size:12px;font- weight:700;text-align:center; transition:opacity .5s}
+.header{padding:20px 20px 0;border-bottom:1px solid #111}
+.logo{font-size:48px;font- weight:900;line-height:1; letter-spacing:.1em;color:# FF4D00}
+.slogan{font-size:10px;color:# 333;letter-spacing:.12em;text- transform:uppercase;margin- top:3px}
+.live-badge{display:inline- flex;align-items:center;gap: 6px;border:1px solid #FF4D00;border-radius:20px; padding:4px 10px;margin-top:4px}
+.live-dot{width:7px;height: 7px;border-radius:50%; background:#FF4D00;animation: pulse 1.5s infinite}
+.live-txt{font-size:11px; color:#FF4D00;font-weight:700}
+.stats-row{display:flex;gap: 6px;overflow-x:auto;padding: 14px 0;scrollbar-width:none}
+.stats-row::-webkit-scrollbar{ display:none}
+.stat{text-align:center; padding:10px 14px;background:#0F0F0F; border-radius:10px;flex- shrink:0;border:1px solid #1C1C1C}
+.stat.hot{border-color:# FF4D00}
+.stat-v{font-size:20px;font- weight:900;color:#eee}
+.stat.hot .stat-v{color:#FF4D00}
+.stat-l{font-size:9px;color:# 444;text-transform:uppercase; letter-spacing:.08em;margin- top:2px}
+.tabs{display:flex;gap:4px; padding:10px 20px;background:#080808; border-bottom:1px solid #111;position:sticky;top:0;z- index:10}
+.tab{flex:1;padding:9px 4px;border:none;cursor: pointer;border-radius:8px; font-size:11px;font-weight: 700;background:#0F0F0F;color:# 444;line-height:1.4}
+.tab.on{background:#FF4D00; color:#fff}
+.content{padding:20px 20px 60px}
+.panel{display:none;animation: fadeIn .3s}
+.panel.on{display:block}
+.banner{background:linear- gradient(135deg,#180800,# 0F0F0F);border:1px solid #FF4D00;border-radius:16px; padding:18px;margin-bottom: 14px}
+.ban-lbl{font-size:9px;color:# FF4D00;text-transform: uppercase;letter-spacing:. 15em;margin-bottom:5px}
+.ban-date{font-size:12px; color:#555}
+.ban-cote{font-size:46px;font- weight:900;color:#FF4D00;line- height:1}
+.ban-meta{display:grid;grid- template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.meta-b{background:#0A0A0A; border-radius:8px;padding: 10px;text-align:center}
+.meta-v{font-size:13px;font- weight:700;color:#eee}
+.meta-l{font-size:9px;color:# 444;text-transform:uppercase; margin-top:2px}
+.card{background:#0F0F0F; border:1px solid #1C1C1C;border-radius:14px; margin-bottom:10px;overflow: hidden}
+.card-body{padding:15px 16px}
+.c-league{font-size:10px; color:#444;text-transform: uppercase;letter-spacing:.1em; margin-bottom:4px}
+.c-match{font-size:14px;font- weight:700;color:#eee;margin- bottom:4px}
+.c-market{font-size:13px; color:#FF4D00;font-weight:700}
+.c-cote{font-size:30px;font- weight:900;color:#FF4D00;line- height:1}
+.c-prob{background:#1A0A00; color:#FF8C66;font-size:10px; font-weight:700;padding:3px 8px;border-radius:20px;margin- top:3px;display:inline-block}
+.bar-wrap{margin-top:12px}
+.bar-row{display:flex;justify- content:space-between;margin- bottom:4px}
+.bar-lbl{font-size:9px;color:# 333;text-transform:uppercase}
+.bar-edge{font-size:9px;color: #FF4D00;font-weight:700}
+.bar-track{hauteur:3px; fond:#1C1C1C;bordure- radius:2px}
+.bar-fill{height:100%; background:linear-gradient( 90deg,#FF4D00,#FF8C66);border- radius:2px}
+.ana-btn{margin-top:12px; background:transparent;border: 1px solid #222;border-radius:8px;color:# 555;font-size:11px;padding:7px 12px;cursor:pointer;width:100% ;text-align:left}
+.ana-body{padding:12px 16px 16px;border-top:1px solid #141414}
+.src-tag{background:#1A0A00; color:#FF8C66;font-size:10px; padding:3px 8px;border-radius:4px;font- weight:700;margin-right:5px; margin-bottom:5px;display: inline-block}
+.imp-tag{background:#111; color:#666;font-size:10px; padding:3px 8px;border-radius:4px;margin- bottom:5px;display:inline- block}
+.reason{display:flex;gap:8px; margin-bottom:7px;font-size: 12px;color:#888;line-height:1. 5}
+.r-dot{color:#FF4D00;flex- shrink:0}
+.hint{padding:12px 14px;background:#0F0F0F; border-radius:10px;font-size: 11px;color:#444;line-height:1. 7;margin-top:10px}
+/* historique */
+.h-header{display:flex; justify-content:space-between; align-items:center;margin- bottom:16px}
+.sec-lbl{font-size:10px;color: #FF4D00;text-transform: uppercase;letter-spacing:.1em}
+.taux{background:#1A0A00; border:1px solid #FF4D00;color:#FF4D00;font- size:12px;font-weight:700; padding:4px 12px;border-radius:20px}
+.h-grid{display:grid;grid- template-columns:1fr 1fr 1fr;gap:8px;margin-bottom: 16px}
+.h-stat{background:#0F0F0F; border-radius:10px;padding: 12px;text-align:center;border: 1px solid #1C1C1C}
+.h-sv{font-size:24px;font- weight:900}
+.h-sl{font-size:9px;color:# 444;text-transform:uppercase}
+.h-row{display:flex;align- items:center;gap:10px; background:#0F0F0F;border- radius:10px;padding:11px 14px;margin-bottom:7px}
+.h-ico{width:30px;height:30px; border-radius:50%;display: flex;align-items:center; justify-content:center;font- size:13px;flex-shrink:0}
+.h-matchs{font-size:11px; color:#444;white-space:nowrap; overflow:hidden;text-overflow: ellipsis}
+.h-date{font-size:11px;color:# 555;margin-bottom:2px}
+.h-cote{font-size:18px;font- weight:900;color:#eee}
+.h-pct{font-size:10px;font- weight:700}
+.pacte{margin-top:12px; padding:12px 14px;background:#0F0F0F; border-radius:10px;font-size: 11px;color:#333;line-height:1. 7;border-left:3px solid #FF4D00}
+/* Kelly */
+.k-lbl{font-size:10px;color:# FF4D00;text-transform: uppercase;letter-spacing:.1em; margin-bottom:8px}
+.k-desc{font-size:12px;color:# 555;line-height:1.7;margin- bottom:20px}
+.k-field{marge-bottom:12px}
+.k-field label{font-size:10px;color:# 444;text-transform:uppercase; letter-spacing:.08em;display: block;margin-bottom:6px}
+.k-input{background:#0F0F0F; border:1px solid #222;border-radius:10px;color: #fff;padding:12px 14px;font-size:15px;width:100% ;outline:none}
+.k-result{background:#0F0F0F; border:1px solid #FF4D00;border-radius:14px; padding:20px;text-align: center}
+.k-amt{font-size:50px;font- weight:900;color:#FF4D00;line- height:1}
+.k-pct{font-size:13px;color:# 555;margin-top:3px}
+.k-grid{display:grid;grid- template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.k-box{background:#141414; border-radius:10px;padding: 12px;text-align:center}
+.k-bv{font-size:18px;font- weight:900;color:#eee}
+.k-bl{font-size:9px;color:# 444;text-transform:uppercase; margin-top:2px}
+.k-note{font-size:10px;color:# 333;margin-top:12px}
+/* psycho */
+.p-desc{font-size:12px;color:# 444;margin:6px 0 18px;line-height:1.6}
+.p-card{background:#0F0F0F; border:1px solid #1C1C1C;border-radius:12px; padding:16px;margin-bottom: 10px}
+.p-ico{font-size:20px;margin- bottom:8px}
+.p-title{font-size:13px;font- weight:700;color:#ddd;margin- bottom:7px}
+.p-body{font-size:12px;color:# 666;line-height:1.6}
+</style>
+</head>
+<corps>
 
- 
-  
+<div id="ticker">⚡ L'ORAK ne suit pas la foule — il lit les chiffres.</div>
 
-  
+<div class="header">
+  <div style="display:flex;justify- content:space-between;align- items:flex-start;margin- bottom:16px">
+    <div>
+      <div class="logo">ORAK</div>
+      <div class="slogan">Ce que les autres ne voient pas.</div>
+    </div>
+    <div style="text-align:right; padding-top:6px">
+      <div class="live-badge"><div class="live-dot"></div><span class="live-txt">EN DIRECT</span></ div>
+      <div style="font-size:9px;color:# 333;margin-top:4px" id="d"></div>
+    </div>
+  </div>
+  <div class="stats-row">
+    <div class="stat hot"><div class="stat-v">71%</div><div class="stat-l">Réussite</div>< /div>
+    <div class="stat"><div class="stat-v">5/7</div><div class="stat-l">Ce mois</div></div>
+    <div class="stat"><div class="stat-v">2.30</div><div class="stat-l">Cote moy.</div></div>
+    <div class="stat"><div class="stat-v">+34%</div><div class="stat-l">ROI global</div></div>
+  </div>
+</div>
 
-::-webkit-scrollbar{ largeur : 3px }
-::-webkit-scrollbar-track{ arrière- plan : #080808 }
-::-webkit-scrollbar-thumb{ background : #222 ; border-radius : 2px } @keyframes pulse{ 0% , 100% { opacity : 1 ; transform : scale ( 1 ) } 50 % {
- opacity : . 4 ; transform : scale ( . 85 ) } } @keyframes fadeIn { from { opacity : 0 ; transform : translateY ( 8px
- ) } to { opacity : 1 ; transform : translateY ( 0 ) } } / * TICKER * / #ticker { background : #
- FF4D00 ; color : #fff ; padding : 9px 20px ; font - size : 11.5px ; font - weight : 700 ; letter - spacing : . 04em ; text - align :center; transition : opacity . 5s }
- /* EN-TÊTE */ .header { padding : 22px 20px 0 ; border-bottom : 1px solid #111 }
- .logo { font-size : 52px ; font- weight : 900 ; line-height : 1 ; font- family : 'Bebas Neue' ,cursive; letter-spacing :. 12em ; background : linear- gradient ( 135deg , #FF4D00 , # FF8C66 );-webkit- background- clip : text;-webkit- text - fill - color :transparent}
- .slogan { font-size : 10px ; color : #
- 
-  333 ; letter-spacing :. 15em ; text- transform :uppercase; margin-top : 2px }
- .live-badge { display :inline- flex; align-items :center; gap : 7p x ; border : 1px solid #FF4D00 ; border-radius : 20px ; padding : 5px  12px }
- .live-dot { width : 7px ; height : 7px ; border-radius : 50% ; background : # FF4D00 ; animation :pulse 1.5s ease-in-out infinite}
- .live-text { font-size : 11px ; color : # FF4D00 ; font-weight : 700 ; letter -spacing :. 08em }
- .stats-row { display :flex; gap : 6p x ; overflow-x :auto; padding : 16px  0 ; scrollbar-width :none}
- .stats -row ::-webkit-scrollbar{ display :none}
- .stat-box { text-align : center; padding : 10px  14px ; background : #0F0F0F ; border -radius : 10px ; flex-shrink : 0 ; border : 1px solid #1C1C1C }
- .stat-box .hot { border-color : # FF4D00 }
- .stat-val { font-size : 20px ; font- weight : 900 ; font-family : 'Bebas Neue' ,cursive; letter-spacing :. 05em ; color : #eee }
- .stat-box .hot  .stat-val{ color : #FF4D00 }
- .stat-lbl { font-size : 9px ; color : #444 ; text-transform :uppercase; letter-spacing :. 1em ; margin-top : 1px }
- /* ONGULES */ 
-.tabs { display : flex; gap : 4px ; padding : 10px  20px ; background : #080808 ; border -bottom : 1px solid #111 ; position :sticky; top : 0 ; z- index : 10 }
- .tab-btn { flex : 1 ; padding : 9px  4px ; border :none; cursor : pointer; border-radius : 8px ; font -family : 'Space Grotesk' ,sans-serif; font-size : 10.5px ; font-weight : 700 ; letter- spacing :. 03em ; transition :all . 2s ; background : #0F0F0F ; color : # 444 ; line-height : 1.4 }
- .tab-btn .active { background : # FF4D00 ; color : #fff }
- /* CONTENU */ 
-.content { padding : 20px  20px  60px }
- /* BANNIÈRE DE COUPON */ 
-.coupon-banner { background : line ar-gradient ( 135deg , #180800 , # 0F0F0F ); border : 1px solid #FF4D00 ; border-radius : 18px ; padding : 20px ; margin -bottom : 14px }
- .coupon-label{ font-size : 9px ; color : #FF4D00 ; text-transform : uppercase; letter-spacing :. 15em ; margin-bottom : 6px }
- .coupon-date { font -size : 12px ; color : #555 }
- .coupon-cote { font -size : 48px ; fo nt-weight : 900 ; line-height : 1 ; fo nt-family : 'Bebas Neue' ,cursive; background : linea r-gradient ( 135deg , #FF4D00 , # FF8C66 );-webkit- background- clip :text;-webkit- text - fill - color :transparent}
- .coupon-cote-lbl { font-size : 10px ; color : # 444 } .coupon
- -meta { display :grid; grid -template-columns : 1fr 1fr 1fr; gap: 8px; margin-top: 16px } .meta - box { background : # 0A0A0A ; b order -
- radius : 10px ; padding : 10px ; text - align : center } .meta - val
- { font - size : 13px ; font- weight : 700 ; color : #eee ; font- family : 'Bebas Neue' , cursive }
- .meta-lbl { font-size : 9px ; color : #444 ; text-transform : uppercase; letter-spacing : 08em ; margin- top : 2px }
- /* CARTE DE SÉLECTION */ .sel-card { background : #0F0F0F
-; b order : 1px solid #1C1C1C ; border-radius : 16px ; margin -bottom : 10px ; overflow : hidden; transition :border-color . 25s ; animation :fadeIn . 3s ease}
- .sel-card :hover , .sel-card : active { border-color : #FF4D00 }
- .sel-body { padding : 16px  18px }
- .sel-league { font-size : 10px ; color : #444 ; text-transform : uppercase; letter-spacing :. 12em ; margin-bottom : 5px } .sel-match { font-size : 14.5px ; fo
- nt -weight : 700 ; color : #eee ; margin -bottom : 5px ; line-height : 1.3 }
- .sel-market { font-size : 13px ; color : #FF4D00 ; font-weight : 700 } .sel-cote { font-size : 32px ; font- weight : 900 ; color : #FF4D00 ; font- family : 'Bebas Neue' ,cursive; letter
- -spacing :. 05em ; line-height : 1 }
- .sel-prob { background : #1A0A00 ; color : #FF8C66 ; font-size : 10px ; font -weight : 700 ; padding : 3px  8px ; border-radius : 20px ; margin- top : 4px ; display : inline-block}
- .value-bar-wrap{ margin-top : 14px } .value-bar-labels { display : flex; justify-content :space-between; margin-bottom : 5px } .value-bar-lbl { font-size : 9px ; color : # 333 ; text - transform :
- uppercase ; letter - spacing
- : . 1em } .value-edge { font-size : 9px ; color : # FF4D00 ; font - weight : 700 } .value - bar - track { height :
- 3px ; background : # 1C1C1C ; border - radius : 2px ; overflow
- : hidden } .value - bar - fill { height : 100 % ; background :
- linear - gradient ( 90deg , # FF4D00 , # FF8C66 ) ; border- radius : 2px } .analysis - btn
- { margin - top : 14px ; background :transparent; border : 1px solid #222 ; border-radius : 8px ; color : # 444 ; font-size : 11px ; padding : 7px 14px ; cursor :pointer; width : 100% ; text-align :left ; font-family : ' Space Grotesk' ,sans-serif; letter- spacing : 0.03em }
- .analysis-body { padding : 0 18px 18px ; border-top : 1px solid #141414 ; animation :fadeIn .2s ease}
- .analysis-sources { display : flex; gap : 6px ; flex-wrap   :wrap; marge : 14px 0  }
- .source-tag { background : # 1A0A00 ; color : #FF8C66 ; font-size : 10px ; padding : 3px 9px ; border-radius : 4px ; font- weight : 700 }
- .implied-tag { background : #111 ; color : #666 ; font-size : 10px ; padding : 3px 9px ; border -radius : 4px }
- .reason { display :flex; gap : 10px ; margin -bottom : 8px ; font-size : 12 .5px ; color : #999 ; line-height : 1. 5 }
- .reason-dot { color : #FF4D00 ; flex -shrink : 0 ; margin-top : 1px }
- /* HISTORIQUE */ .histo-header { display :flex; jus tify-content :space-between; ali gn-items :center; margin-bottom : 18px }
- .section-label { font-size : 10px ; color : #FF4D00 ; text-transform : uppercase; letter-spacing :. 12em }
- .taux-badge { background : #1A0A00 ; border : 1px solid #FF4D00 ; color : #FF4D00 ; font- size : 12px ; font-weight : 700 ; padding : 4px 12px ; border-radius : 20px }
- .histo-grid { display :grid ; grid-  
- template-columns : 1 fr 1 fr 1 fr; gap : 8px ; margin-bottom : 18px }
- .histo-stat { background : #0F0F0F ; border-radius : 10px ; padding : 12 px ; text-align :center; border : 1p x solid #1C1C1C }
- .histo-stat-val { font-size : 24px ; font-weight : 900 ; font-family : ' Bebas Neue' ,cursive}
- .histo-stat-lbl { font-size : 9px ; color : #444 ; text-transform : uppercase; letter-spacing :. 1em }
- .histo-row { display :flex; align- items : center; gap : 12px ; background : #0F0F0F ; border-radius : 10px ; padding : 12px  16px ; margin-bottom : 7px }
- .histo-icon { width : 32px ; height : 32px ; border-radius : 50% ; display :flex; align-items :center; justify -content :center; font-size : 14 px ; flex-shrink : 0 }
- .histo-icon .win { background : # 0D2A0D }
- .histo-icon .loss { background : # 2A0D0D }
- .histo-matchs { font-size : 11px ; color : #444 ; white-space :nowrap; overflow : hidden ; text-overflow : ellipsis}
- .histo -date { font-size :11px ; col or : #555 ; margin-bottom : 2px }
- .histo-cote { font-size : 20px ; font -weight : 900 ; font-family : ' Bebas Neue' ,cursive; color : #eee }
- .histo-pct { font-size : 10px ; font- weight : 700 }
- .pacte { margin-top : 14px ; padding : 12px  16px ; background : #0F0F0F ; border -radius : 10px ; font-size : 11px ; color : #333 ; line-height : 1.7 ; border - left : 3px solid #FF4D00 }
- /* KELLY */ 
-.kelly-intro { font-size : 10px ; color : #FF4D00 ; text-transform : uppercase; letter -spacing :. 12em ; margin-bottom : 10px }
- .kelly-desc { font-size : 12.5px ; color : # 555 ; line-height : 1.7 ; margin -bottom : 22px }
- .kelly-inputs { display : grid; gap : 12px ; margin-bottom : 22px }
- .input-lbl { font-size : 10px ; color : #444 ; text-transform : uppercase; letter-spacing :. 1em ; margin-bottom : 7px }
- .kelly-input { background : # 0F0F0F ; border : 1px solid #222 ; border-radius :10px ; color : #fff ; padding : 12px  16px ; font-size : 16px ; width : 100% ; font-family : 'Space Grotesk' ,sans-serif; outline : none}
- .kelly-result { background : # 0F0F0F ; border-radius : 16px ; padding : 22px }
- .kelly-result-lbl { font-size : 10 px ; color : #444 ; text-transform : uppercase; letter-spacing :. 12em ; margin-bottom : 6px ; text -align : center}
- .kelly-amount { font-size : 52px ; font -weight : 900 ; line-height : 1 ; font -family : 'Bebas Neue' ,cursive; text-align : center}
- .kelly-pct { font-size : 13px ; color : #555 ; margin-top : 4px ; text- align : center}
- .kelly -grid { display : grid; grid- template-columns : 1fr 1fr ; gap : 10px ; margin-top : 16px }
- .kelly-box { background : #141414 ; border-radius : 10px ; padding : 14px ; text-align : center}
- .kelly -box-val { font-size : 20px ; font-weight : 900 ; font-family : ' Bebas Neue' , cursive; color : #eee }
- .kelly-box-lbl { font-size : 9px ; color: #444 ; text-transform : uppercase; letter-spacing :. 08em ; margin-top : 2px }
- .kelly-note { font-size : 10px ; color : # 333 ; text-align :center; margin -top : 14px }
- /* PSYCHO */ 
-.psycho-intro { font-size : 12px ; color : # 444 ; margin - bottom : 20px ; line - height : 1.6 }
- .psycho-card { background : # 0F0F0F ; border : 1px solid #1C1C1C ; border-radius : 14px ; padding : 18px ; margin -bottom : 10px }
- .psycho-icon { font-size : 22px ; margin -bottom : 10px }
- .psycho-title { font-size : 14px ; font -weight : 700 ; color : #ddd ; marg in-bottom : 9px }
- .psycho-body { font-size : 12.5px ; color : #666 ; line-height : 1.65 }
- /* PAS DE COUPON */ 
-.no-coupon { text-align :center; p adding : 60px  20px ; background : #0F0F0F ; border- radius : 18px ; border : 1px dashed #1C1C1C }
- .hint { margin-top : 10px ; padding : 14px  16px ; background : #0F0F0F ; border- radius : 12px ; font-size : 11.5px; couleur : #444 ; interligne : 1,7 }
- </ style > </ head > < body > <!-- ============================== ==============================
+<div class="tabs">
+  <button class="tab on" onclick="go('coupon',this)">🎯< br>Coupon</button>
+  <button class="tab" onclick="go('stats',this)">📊< br>Statistiques</button>
+  <button class="tab" onclick="go('kelly',this)">🧮< br>Kelly</button>
+  <button class="tab" onclick="go('psycho',this)">🧠< br>Mentalité</button>
+</div>
 
+<div class="content">
 
+<!-- COUPON -->
+<div id="coupon" class="panel on">
+  <div class="banner">
+    <div style="display:flex;justify- content:space-between;align- items:flex-start">
+      <div>
+        <div class="ban-lbl">◆ COUPON DU JOUR — L'ORAK A PARLÉ</div>
+        <div class="ban-date" id="datestr"></div>
+      </div>
+      <div style="text-align:right">
+        <div class="ban-cote">x2.46</div>
+        <div style="font-size:10px;color:# 444">cote totale</div>
+      </div>
+    </div>
+    <div class="ban-meta">
+      <div class="meta-b"><div class="meta-v">49,8%</div><div class="meta-l">Viabilité</div> </div>
+      <div class="meta-b"><div class="meta-v">3 PICKS</div><div class="meta-l">Sélections</ div></div>
+      <div class="meta-b"><div class="meta-v">✅ VALIDE</div><div class="meta-l">Statut</div></ div>
+    </div>
+  </div>
 
-ZONE ADMIN — MODIFIER ICI LES DONNEES
-============================== ============================= --> < script > // ── NOM ET SLOGAN const APP_NAME = "ORAK" ;
- const APP_SLOGAN = "Ce que les autres ne voient pas." ;
- // ── MESSAGES PSYCHO (barre défilante) const PSYCHO_TIPS = [
- "⚡ L'ORAK ne suit pas la foule — il lit les chiffres." ,
- "🧠 Après une perte, attend 24h. L'émotion détruit plus de bankrolls que les mauvais coupons." ,
- "📊 Le Kelly ne ment pas. Suis-le même quand ton instinct crie le contraire." ,
- "🎯 La discipline a fait plus de millionnaires que la chance. Sans exception." ,
- "⚠️ Une cote élevée n'est pas un cadeau — c'est un piège avec un ruban." ,
- "🔥 5 coupons gagnants d'affilée ? C'est exactement là que les gens perdent tout." ,
- "💰 Ta bankroll est un capital. Un investisseur, pas un joueur." ,
- "🚫 Chase la valeur. Ne chasse jamais une perte." ,
- "👁️ Ce que les autres voient tard, l'ORAK l'a vu la veille." ,
+  <div style="font-size:9px;color:# 333;text-transform:uppercase; letter-spacing:.1em;margin- bottom:10px">▼ Appuie pour voir l'analyse</div>
 
+  <!-- SÉLECTION 1 -->
+  <div class="card">
+    <div class="card-body">
+      <div style="display:flex;justify- content:space-between;gap: 10px">
+        <div style="flex:1">
+          <div class="c-league">⚽ Premier League</div>
+          <div class="c-match">Arsenal contre Chelsea</div>
+          <div class="c-market">Arsenal — Victoire ou Nul (1X)</div>
+        </div>
+        <div style="text-align:right;flex- shrink:0">
+          <div class="c-cote">1.38</div>
+          <div class="c-prob">82% réel</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-row"><span class="bar-lbl">Probabilité calculée</span><span class="bar-edge">+10% VALEUR EDGE</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:82%"></div></div>
+      </div>
+      <button class="ana-btn" onclick="tog('a1',this)">▼ Sur quoi l'ORAK base cette sélection ?</button>
+    </div>
+    <div id="a1" class="ana-body" style="display:none">
+      <span class="src-tag">📡 Sofascore</span><span class="src-tag">📡 Fbref.com</span><span class="imp-tag">Cote implicite : 72%</span>
+      <div class="reason"><span class="r-dot">◆</span>Arsenal invaincu à domicile sur 11 matchs (forme : WDWWW)</div>
+      <div class="reason"><span class="r-dot">◆</span>xG Arsenal domicile 2.3 — Chelsea extérieur 0.9</div>
+      <div class="reason"><span class="r-dot">◆</span>H2H : Arsenal remporte 4/5 confrontations à domicile</div>
+      <div class="reason"><span class="r-dot">◆</span>Chelsea absent : Reece James blessé + fatigue Ligue Europa</div>
+    </div>
+  </div>
 
-  
- 
-];
-// ── COUPON DU JOUR 
-// actif: true = afficher le coupon / false = "pas de coupon viable" 
-const  COUPON = {
- actif : true ,
- selections : [
-{
-sport : "⚽" ,
- match : "Arsenal vs Chelsea" ,
- ligue : "Premier League" ,
- ​​marché : "Arsenal — Victoire ou Nul (1X)" ,
- cote : 1.38 ,
- probabilitéCalculée : 82 ,
- sources : [ "Sofascore" , "Fbref.com" ],
- raisons : [
- "Arsenal invaincu à domicile sur 11 matchs (forme : WDWWW)" ,
- "xG Arsenal domicile 2.3 — Chelsea extérieur 0.9" ,
- "H2H : Arsenal gagne 4/5 confrontations à domicile" ,
- "Chelsea absent : Reece James blessé + fatigue Ligue Europa" ,
-]
-},
-{
-sport : "⚽" ,
- match : "Bayern Munich vs Stuttgart" ,
- ligue : "Bundesliga" ,
- marché : "+1.5 buts dans le match" ,
- cote : 1.22 ,
- probabilitéCalculée : 88 ,
- sources : [ "Understat.com" , "API-Football" ],
- raisons : [
- "Bayern : 100% des matchs domicile à +2 buts cette saison (12/12)" ,
- "Stuttgart concède 1.8 buts/match à l'extérieur en moyenne" ,
- "H2H 5 derniers matchs : moyenne 4.2 buts par rencontre" ,
- "Arbitre permissif — 3.1 buts/match en moyenne cette saison" ,
-]
-},
-{
-sport : "🏀" ,
- match : "Boston Celtics vs Miami Heat" ,
- ligue : "NBA" ,
- marché : "Celtics — Handicap -5.5 pts" ,
- cote : 1.87 ,
- probabiliteCalculee : 68 ,
- sources : [ "Basketball-Reference" , "NBA Stats Official" ],
- raisons : [
- "Celtics : 8-2 ATS sur les 10 derniers matchs à domicile" ,
- "Miami Heat : 3ème back-to-back en 5 jours — fatigue confirmée" ,
- "Différentiel Boston domicile : +8.3 pts/match cette saison" ,
- "Jimmy Butler incertain — genou, participation non confirmée" ,
-]
-}
-]
-};
-// ── HISTORIQUE (ajouter en haut = plus récent en premier) 
-// résultat : "WIN" ou "PERTE" 
-const  HISTORIQUE = [
-{ date : "10 Mar" , matchs : "Arsenal 1X + Bayern +1.5 + Celtics -5.5" , coteTotale : 2.41 , résultat : "WIN" },
-{ date : "09 Mar" , matchs : "PSG Victoire + Man City +2.5 buts + Lakers ML" , coteTotale : 2.18 , résultat : "WIN" },
-{ date : "08 Mar" , matchs : "Real Madrid 1X + BTTS Dortmund + Warriors -3.5" , coteTotale : 1.96 , résultat : "PERTE" },
-{ date : "07 Mar" , matchs : "Inter Milan Victoire + Atletico +1.5 + Nuggets ML" , coteTotale : 2.63 , résultat : "WIN" },
-{ date : "06 Mar" , matchs : "Liverpool 1X + +2.5 buts + Bucks -6.5" , coteTotale : 2.29 , résultat : "WIN" },
-{ date : "05 Mar" , matchs : "Barça Victoire + Corners +9.5 + Heat ML" , coteTotale : 2.11 , résultat : "WIN" },
-{ date : "04 Mar" , matchs : "Milan AC Victoire + BTTS Juventus + Heat ML" , coteTotale : 2.55 , résultat : "PERTE" },
-];
-// ── ARTICLES PSYCHO 
-const  PSYCHO_ARTICLES = [
-{ icon : "🎲" , titre : "Le biais du joueur — l'ennemi invisible" , corps : "Après 5 défaites, le cerveau croit que la victoire est 'due'. Faux. Chaque pari est indépendant. La chance n'a pas de mémoire. Ne modifie jamais ta stratégie à cause d'une série." },
-{ icon : "📉" ​​, titre : "La mise de récupération — le piège fatal" , corps : "Doubler après une perte pour 'récupérer' est le comportement le plus destructeur qui soit. Il transforme une petite perte en désastre. Le Kelly existe précisément pour éviter ça." },
-{ icon : "⚡" , titre : "L'overconfidence — le danger des séries gagnantes" , corps : "5 coupons gagnants d'affilée ? C'est exactement là qu'il faut être le plus rigoureux. L'excès de confiance pousse à parier trop, trop vite, avec moins d'analyse." },
-{ icon : "🏆" , titre : "La routine du parieur gagnant" , corps : "Analyse le matin. Pose tes sélections l'après-midi. Ne modifie jamais un coupon 30 minutes avant le match. Respecte ton système. Les décisions de dernière minute coûtent cher." },
-{ icon : "👁️" , titre : "Value betting — voir ce que les autres ignorent" , corps : "Un vrai parieur ne cherche pas qui va gagner. Il cherche où le bookmaker se trompe. Si la probabilité réelle est 70% et la cote implique 55%, c'est là qu'on mise." },
-];
-// ════ FIN ZONE ADMIN ════ </script> 
-< ! -- TICKER --> < div id = "ticker" > </div> <!-- HEADER --> < div class = "header" > < div style = "display:flex;justify- content: space - between;align- items :flex-start;margin- bottom : 18px" > <div> < div class = " logo" id = "appName" > </div> < div class = " slogan" id = "appSlogan" > </div> </div> < div style = " padding-top:6px" > <div class = " live - badge " > < div class = " live - dot" > </div> < span class = " live -text" > EN DIRECT </span> </div> < div style = " "font-size:9px;color:# 333;text-align:right;margin- top:5px" id = "dateDisplay" > </ div > </ div > </ div > < div class = "stats-row" id = "statsRow" > </ div > </ div > <!-- ONGULATEURS --> < div class = "tabs" > < button class = "tab-btn active" onclick = "switchTab('coupon',this)" > 🎯 < br > Coupon </ button > < button class = "tab-btn" onclick = "switchTab(' historique',this)" > 📊 < br > Statistiques < / button
+  <!-- SÉLECTION 2 -->
+  <div class="card">
+    <div class="card-body">
+      <div style="display:flex;justify- content:space-between;gap: 10px">
+        <div style="flex:1">
+          <div class="c-league">⚽ Bundesliga</div>
+          <div class="c-match">Bayern Munich contre Stuttgart</div>
+          <div class="c-market">+1.5 buts dans le match</div>
+        </div>
+        <div style="text-align:right;flex- shrink:0">
+          <div class="c-cote">1.22</div>
+          <div class="c-prob">88% réel</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-row"><span class="bar-lbl">Probabilité calculée</span><span class="bar-edge">+6% VALEUR EDGE</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+      </div>
+      <button class="ana-btn" onclick="tog('a2',this)">▼ Sur quoi l'ORAK base cette sélection ?</button>
+    </div>
+    <div id="a2" class="ana-body" style="display:none">
+      <span class="src-tag">📡 Understat.com</span><span class="src-tag">📡 API-Football</span><span class="imp-tag">Cote implicite : 82%</span>
+      <div class="reason"><span class="r-dot">◆</span>Bayern : 100% des matchs domicile à +2 buts (12/12)</div>
+      <div class="reason"><span class="r-dot">◆</span> Stuttgart concède 1.8 but/match à l'extérieur</div>
+      <div class="reason"><span class="r-dot">◆</span>H2H 5 derniers matchs : moyenne 4.2 buts</div>
+      <div class="reason"><span class="r-dot">◆</span>Arbitre permissif — 3.1 buts/match cette saison</div>
+    </div>
+  </div>
 
- 
+  <!-- SÉLECTION 3 -->
+  <div class="card">
+    <div class="card-body">
+      <div style="display:flex;justify- content:space-between;gap: 10px">
+        <div style="flex:1">
+          <div class="c-league">🏀 NBA</div>
+          <div class="c-match">Boston Celtics contre Miami Heat</div>
+          <div class="c-market">Celtics — Handicap -5,5 pts</div>
+        </div>
+        <div style="text-align:right;flex- shrink:0">
+          <div class="c-cote">1.87</div>
+          <div class="c-prob">68% réel</div>
+        </div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar-row"><span class="bar-lbl">Probabilité calculée</span><span class="bar-edge">+15% VALEUR EDGE</span></div>
+        <div class="bar-track"><div class="bar-fill" style="width:68%"></div></div>
+      </div>
+      <button class="ana-btn" onclick="tog('a3',this)">▼ Sur quoi l'ORAK base cette sélection ?</button>
+    </div>
+    <div id="a3" class="ana-body" style="display:none">
+      <span class="src-tag">📡 Références de basketball</span>< span class="src-tag">📡 Statistiques NBA</span><span class="imp-tag">Cote implicite : 53%</span>
+      <div class="reason"><span class="r-dot">◆</span>Celtics : 8-2 ATS sur les 10 derniers matchs à domicile</div>
+      <div class="reason"><span class="r-dot">◆</span>Miami Heat : 3ème back-to-back en 5 jours — fatigue confirmée</div>
+      <div class="reason"><span class="r-dot">◆</span> Différentiel Boston domicile : +8.3 pts/match</div>
+      <div class="reason"><span class="r-dot">◆</span>Jimmy Butler incertain — genou, participation non confirmée</div>
+    </div>
+  </div>
 
- 
- 
+  <div class="hint">💡 Utilisez l'onglet <span style="color:#FF4D00;font- weight:700">Kelly</span> pour calculer votre mise à niveau optimale.</div>
+</div>
 
-  
-  
+<!-- STATISTIQUES -->
+<div id="stats" class="panel">
+  <div class="h-header">
+    <div class="sec-lbl">◆ RÉSULTATS — TRANSPARENCE TOTALE</div>
+    <div class="taux">71% de réussite</div>
+  </div>
+  <div class="h-grid">
+    <div class="h-stat"><div class="h-sv" style="color:#4CAF50">5</div>< div class="h-sl">Victoires</div></ div>
+    <div class="h-stat"><div class="h-sv" style="color:#FF4D00">2</div>< div class="h-sl">Défaits</div></ div>
+    <div class="h-stat"><div class="h-sv" style="color:#eee">7</div><div class="h-sl">Total</div></div>
+  </div>
+  <div class="h-row" style="border:1px solid #0D1F0D"><div class="h-ico" style="background:#0D2A0D">✓</ div><div style="flex:1;min-width:0">< div class="h-date">10 mars</div><div class="h-matchs">Arsenal 1X + Bayern +1,5 + Celtics -5,5</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x2,41</div><div class="h-pct" style="color:#4CAF50">+141%</ div></div></div>
+  <div class="h-row" style="border:1px solid #0D1F0D"><div class="h-ico" style="background:#0D2A0D">✓</ div><div style="flex:1;min-width:0">< div class="h-date">09 mars</div><div class="h-matchs">Victoire PSG + Man City +2,5 + Lakers ML</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x2,18</div><div class="h-pct" style="color:#4CAF50">+118%</ div></div></div>
+  <div class="h-row" style="border:1px solid #1F0D0D"><div class="h-ico" style="background:#2A0D0D">✗</ div><div style="flex:1;min-width:0">< div class="h-date">08 mars</div><div class="h-matchs">Real Madrid 1X + BTTS Dortmund + Warriors</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x1.96</div><div class="h-pct" style="color:#FF4D00">-100%</ div></div></div>
+  <div class="h-row" style="border:1px solid #0D1F0D"><div class="h-ico" style="background:#0D2A0D">✓</ div><div style="flex:1;min-width:0">< div class="h-date">07 mars</div><div class="h-matchs">Inter Milan + Atlético +1,5 + Nuggets ML</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x2,63</div><div class="h-pct" style="color:#4CAF50">+163%</ div></div></div>
+  <div class="h-row" style="border:1px solid #0D1F0D"><div class="h-ico" style="background:#0D2A0D">✓</ div><div style="flex:1;min-width:0">< div class="h-date">06 mars</div><div class="h-matchs">Liverpool 1X + +2,5 buts + Bucks -6,5</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x2,29</div><div class="h-pct" style="color:#4CAF50">+129%</ div></div></div>
+  <div class="h-row" style="border:1px solid #0D1F0D"><div class="h-ico" style="background:#0D2A0D">✓</ div><div style="flex:1;min-width:0">< div class="h-date">05 mars</div><div class="h-matchs">Victoire du Barça + Corners +9,5 + Heat ML</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x2,11</div><div class="h-pct" style="color:#4CAF50">+111%</ div></div></div>
+  <div class="h-row" style="border:1px solid #1F0D0D"><div class="h-ico" style="background:#2A0D0D">✗</ div><div style="flex:1;min-width:0">< div class="h-date">04 mars</div><div class="h-matchs">Milan AC + BTTS Juventus + Heat ML</div></div><div style="text-align:right;flex- shrink:0"><div class="h-cote">x2.55</div><div class="h-pct" style="color:#FF4D00">-100%</ div></div></div>
+  <div class="pacte"><span style="color:#FF4D00;font- weight:700">Pacte de transparence ORAK.</span> Chaque coupon gagné ou perdu est enregistré ici. Aucun résultat supprimé. Jamais.</div>
+</div>
 
- 
- 
- 
- 
+<!-- KELLY -->
+<div id="kelly" class="panel">
+  <div class="k-lbl">◆ CRITÈRE DE KELLY — MISE OPTIMALE</div>
+  <p class="k-desc">Kelly calcule combien miser pour maximiser vos gains sur le long terme sans détruire votre bankroll. La méthode des traders et parieurs professionnels.</p>
+  <div class="k-field"><label> Total de la bankroll ($)</label><input class="k-input" type="number" id="kb" value="200" oninput="kelly()"></div>
+  <div class="k-field"><label> Probabilité réelle estimée (%)</label><input class="k-input" type="number" id="kp" value="72" min="1" max="99" oninput="kelly()"></div>
+  <div class="k-field"><label>Cote du bookmaker</label><input class="k-input" type="number" id="kc" value="2.2" step="0.01" oninput="kelly()"></div>
+  <div class="k-result">
+    <div style="font-size:10px;color:# 444;text-transform:uppercase; letter-spacing:.1em;margin- bottom:5px">Mise recommandée par l'ORAK</div>
+    <div class="k-amt" id="kamt">0$</div>
+    <div class="k-pct" id="kpct">= 0% de votre bankroll</div>
+    <div class="k-grid">
+      <div class="k-box"><div class="k-bv" id="kgain">+$0</div><div class="k-bl">Gain net potentiel</div></div>
+      <div class="k-box"><div class="k-bv" id="kverdict" style="font-size:12px">—</div> <div class="k-bl">Verdict Kelly</div></div>
+    </div>
+    <div class="k-note">Règle absolue : ne jamais dépasser 5% de ta bankroll sur un seul coupon.</div>
+  </div>
+</div>
 
-  
-
-
-  
-
-
- 
-  
-  > < button class = "tab-btn" onclick = "switchTab('kelly', this)" > 🧮 <br> Kelly </button> < button class = " tab -btn" onclick = "switchTab('psycho', this)"> 🧠 <br> Mindset </button> </div> < ! -- CONTENU -- > < div class = " content " > < div id = " tab - coupon " > </div> < div id = " tab - historique" style = "display:none" > </div> < div id = " tab - kelly" style = " display :none" > </div> < div id = " tab - psycho" style = " display : none " > </div> </div> <script>
-  
-  
-
-
- 
- 
-  
-  
-  
-
-
-// ── UTILITAIRES
-fonction coteTotale(sels){ return sels.reduce((a,s)=>a*s.cote,1) .toFixed(2); }
-function probaGlobale(sels){ return (sels.reduce((a,s)=>a*(s. probabiliteCalculee/100),1)* 100).toFixed(1); }
-fonction impliedProb(cote){ return Math.round((1/cote)*100); }
-fonction kelly(prob,cote){ const p=prob/100,b=cote-1,k=(b*p-(1- p))/b; return Math.max(0,k*100).toFixed(1); }
-const wins = HISTORIQUE.filter(h=>h.resultat ==="WIN").length;
-const taux = Math.round(wins/HISTORIQUE.length *100);
-// ── TICKER
-soit tickIdx=0, tickEl;
-fonction initTicker(){
-tickEl=document.getElementById ('ticker');
-tickEl.textContent=PSYCHO_TIPS [0];
-définirIntervalle(()=>{
-tickEl.style.opacité=0;
-setTimeout(()=>{ tickIdx=(tickIdx+1)%PSYCHO_ TIPS.length; tickEl.textContent=PSYCHO_ TIPS[tickIdx]; tickEl.style.opacity=1; },500);
-},5500);
-}
-// ── EN-TÊTE
-fonction initHeader(){
-document.getElementById(' appName').textContent=APP_ NAME;
-document.getElementById(' appSlogan').textContent=APP_ SLOGAN;
-document.getElementById(' dateDisplay').textContent=new Date().toLocaleDateString('fr- FR',{day:'2-digit',month:' short'});
-const stats=[
-{label:'Réussite',val:taux+'%' ,hot:true},
-{label:'Ce mois',val:wins+'/'+HISTORIQUE. longueur},
-{label:'Côte moy.',val:'2.30'},
-{label:'ROI global',val:'+34%'},
-];
-document.getElementById(' statsRow').innerHTML=stats. map(s=>`
-< div  class = "stat-box${s.hot?' hot':''}" >
-< div  class = "stat-val" >${s.val}</ div >
-< div  class = "stat - lbl" >${s.label}</ div >
-</ div >`).join('');
-}
-// ── ONGLETS
-fonction switchTab(id,btn){
-document.querySelectorAll('[ id^="tab-"]').forEach(el=>el. style.display='none');
-document.querySelectorAll('. tab-btn').forEach(b=>b. classList.remove('active'));
-document.getElementById('tab-' +id).style.display='block';
-btn.classList.add('active');
-}
-// ── ONGLET DE COUPON
-fonction renderCoupon(){
-const el=document.getElementById(' tab-coupon');
-si(!COUPON.actif){
-el.innerHTML=`< div  class = "no-coupon" >< div  style = "font-size:44px;margin- bottom:14px" >⏳</ div >< div  style = "font-size:20px;font- weight:700;color:#eee;margin- bottom:10px" >Pas de coupon viable aujourd'hui.</ div >< div  style = "font-size:13px;color:# 444;line-height:1.6" >L'ORAK n'a pas trouvé de combinaison dépassant 70% de viable.< br >On ne propose rien plutôt que de risquer ta bankroll.</ div ></ div >`;
-retour;
-}
-const ct=coteTotale(COUPON. sélections);
-const pg=probaGlobale(COUPON. sélections);
-const dateStr=new Date().toLocaleDateString('fr- FR',{weekday:'long',day:' numeric',month:'long'});
-laissez html=`
-< div  class = "coupon-banner" >
-< div  style = "display:flex;justify- content:space-between;align- items:flex-start" >
-< div >
-< div  class = "coupon-label" >◆ COUPON DU JOUR — L'ORAK A PARLÉ</ div >
-< div  class = "coupon-date" >${dateStr} </ div >
-</ div >
-< div  style = "text-align:right" >
-< div  class = "coupon - cote" >x${ct}</ div >
-< div  class = "coupon-cote-lbl" >cote totale</ div >
-</ div >
-</ div >
-< div  class = "coupon-meta" >
-< div  class = "meta-box" >< div  class = "meta-val" >${pg}%</ div >< div  class = "meta-lbl" >Viabilité</ di v ></ div >
-< div  class = "meta-box" >< div  class = " meta -val" >${COUPON.selections.length } PICTS </div> < div class = " meta-lbl" >Sélections </div> </div> 
-< div  class = "meta-box" >< div class  = " meta-val" > ✅ VALIDE</div> < div class  = " meta - lbl" >Statut </div> </div>
-</ div >
-</ div >
-< div  style = "font-size:9px;color:# 333;text-transform:uppercase; letter-spacing:.12em;margin- bottom:10px" >▼ Appuie pour voir l'analyse complète</ div >`;
-COUPON.selections.forEach((s, i)=>{
-const edge=s.probabiliteCalculee- impliedProb(s.cote);
-html+=`
-< div  class = "sel-card" >
-< div  class = "sel-body" >
-< div  style = "display:flex;justify- content:space-between;align- items:flex-start;gap:12px" >
-< div  style = "flex:1" >
-< div  class = " sel-league" >${s.sport}   ${s.league} </div>
-< div  class = "sel-match" >${s.match}</ div >
-< div  class = "sel-market" >${s.market} </ div >
-</ div >
-< div  style = "text-align:right;flex- shrink:0" >
-< div  class = "sel-cote" >${s.cote}</ di v >
-< classe div  = "sel-prob" >${s. probabiliteCalculee}% réel</ div >
-</ div >
-</ div >
-< div  class = "value-bar-wrap" >
-< div  class = "value-bar-labels" >
-< span  class = "value-bar-lbl" > Probabilité calculée</ span >
-< span  class = "value-edge" >+${edge}% VALUE EDGE</ span >
-</ div >
-< div  class = "value-bar-track" >< div  class = " value - bar-fill"  style = "width:${ s.probabiliteCalculee}%" > </div> </div>
-</ div >
-< button  class = "analysis-btn"  onclick = "toggleAnalysis(${i})" >▼ Sur quoi l'ORAK base cette sélection ?</ button >
-</ div >
-< div  id = "analysis-${i}"  class = "analysis-body"  style = "display:none" >
-< div  class = "sources d'analyse" >
-${s.sources.map(src=>`< span  class = "source-tag" >📡 ${src}</ span >`).join('')}
-< span  class = "implied-tag" >Cote bookmaker implicite : ${impliedProb(s.cote)}%</ span >
-</ div >
-${s.raisons.map(r=>`< div  class = "reason" >< span  class = "reason-dot" >◆</ span >< sp an >${r}</ span ></ div >`).join('' )}
-</ div >
-</ div >`;
-});
-html+=`< div  class = "hint" >💡 Utilisez l'onglet < span  style = "color:#FF4D00;font- weight:700" >Kelly</ span > pour calculer votre mise à niveau optimale avant de jouer ce coupon.</ div >`;
-el.innerHTML=html;
-}
-fonction toggleAnalysis(i){
-const el=document.getElementById(' analysis-'+i);
-const btn=el.previousElementSibling;
-if(el.style.display==='none'){ el.style.display='block'; btn.textContent='▲ Masquer l\'analyse'; }
-sinon { el.style.display='aucun'; btn.textContent='▼ Sur quoi l\'ORAK base cette sélection ?'; }
-}
-// ── TABLETTE HISTORIQUE
-fonction renderHistorique(){
-const el=document.getElementById(' tab-historique');
-el.innerHTML=`
-< div  class = "histo-header" >
-< div  class = "section-label" >◆ RÉSULTATS — TRANSPARENCE TOTALE</ div >
-< div  class = "taux-badge" >${taux}% de réussite</ div >
-</ div >
-< div  class = "histo-grid" >
-< div  class = "histo-stat" >< div  class = "histo-stat-val"  style = "color:#4CAF50" >${wins}< / div >< div  class = "histo-stat-lbl" > Victoires</ div ></ div >
-< div  class = "histo-stat" >< div  class = "histo-stat-val"  style = "color:#FF4D00" >${ HISTORIQUE.length-wins}</ div >< div  class = "histo-stat-lbl" > Défaites</ div ></ div >
-< div  class = "histo-stat" >< div  class = "histo-stat-val"  style = "#eee" > ${ HISTORIQUE.length} </div> < div  class = "histo-stat-lbl" > Total </div> </div>
-</ div >
-${HISTORIQUE.map(h=>`
-< div  class = "histo-row"  style = "border:1px solid ${h.resultat==='WIN'?'#0D1F0D' :'#1F0D0D'}" >
-< div  class = "histo-icon ${h.resultat==='WIN'?'win':' loss'}" >${h.resultat==='WIN'?' ✓':'✗'}</ div >
-< div  style = "flex:1;min-width:0" >
-< div  class = "histo-date" >${h.date}</ div >
-< div  class = "histo-matchs" >${h. matchs</ div >
-</ div >
-< div  style = "text-align:right;flex- shrink:0" >
-< div  class = "histo-cote" >x${h. coteTotale}</ div >
-< div  class = "histo-pct"  style = "color:${h.resultat===' WIN'?'#4CAF50':'#FF4D00'}" >${ h.resultat=== ' WIN'?'+'+Math.round ((h.coteTotale-1)*100)+'% ':'-100%'} </div>
-</ div >
-</ div >`).join('')}
-< div  class = "pacte" >< span  style = "color:#FF4D00;font- weight:700" >Pacte de transparence ORAK.</ span > Chaque coupon — gagné ou perdu — est enregistré ici en temps réel. Aucun résultat n'est supprimé après coup. Jamais.</ div >`;
-}
-// ── Tablature Kelly
-fonction renderKelly(){
-document.getElementById('tab- kelly').innerHTML=`
-< div  class = "kelly-intro" >◆ CRITÈRE DE KELLY — MISE OPTIMALE</ div >
-< p  class = "kelly-desc" >Kelly calcule combien miser pour maximiser vos gains sur le long terme sans détruire votre bankroll. C'est la méthode des traders et des parieurs professionnels.</ p >
-< div  class = "kelly-inputs" >
-<div> < div class = "input-lbl" >Total de la bankroll ($)</div> < input class = " kelly-input" type = "number" id = " k-bank" value = " 200" oninput = "updateKelly()" > </div>      
-<div> < div class = "input-lbl" >Probabilité réelle estimée (%) </div> < input class = "kelly-input" type = "number" id = "k-prob" value = " 72 " min = "1" max = "99" oninput = "updateKelly()" > </div>        
-<div> < div class = "input-lbl" >Cote du bookmaker</div> < input class = " kelly-input" type = " number" id = "k-cote" value = " 2.2" step = "0.01" oninput = "updateKelly()" > </div>       
-</ div >
-< div  class = "kelly-result"  id = "kelly-result" ></ div >`;
-mettre à jour Kelly();
-}
-fonction updateKelly(){
-const bank=parseFloat(document. getElementById('k-bank'). value)||0;
-const prob=parseFloat(document. getElementById('k-prob'). value)||0;
-const cote=parseFloat(document.getElementById ('k-cote'). value)||1.01;
-const kpct=kelly(prob,cote);
-const kcash=((kpct/100)*bank). toFixed(2);
-const gain=(kcash*(cote-1)).toFixed( 2);
-const pos=parseFloat(kpct)>0;
-const danger=parseFloat(kpct)>5;
-document.getElementById(' kelly-result').innerHTML=`
-< div  class = "kelly-result-lbl" >Mise recommandée par l'ORAK</ div >
-< div  class = " kelly -amount"  style = "color:${pos?'#FF4D00':' #333'}" >$${kcash} </div>
-< div  class = "kelly-pct" >= ${kpct}% de votre bankroll</ div >
-< div  class = "kelly-grid" >
-< div  class = "kelly-box" >< div  class = "kelly-box-val" >+$${ gain}</div> < div class = " kelly -box-lbl" >Gain net potentiel </div> </div> 
-< div  class = "kelly-box" >< div  class = "kelly-box-val"  style = "color:${danger?'# FF4D00':pos?'#4CAF50':'#666'}; font-size:13px" >${danger?'⚠️ RÉDUIRE':pos?'✅ VALEUR+':'❌ ÉVITER'} </div> < div  class = "kelly-box-lbl" > Verdict Kelly </div> </div>
-</ div >
-< div  class = "kelly-note" >Règle absolue : ne jamais dépasser 5% de ta bankroll sur un seul coupon.</ div >`;
-}
-// ── PSYCHO TAB
-fonction renderPsycho(){
-document.getElementById('tab- psycho').innerHTML=`
-< div  class = "section-label" >◆ MINDSET — PSYCHOLOGIE DU PARIEUR</ div >
-< p  class = "psycho-intro"  style = "margin-top:6px" >Les meilleures analyses ne valent rien sans la bonne tête. Lis ça régulièrement.</ p >
-${PSYCHO_ARTICLES.map(a=>`
-< div  class = "psycho-card" >
-< div  class = "psycho-icon" >${a.icon}< / div >
-< div  class = "psycho-title" >${a. titre}</ div >
-< div  class = "psycho-body" >${a.corps} </ div >
-</ div >`).join('')}`;
-}
-// ── INIT
-initTicker();
-initHeader();
-afficherCoupon();
-renderHistorique();
-renderKelly();
-renderPsycho();
-</script> </body> </html>
+<!-- PSYCHO -->
+<div id="psycho" class="panel">
+  <div class="sec-lbl">◆ MINDSET — PSYCHOLOGIE DU PARIEUR</div>
+  <p class="p-desc">Les meilleures analyses ne valent rien sans la bonne tête.</p>
+  <div class="p-card"><div class="p-ico">🎲</div><div class="p-title">Le biais du joueur — l'ennemi invisible</div><div class="p-body">Après 5 défaites, le cerveau croit que la victoire est 'due'. Faux. Chaque pari est indépendant. La chance n'a pas de mémoire. Ne modifie jamais ta stratégie à cause d'une série.</div></div>
+  <div class="p-card"><div class="p-ico">📉</div><div class="p-title">La mise de récupération — le piège fatal</div><div class="p-body">Doubler après une perte pour 'récupérer' est le comportement le plus destructeur. Il transforme une petite perte en désastre. Le Kelly existe pour éviter ça.</div></div>
+  <div class="p-card"><div class="p-ico">⚡</div><div class="p-title">L' excès de confiance — le danger des séries gagnantes</div><div class="p-body">5 coupons gagnants d'affilée ? C'est là qu'il faut être le plus rigoureux. L'excès de con
