@@ -1,432 +1,336 @@
-< !DOCTYPE html > < html lang = "fr" > <head> < meta charset = "UTF-8" /> < meta name = "viewport" content = "width = device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" / > <title> ORAK — Ce que les autres ne voient pas. </title> < link rel = " preconnect" href = " https://fonts.googleapis.com " > < link href = " https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap " rel = " stylesheet " > <style> : root { --or
- : # FF4D00 ; --or2 : # FF8C66 ; --bg : # 080808 ; --card : #0F0F0F ;
- --bdr : #1C1C1C ; --txt : #eee ; --mut : #555 ; --dim : #333 ;
- --win : #4CAF50 ; --gold : #FFD700 ; --purple : #9B59B6 ; --fn
- : ' Space Grotesk' ,Arial,sans-serif;
- --fd : 'Bebas Neue' ,Impact,Arial,sans-serif;
- 
-
- 
-  
-
-  
-  
-
-
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>ORAK — Ce que les autres ne voient pas.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --or:#FF4D00;--or2:#FF8C66;--bg:#080808;--card:#0F0F0F;
+  --bdr:#1C1C1C;--txt:#eee;--mut:#555;--dim:#333;
+  --win:#4CAF50;--gold:#FFD700;--purple:#9B59B6;
+  --fn:'Space Grotesk',Arial,sans-serif;
+  --fd:'Bebas Neue',Impact,Arial,sans-serif;
 }
-*{ box-sizing :border-box; margin : 0 ; padding : 0 ;-webkit-tap- highlight- color :transparent}
- html , body { background : var (--bg) ; color : var (--txt); font-family : var (--fn); max-width : 430px ; marg in : 0 auto; min-height : 100vh ; overflow -x :hidden}
- button { font-family : var (--fn); cursor : pointer ;-webkit- appearance : none;touch-action: manipulation; border :none}
- input { font-family : var (--fn)}
- input [type=number] {-moz- appearance : textfield}
- input [type=number] ::-webkit- inner-spin-button,input[type= number] ::-webkit-outer-spin- button{-webkit- appearance : none}
-::-webkit-scrollbar{ width : 3px } ::-webkit-scrollbar-track{ background ground : var (--bg)}::-webkit- scrollbar-thumb{ background : # 222 ; border -radius : 2px }
- @keyframes pulse{ 0% , 100% { opacity : 1 ; transform : scale ( 1 )} 50% { opacity :. 3 ; transform : scale (. 8 ) }}
- @keyframes fadeIn{ from { opacity : 0 ; transform : translateY ( 6px ) } to { opacity : 1 ; transform : translateY ( 0 )}}
- @keyframes glow{ 0% , 100% { box-shadow : 0  0  8px  #9B59B688 } 50% { box-shadow : 0  0  22px  #9B59B6cc }}
- /* TICKER */ 
-#ticker { background : var (--or); color : #fff ; padding : 10px 20px ; font -size : 12px ; font- weight : 700 ; letter-spacing :. 04em ; text -align :center; transition :opacity . 5s ; min-height : 40px ; display : flex; align-items :center; justify -content :center}
- /* HEADER */ .hdr { padding : 20px 20px 0 ; border-bottom : 1px solid #111 }
- .logo { font-family : var (--fd); fo nt-size : 
-  54px ; line-height : 1 ; letter -spacing :. 1em ; background : li near-gradient ( 135deg , var (--or) , var (--or2));-webkit- background -clip :text;-webkit- text - fill - color :transparent; background- clip :text}
- .slogan { font-size : 10px ; color : var (--dim); letter-spacing :. 15em ; text-transform :uppercase; marg in-top : 3px }
- .live { display : inline-flex; alig n-items :center; gap : 7px ; border : 1.5px solid var (--or); border-radius : 20px ; p adding : 5px  12px }
- .dot { width : 8px ; height : 8px ; border -radius : 50% ; background : var ( --or); animation :pulse 1.5s infinite}
- .live-t { font-size : 11px ; color : var ( --or); font-weight : 700 }
- .stats { display :flex; gap : 7px ; overflow -x :auto; padding : 16px  0 ; scrollbar-width :none}
- .stats ::-webkit-scrollbar{ display :none}
- .sb { text-align :center; padding : 11px  16px ; background : var (--card); border - radius : 12px ; flex-shrink : 0 ; border :1px solid var (--bdr)}
- .sb .hot { border-color : var (--or) }
- .sv { font-family : var (--fd); font -size : 22px ; letter-spacing :. 05em ; color : var ( --txt)}
- .sb .hot  .sv { color : var (--or)}
- .sl { font-size : 9px ; color : #444 ; text -transform :uppercase; letter -spacing :. 1em ; margin-top : 2px }
- /* ONGULES - 5 onglets */ 
-.tabs { display :flex; gap : 4px ; padding : 10px  12px ; background : var ( --bg); border -bottom : 1px solid #111 ; position :sticky; top : 0 ; z- index : 100 } .tab { flex : 1 ; padding : 9px 2px ; border-radius : 10px ; font-size : 10px ; font-weight : 700 ; background : var ( --card
- ) ; color : # 555 ; line -  height : 1.4 ; transition : all . 2s ; touch - action : manipulation ; user - select : none ; -webkit - user - select : none } .tab .on { background : var (
- --or ) ; color : #fff } .tab : active {
- opacity : . 8 ; transform : scale ( . 96 ) }
- .tab .premium -tab {position : relative}
- .tab .premium-tab .on { background : linear-gradient ( 135deg , var (-- purple), #7D3C98 )}
- /* CONTENU */ 
-.content { padding : 16px  16px  70px }
- .panel { display :none} .panel .on { display :block; animation :fadeIn . 3s ease}
- /* ÉTIQUETTE DE SECTION */ 
-.slbl { font-size : 10px ; color : var (--or); text-transform : uppercase; letter-spacing :. 12em }
- .slbl .gold { color : var (--gold)}
- .slbl .purple { color : var (-- purple)}
- /* BANNIÈRE DE COUPON */ 
-.banner { background : linear- gradient ( 135deg , #180800 , var (-- card)); border : 1.5px solid var (--or); border-radius : 18px ; p adding : 20px ; margin-bottom : 14px }
- .ban-lbl { font-size : 9px ; color : var ( --or); text-transform : uppercase; letter-spacing :. 15em ; margin-bottom : 6px }
- .ban-date { font-size : 12px ; color : var (--mut)}
- .ban-cote { font-family : var (-- fd); font-size : 50px ; hauteur de ligne : 1 ; arrière-plan : dégradé linéaire ( 135deg , var (--or), var (--or2));- webkit- background-clip:text; -webkit - text - fill - color : transparent; background-clip : text}
- .ban-meta { display :grid; grid- template-columns : 1fr 1fr 1fr ; gap : 8px ; margin-top : 16px }
- .mb { background : #0A0A0A ; border- radius : 10px ; padding : 10px ; text- align : center}
- .mv { font -family : var (--fd); font -size : 14px ; color : var (--txt)}
- .ml { font-size : 9px ; color : #444 ; text -transform :uppercase; letter -spacing : 08em ; margin-top : 2px }
- /* CARTES */ .card { background : var (--card); border : 1px solid var ( --bdr); border-radius : 16px ; margin-bottom : 10px ; overflow : hidden; transition :border-color . 2s }
- .card :hover , .card :focus-within { border-color : var (--or)}
- .cb { padding : 16px }
- .cl { font-size : 10px ; color : #444 ; text-transform :uppercase; lette r-spacing :. 12em ; margin-bottom : 5px }
- .cm { font-size : 15px ; font-weight : 700 ; color : var (--txt); margin- bottom : 5px
-; line-height : 1.3 }
- .cmk { font-size : 13px ; color : var ( --or); font-weight : 700 }
- .cc { font-family : var (--fd); font -size : 34px ; color : var (--or); line -height : 1 }
- .cp { background : #1A0A00 ; color : var ( --or2); font-size : 10px ; font - weight : 700 ; padding : 3px  9px ; border-radius : 20px ; margin - top : 4px ; display :inline-block}
- .vbar { margin-top : 13px }
- .vrow { display :flex; justify -content :space-between; margin- bottom : 5px }
- .vl { font-size : 9px ; color : var ( --dim); text-transform :uppercase; letter-spacing :. 1em }
- .ve { font-size : 9px ; color : var (-- or); font-weight : 700 }
- .vtrack { height : 3px ; background : var (--bdr); border-radius : 2px }
- .vfill { height : 100% ; background : linear -gradient ( 90deg , var (-- or), var (--or2)); border-radius : 2px }
- .abtn { margin-top : 13px ; background :transparent; border : 1px solid#252525 ; border-radius : 9px ; color : #555 ; font-size : 11px ; padding : 8px  14px ; width : 100% ; text-align : left ; transition : all . 2s ;touch-action:manipulation}
- .abtn :active { background : #111 ; color : #999 }
- .abody { padding : 0  16px  16px ; border-top : 1px solid # 141414 ; animation :fadeIn . 2s ease}
- .srcs { display :flex; gap : 6px ; flex -wrap :wrap; margin : 13px 0 11px }
- .stag { background : #1A0A00 ; color : var (--or2); font-size : 10px ; padding : 3px 9px ; border -radius : 4px ; font- weight : 700 }
- .itag { background : #111 ; color : # 555 ; font-size : 10px ; padding : 3px 9px ; border-radius : 4px }
- .rsn { display : flex; gap : 9px ; margin -bottom : 8px ; font-size : 12.5px ; color : #888 ; line-height : 1.5 }
- .rdot { color : var (--or); flex- shrink : 0 ; margin-top : 1px }
- .hint { padding : 13px 15px }     ; background : var (--card); border -radius : 11px ; font-size : 11. 5px ; color : #444 ; line-height : 1.7 ; margin-top : 10px }
- /* ── CONSEILS DU JOUR ── */ 
-.tip-card { background : var (-- card); border : 1px solid var (--bdr); border-radius : 14px ; margin-bottom : 10px ; overflow : hidden; transition :border-color . 2s }
- .tip-card :hover { border-color : var (--gold)}
- .tip-body { padding : 14px  16px }
- .tip-type { display :inline-flex; align-items : center; gap : 5px ; background : #1A1400 ; color : var ( -- gold); font-size : 10px ; font- weight : 700 ; padding : 3px  9px ; border-radius : 20px ; margin- bottom : 8px ; letter-spacing : 0,06e m }
- .tip-match { font-size : 14px ; font -weight : 700 ; color : var (--txt); margin -bottom : 4px }
- .tip-pred { font-size : 13px ; color : var (--gold); font-weight : 600 }
- .tip-prob { font-size : 11px ; color : var (--mut); margin-top : 5px }
- .tip-prob  span { color :var (--win); font- weight : 700 }
- .tip-abtn { margin-top : 11px ; background : transparent; border : 1px solid #252525 ; border-radius : 8px ; color : #555 ; font-size : 11px ; padding : 7px 13px ; width : 100 % ; text-align : left ; touch-action: manipulation }
- .tip -abtn :active { background : # 111 }
- .tip-abody { padding : 0 16px 14px ; border-top : 1px solid #141414 ; animation : fadeIn .2s ease }
- .tip-why { display : flex; gap : 8px ; margin-bottom : 7px ; font-size : 12px ; color : # 888 ; line-height : 1.5 }
- .tip-why-dot { color : var (--gold) ; flex-shrink : 0 }
- .tip-warn { margin-top : 10px ; padding : 10px 14px ; background : #111 ; border- radius : 8px ; font-size : 10.5px ; color : # 555 ; line - height : 1.6 ; border - left : 2px solid var ( --gold)}
- /* ── PARIS FOLIE ── */ .folie-banner { background : linear -gradient ( 135deg , #0D0020 , # 110025 ); border : 2px solid var (--purple);    
-border-radius : 18 px ; padding : 22px ; margin-bottom : 16px ; animation :glow 3s infinite}
- .folie-lbl { font-size : 9px ; color : var (--purple); text-transform : uppercase; letter-spacing :. 18em ; margin-bottom : 8px }
- .folie-title { font-family : var (- -fd); font-size : 36px ; color : #fff ; letter-spacing :. 08em ; margin- bottom : 4px }
- .folie-sub { font-size : 12px ; color : #888 ; margin-bottom : 16px ; line -height : 1.5 }
- .folie-cote { font-family : var (-- fd); font-size : 60px ; line -height : 1 ; background : linear-gradient ( 135deg , var (--purple), #E8A0FF ); -webkit- background-clip :text;- webkit- text - fill - color : transparent; background-clip : text}
- .folie-meta { display :grid; grid- template-columns : 1 fr 1 fr; gap : 8px ; margin-top : 16px }
- .fm { background : #0A0010 ; border- radius : 10px ; padding : 11px ; text- align :center}
- .fmv { font-family : var (--fd); font -size : 16px ; color :#fff }
- .fml { font-size : 9px ; color : #555 ; text-transform :uppercase; letter -spacing :. 08em ; margin-top : 2px }
- .folie-sel { background : #0A0010 ; border : 1px solid #2A0050 ; border-radius : 12px ; padding : 14px ; margin -bottom : 8px }
- .folie-sel-match { font-size : 13px ; font-weight : 700 ; color : #ddd ; margin -bottom : 4px }
- .folie-sel-mkt { font -size : 12px ; color : var (--purple); font- weight : 600 }
- .folie-sel-cote { font-family : var ( --fd); font-size : 22px ; .premium -lock { text-align : center; padding : 30px 20px ; background : linear- gradient ( 135deg , # 0D0020 , # 111 ); border : 1px dashed #3A0060 ; border-radius : 18px ; margin - bottom : 14px }
- .premium-badge { display : inline -block; background : linear- gradient ( 135deg , var (--purple), #7D3C98 ) ; color : #fff ; font-size : 11px ; font-weight : 700 ; padding : 5px 14px ;
- border-radius : 20px ; }  margin -bottom : 12px ; letter-spacing :. 0 6em }
- .trial-btn { background : linear- gradient ( 135deg , var (--purple), #7D3C98 ); color : #fff ; border : none; border-radius : 12px ; padding : 14px 24px ; font - size : 14px ; font - weight : 700 ; width : 100 % ; margin -  top : 14px ; touch - action : manipulation ; transition : opacity . 2s ; font - family : var ( --fn ) } .trial - btn : active
- { opacity : . 8 } .folie
- -warn { padding : 12px  14px ; background : #0A0010 ; border -radius : 10px ; font -size : 11px ; color : #555 ; line-height : 1.7 ; margin -top : 14px ; border-left : 3px solid var (--purple)}
- /* HISTORIQUE */ 
-.shdr { display :flex; justify- content :space-between; align- items : center; margin-bottom : 18px x }
- .tbadge { background : #1A0A00 ; border : 1px solid var (--or); color : var (--or); font -size : 12px ; font-weight : 700 ; padding : 4px  12px ; border-radius : 20px }
- .hgrid { display :grid ; grid-template-columns : 1fr 1fr 1fr ; gap : 8px ; margin-bottom : 17px }
- .hs { background : var ( --card); border -radius : 10px ; padding : 12px ; text -align :center; border : 1px solid var (--bdr)}
- .hsv { font-family : var (--fd); font -size : 26px }
- .hsl { font-size : 9px ; color : #444 ; text-transform :uppercase; letter -spacing :. 1em ; margin-top : 1px }
- .hrow { display :flex; align-items :center; gap : 11px ; background : var ( --card ) ; border-radius : 11px ; p adding : 12px 15px ; margin-bottom : 7px }
- .hico { width : 32px ; height : 32px ; b order-radius : 50% ; display :flex; align-items :center; justify- content :center; font-size : 14px ; flex-shrink : 0 }
- .hd { font-size : 11px ; color : var (- -mut); margin-bottom : 2px }
- .hm { font-size : 11px ; color : #444 ; white-space :nowrap; overflow : hidden; text-overflow :ellipsis}
- .hc { font-family : var (--fd); font -size : 21px ; couleur : var (--txt)}
- .hp { taille de police : 10px ; graisse de police : 700 }
- .pacte { marge supérieure : 13px ; marge intérieure : 13px  15px ; arrière-plan : var (--card); rayon de bordure : 10px ; taille de police : 11px x ; couleur : var (--dim); hauteur de ligne : 1.7 ; bordure gauche : 3px solide var (--or)}
- /* KELLY */ 
-.klbl { taille de police : 10px ; couleur : var (--or); transformation du texte : majuscules ; espacement des lettres : .12em ; marge inférieure : 9px }
- .kdesc { taille de police : 12.5px ; couleur : var (--mut); hauteur de ligne : 1.7 ; margin -bottom : 22px }
- .kfield { margin-bottom : 13px }
- .kfield  label { font-size : 10px ; color : # 444 ; text-transform :uppercase; lettre -spacing :. 1em ; display : block; margin-bottom : 7px }
- .kinput { background : var (--card) ; border : 1px solid #252525 ; border-radius : 11px ; color : var (--txt); padding : 13px  16px ; font-size : 16px ; width : 100 % ; outline :none; transition : border-color . 2s }
- .kinput :focus {border-color : var (--or)}
- .kres { background : var (--card); b order : 1.5px solid var (--or); border-radius : 16px ; p adding : 22px }
- .kreslbl { font-size : 10px ; color : #444 ; text-transform :uppercase; letter-spacing :. 12em ; margin- bottom : 6px ; text-align :center}
- .kamt { font-family : var (--fd); font -size : 54px ; line-height : 1 ; text -align :center}
- .kpct { font-size : 13px ; color : var (--mut); margin-top : 4px ; text- align :center}
- .kgrid { display :grid; grid- template-columns : 1 fr 1 fr; gap : 10px ; margin-top : 15px }
- .kbox { background : #141414 ; border -radius : 11px ; padding : 13px ; text -align :center}
- .kbv { font-family : var (--fd); font -size : 21px ; color : var (--txt)}
- .kbl { font-size : 9px ; color : #444 ; text-transform :uppercase; lette r-spacing :. 08em ; margin-top : 2px }
- .knote { font-size : 10px ; color : var ( --dim); text-align :center; margin -top: 13px }
- /* PSYCHO */ 
-.pdesc { font-size : 12.5px ; color : #444 ; margin : 6px  0  20px ; line-height : 1.6 }
- .pcard { background : var (--card); border : 1px solid var (--bdr); border-radius : 14px ; padding : 18px ; margin-bottom : 10px x }
- .pico { font-size : 22px ; margin- bottom : 10px }
- .ptitle { font-size : 14px ; font- weight : 700 ; color : #ddd ; margin- bottom : 9px }
- .pbody { font-size : 12.5px ; color : #666 ; line-height : 1.65 }
- </ style > </ head > < body > <!-- ══════════════════════════════ ═════════════
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg);color:var(--txt);font-family:var(--fn);max-width:430px;margin:0 auto;min-height:100vh;overflow-x:hidden}
+button{font-family:var(--fn);cursor:pointer;-webkit-appearance:none;touch-action:manipulation;border:none}
+input{font-family:var(--fn)}
+input[type=number]{-moz-appearance:textfield}
+input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#222;border-radius:2px}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@keyframes glow{0%,100%{box-shadow:0 0 8px #9B59B688}50%{box-shadow:0 0 22px #9B59B6cc}}
+#ticker{background:var(--or);color:#fff;padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:.04em;text-align:center;transition:opacity .5s;min-height:40px;display:flex;align-items:center;justify-content:center}
+.hdr{padding:20px 20px 0;border-bottom:1px solid #111}
+.logo{font-family:var(--fd);font-size:54px;line-height:1;letter-spacing:.1em;background:linear-gradient(135deg,var(--or),var(--or2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.slogan{font-size:10px;color:var(--dim);letter-spacing:.15em;text-transform:uppercase;margin-top:3px}
+.live{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--or);border-radius:20px;padding:5px 12px}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--or);animation:pulse 1.5s infinite}
+.live-t{font-size:11px;color:var(--or);font-weight:700}
+.stats{display:flex;gap:7px;overflow-x:auto;padding:16px 0;scrollbar-width:none}
+.stats::-webkit-scrollbar{display:none}
+.sb{text-align:center;padding:11px 16px;background:var(--card);border-radius:12px;flex-shrink:0;border:1px solid var(--bdr)}
+.sb.hot{border-color:var(--or)}
+.sv{font-family:var(--fd);font-size:22px;letter-spacing:.05em;color:var(--txt)}
+.sb.hot .sv{color:var(--or)}
+.sl{font-size:9px;color:#444;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+.tabs{display:flex;gap:4px;padding:10px 12px;background:var(--bg);border-bottom:1px solid #111;position:sticky;top:0;z-index:100}
+.tab{flex:1;padding:9px 2px;border-radius:10px;font-size:10px;font-weight:700;background:var(--card);color:#555;line-height:1.4;transition:all .2s;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.tab.on{background:var(--or);color:#fff}
+.tab:active{opacity:.8;transform:scale(.96)}
+.content{padding:16px 16px 70px}
+.panel{display:none}.panel.on{display:block;animation:fadeIn .3s ease}
+.slbl{font-size:10px;color:var(--or);text-transform:uppercase;letter-spacing:.12em}
+.banner{background:linear-gradient(135deg,#180800,var(--card));border:1.5px solid var(--or);border-radius:18px;padding:20px;margin-bottom:14px}
+.ban-lbl{font-size:9px;color:var(--or);text-transform:uppercase;letter-spacing:.15em;margin-bottom:6px}
+.ban-date{font-size:12px;color:var(--mut)}
+.ban-cote{font-family:var(--fd);font-size:50px;line-height:1;background:linear-gradient(135deg,var(--or),var(--or2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ban-meta{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:16px}
+.mb{background:#0A0A0A;border-radius:10px;padding:10px;text-align:center}
+.mv{font-family:var(--fd);font-size:14px;color:var(--txt)}
+.ml{font-size:9px;color:#444;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.card{background:var(--card);border:1px solid var(--bdr);border-radius:16px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.card:hover,.card:focus-within{border-color:var(--or)}
+.cb{padding:16px}
+.cl{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.12em;margin-bottom:5px}
+.cm{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:5px;line-height:1.3}
+.cmk{font-size:13px;color:var(--or);font-weight:700}
+.cc{font-family:var(--fd);font-size:34px;color:var(--or);line-height:1}
+.cp{background:#1A0A00;color:var(--or2);font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:4px;display:inline-block}
+.vbar{margin-top:13px}
+.vrow{display:flex;justify-content:space-between;margin-bottom:5px}
+.vl{font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.ve{font-size:9px;color:var(--or);font-weight:700}
+.vtrack{height:3px;background:var(--bdr);border-radius:2px}
+.vfill{height:100%;background:linear-gradient(90deg,var(--or),var(--or2));border-radius:2px}
+.abtn{margin-top:13px;background:transparent;border:1px solid #252525;border-radius:9px;color:#555;font-size:11px;padding:8px 14px;width:100%;text-align:left;transition:all .2s;touch-action:manipulation}
+.abtn:active{background:#111;color:#999}
+.abody{padding:0 16px 16px;border-top:1px solid #141414;animation:fadeIn .2s ease}
+.srcs{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0 11px}
+.stag{background:#1A0A00;color:var(--or2);font-size:10px;padding:3px 9px;border-radius:4px;font-weight:700}
+.itag{background:#111;color:#555;font-size:10px;padding:3px 9px;border-radius:4px}
+.rsn{display:flex;gap:9px;margin-bottom:8px;font-size:12.5px;color:#888;line-height:1.5}
+.rdot{color:var(--or);flex-shrink:0;margin-top:1px}
+.hint{padding:13px 15px;background:var(--card);border-radius:11px;font-size:11.5px;color:#444;line-height:1.7;margin-top:10px}
+.tip-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;margin-bottom:10px;overflow:hidden}
+.tip-body{padding:14px 16px}
+.tip-type{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.06em}
+.tip-match{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:4px}
+.tip-pred{font-size:13px;font-weight:600}
+.tip-prob{font-size:11px;color:var(--mut);margin-top:5px}
+.tip-prob span{color:var(--win);font-weight:700}
+.tip-abtn{margin-top:11px;background:transparent;border:1px solid #252525;border-radius:8px;color:#555;font-size:11px;padding:7px 13px;width:100%;text-align:left;touch-action:manipulation}
+.tip-abtn:active{background:#111}
+.tip-abody{padding:0 16px 14px;border-top:1px solid #141414;animation:fadeIn .2s ease}
+.tip-why{display:flex;gap:8px;margin-bottom:7px;font-size:12px;color:#888;line-height:1.5}
+.tip-warn{margin-top:10px;padding:10px 14px;background:#111;border-radius:8px;font-size:10.5px;color:#555;line-height:1.6;border-left:2px solid var(--gold)}
+.shdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.tbadge{background:#1A0A00;border:1px solid var(--or);color:var(--or);font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
+.hgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:17px}
+.hs{background:var(--card);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--bdr)}
+.hsv{font-family:var(--fd);font-size:26px}
+.hsl{font-size:9px;color:#444;text-transform:uppercase;letter-spacing:.1em;margin-top:1px}
+.hrow{display:flex;align-items:center;gap:11px;background:var(--card);border-radius:11px;padding:12px 15px;margin-bottom:7px}
+.hico{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.hd{font-size:11px;color:var(--mut);margin-bottom:2px}
+.hm{font-size:11px;color:#444;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hc{font-family:var(--fd);font-size:21px;color:var(--txt)}
+.hp{font-size:10px;font-weight:700}
+.pacte{margin-top:13px;padding:13px 15px;background:var(--card);border-radius:10px;font-size:11px;color:var(--dim);line-height:1.7;border-left:3px solid var(--or)}
+.klbl{font-size:10px;color:var(--or);text-transform:uppercase;letter-spacing:.12em;margin-bottom:9px}
+.kdesc{font-size:12.5px;color:var(--mut);line-height:1.7;margin-bottom:22px}
+.kfield{margin-bottom:13px}
+.kfield label{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:7px}
+.kinput{background:var(--card);border:1px solid #252525;border-radius:11px;color:var(--txt);padding:13px 16px;font-size:16px;width:100%;outline:none;transition:border-color .2s}
+.kinput:focus{border-color:var(--or)}
+.kres{background:var(--card);border:1.5px solid var(--or);border-radius:16px;padding:22px}
+.kreslbl{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.12em;margin-bottom:6px;text-align:center}
+.kamt{font-family:var(--fd);font-size:54px;line-height:1;text-align:center}
+.kpct{font-size:13px;color:var(--mut);margin-top:4px;text-align:center}
+.kgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.kbox{background:#141414;border-radius:11px;padding:13px;text-align:center}
+.kbv{font-family:var(--fd);font-size:21px;color:var(--txt)}
+.kbl{font-size:9px;color:#444;text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+.knote{font-size:10px;color:var(--dim);text-align:center;margin-top:13px}
+.pdesc{font-size:12.5px;color:#444;margin:6px 0 20px;line-height:1.6}
+.pcard{background:var(--card);border:1px solid var(--bdr);border-radius:14px;padding:18px;margin-bottom:10px}
+.pico{font-size:22px;margin-bottom:10px}
+.ptitle{font-size:14px;font-weight:700;color:#ddd;margin-bottom:9px}
+.pbody{font-size:12.5px;color:#666;line-height:1.65}
+.folie-banner{background:linear-gradient(135deg,#0D0020,#110025);border:2px solid var(--purple);border-radius:18px;padding:22px;margin-bottom:16px;animation:glow 3s infinite}
+.folie-lbl{font-size:9px;color:var(--purple);text-transform:uppercase;letter-spacing:.18em;margin-bottom:8px}
+.folie-title{font-family:var(--fd);font-size:36px;color:#fff;letter-spacing:.08em;margin-bottom:4px}
+.folie-sub{font-size:12px;color:#888;margin-bottom:16px;line-height:1.5}
+.folie-cote{font-family:var(--fd);font-size:60px;line-height:1;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.folie-sel{background:#0A0010;border:1px solid #2A0050;border-radius:12px;padding:14px;margin-bottom:8px}
+.folie-sel-match{font-size:13px;font-weight:700;color:#ddd;margin-bottom:4px}
+.folie-sel-mkt{font-size:12px;color:var(--purple);font-weight:600}
+.folie-sel-cote{font-family:var(--fd);font-size:22px;color:#E8A0FF}
+.premium-lock{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#0D0020,#111);border:1px dashed #3A0060;border-radius:18px;margin-bottom:14px}
+.premium-badge{display:inline-block;background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:.06em}
+.trial-btn{background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;border:none;border-radius:12px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:14px;touch-action:manipulation;transition:opacity .2s;font-family:var(--fn)}
+.trial-btn:active{opacity:.8}
+.folie-warn{padding:12px 14px;background:#0A0010;border-radius:10px;font-size:11px;color:#555;line-height:1.7;margin-top:14px;border-left:3px solid var(--purple)}
+</style>
+</head>
+<body>
 
-
-
-ZONE ADMIN — MODIFICATEUR ICI CHAQUE JOUR
-══════════════════════════════ ═════════════ --> < script > // ── COUPON DU JOUR var COUPON = {
- actif : true ,
- sélections : [
-
-
- 
-{ sport : "⚽" , ligue : "Premier League" , ​​match : "Arsenal vs Chelsea" , marché : "Arsenal — Victoire ou Nul (1X)" , cote : 1.38 , prob : 82 , source s :[ "Sofascore" , "Fbref.com" ], raisons : [ "Arsenal invaincu à domicile sur 11 matchs (forme : WDWWW)" , "xG Arsenal domicile 2.3 — Chelsea extérieur 0.9" , "H2H : Arsenal gagne 4 sur 5 confrontations à domicile" , "Chelsea : Reece James absent + fatigue Europa League" ]},
-{ sport : "⚽" , ligue : "Bundesliga" , match : "Bayern Munich vs Stuttgart" , marché : "+1.5 buts dans le match" , cote : 1.22 , prob : 88 , sources : [ "Understat.com" , "API- Football" ], raisons :[ "Bayern : 100% des matchs domicile finissent à +2 buts (12/12)" , "Stuttgart concède 1.8 buts/match à l'extérieur en moyenne" , "H2H 5 derniers matchs : moyenne 4.2 buts par rencontre" , "Arbitre permissif — 3.1 buts/match cette saison" ]},
-{ sport : "🏀" , ligue : "NBA" , match : "Boston Celtics vs Miami Heat" , marché : "Celtics — Handicap -5.5 pts" , cote : 1.87 , prob : 68 , sources :[ "Basketball-Reference" , "NBA Stats" ], raisons :[ "Celtics : 8-2 ATS sur les 10 derniers matchs domicile" , "Miami Heat : 3ème back-to-back en 5 jours — fatigue confirmée" , "Différentiel Boston domicile : +8.3 pts/match cette saison" , "Jimmy Butler incertain — genou, participation non confirmée" ]}
-]
+<!-- ═══════════════════════════════════════════
+     ZONE ADMIN — MODIFIER ICI CHAQUE JOUR
+     ═══════════════════════════════════════════ -->
+<script>
+var COUPON = {
+  actif: true,
+  selections: [
+    {sport:"🏀",league:"NBA — Eastern",match:"Boston Celtics vs Miami Heat",market:"Celtics — Handicap -5.5 pts",cote:1.87,prob:72,sources:["Basketball-Reference","NBA Stats"],raisons:["Celtics : 8-2 ATS sur les 10 derniers matchs domicile","Miami Heat : 3eme back-to-back en 5 jours — fatigue confirmee","Differentiel Boston domicile : +8.3 pts/match cette saison","Jimmy Butler incertain — genou, participation non confirmee"]},
+    {sport:"🏀",league:"NBA — Western",match:"Denver Nuggets vs Phoenix Suns",market:"Jokic double-double",cote:1.65,prob:78,sources:["NBA Stats Official","Basketball-Reference"],raisons:["Jokic : double-double dans 84% de ses matchs domicile cette saison","Phoenix Suns : 3eme pire equipe aux rebonds defensifs (41.2/match)","Jokic moyenne 26.1 pts + 12.4 rbds sur les 10 derniers matchs","Match a fort enjeu playoff — Jokic joue ses meilleures perfs"]},
+    {sport:"⚽",league:"Premier League",match:"Arsenal vs Chelsea",market:"Arsenal — Victoire ou Nul (1X)",cote:1.38,prob:82,sources:["Sofascore","Fbref"],raisons:["Arsenal invaincu a domicile sur 11 matchs (WDWWW)","xG Arsenal domicile 2.3 — Chelsea exterieur 0.9","H2H : Arsenal gagne 4/5 confrontations a domicile","Chelsea : Reece James absent + fatigue Europa League"]}
+  ]
 };
-// ── TIPS DU JOUR (stats récurrentes — pour enrichir les coupons) 
-// type : "🟨 CARTON", "📐 CORNER", "🎯 TIR CADRÉ", "🏀 NBA TIP" 
-// prob : probabilité probable (70-75%) 
-var  TIPS = [
-{
-type : "🟨 CARTON" ,
- match : "Arsenal vs Chelsea" ,
- ligue : "⚽ Premier League" ,
- ​​prédiction : "+3.5 cartons dans le match" ,
- prob : 74 ,
- sources :[ "Sofascore" , " WhoScored" ],
- raisons :[
- "Arbitre M. Oliver : moyenne 4.8 cartons/match cette saison" ,
- "Arsenal vs Chelsea historiquement agressif — 4.2 cartons/match H2H" ,
- "Chelsea à l'extérieur : 2.1 cartons concédés en moyenne" ,
- "Contexte derby — pression maximale, intensité garantie"
-]
-},
-{
-type : "📐 CORNER" ,
- match : "Bayern Munich vs Stuttgart" ,
- ligue : "⚽ Bundesliga" ,
- prédiction : "+9.5 corners dans le match" ,
- prob : 72 ,
- sources :[ "Understat.com" , " FBref" ],
- raisons :[
- "Bayern domicile : 7.3 corners obtenus par match en moyenne" ,
- "Stuttgart défend bas — génère beaucoup de corners adverses" ,
- "H2H moyen : 11.2 corners par rencontre sur 5 derniers matchs" ,
- "Arbitre permissif avec les situations offensives — jeu ouvert attendu"
-]
-},
-{
-type : "🎯 TIR CADRÉ" ,
- match : "PSG vs Lyon" ,
- ligue : "⚽ Ligue 1" ,
- pronostic : "+4.5 tirs cadrés PSG" ,
- prob : 71 ,
- sources :[ "FBref" , "Opta" ],
- raisons :[
- "PSG : 6.1 tirs cadrés par match domicile cette saison" ,
- "Lyon encaisse 5.2 tirs cadrés par match à l'extérieur" ,
- "Mbappé absent — Dembélé et Barcola très actifs : 2.8 tirs cadrés à eux deux" ,
- "Lyon en grande difficulté défensive (18 buts encaissés en 7 matchs)"
-]
-},
-{
-type : "🏀 NBA TIP" ,
- match : "Golden State Warriors vs Lakers" ,
- ligue : "🏀 NBA — Western" ,
- prédiction : "Curry +25.5 points" ,
- prob : 73 ,
- sources :[ "NBA Stats Official" , "Basketball- Reference" ],
- raisons :[
- "Curry : moyenne 28.4 points sur les 8 derniers matchs" ,
- "Warriors ont besoin d'une victoire — Curry en mode leader attendu" ,
- "LeBron James status douteable — matchup favorable pour Curry" ,
- "Lakers défense périphérique classé 24ème sur les tirs à 3pts"
-]
-},
-{
-type : "🏀 NBA TIP" ,
- match : "Denver Nuggets vs Phoenix Suns" ,
- ligue : "🏀 NBA — Western" ,
- prédiction : "Jokic double-double (pts+rbds)" ,
- prob : 78 ,
- sources :[ "NBA Stats Official" , "ESPN Stats" ],
- raisons :[
- "Jokic : double-double dans 84% ​​de ses matchs domicile cette saison" ,
- "Phoenix Suns : 3ème pire équipe aux rebonds défensifs (41.2/match)" ,
- "Jokic moyenne 26.1 pts + 12.4 rbds sur les 10 derniers matchs" ,
- "Match à fort enjeu playoff — Jokic joue toujours ses meilleures perfs"
-]
-}
+
+var TIPS = [
+  {type:"🏀 NBA TIP",col:"#FF9800",bg:"#1A0A00",match:"Celtics vs Heat",league:"NBA — Eastern",prediction:"Total fautes Heat Over 21.5",prob:73,sources:["NBA Stats","Rotowire"],raisons:["Heat joue son 3eme match en 5 jours — fatigue = fautes tactiques","Celtics domicile attaque fort au cercle — provoque les contacts","Arbitres de ce soir : moyenne 44 fautes d'equipe par match","Heat a depasse 22 fautes d'equipe dans 7 de ses 10 derniers deplacement"]},
+  {type:"🏀 NBA TIP",col:"#FF9800",bg:"#1A0A00",match:"Nuggets vs Suns",league:"NBA — Western",prediction:"Jokic Over 11.5 rebonds",prob:76,sources:["Basketball-Reference","ESPN Stats"],raisons:["Jokic : 12.4 rebonds en moyenne sur les 10 derniers matchs","Phoenix : 28eme equipe NBA aux rebonds defensifs cette saison","Nunn et Ayton absents cote Suns — vide dans la raquette","Jokic depasse 12 rebonds dans 70% de ses matchs domicile"]},
+  {type:"📐 CORNER",col:"#00BCD4",bg:"#001A1C",match:"Arsenal vs Chelsea",league:"Premier League",prediction:"Over 9.5 corners dans le match",prob:72,sources:["Footystats","Fbref"],raisons:["Arsenal domicile : 7.3 corners obtenus par match en moyenne","Chelsea defend bas — genere beaucoup de corners adverses","H2H moyen : 11.2 corners par rencontre sur 5 derniers matchs","Derby — intensite maximale, chaque equipe pousse en attaque"]},
+  {type:"🟨 CARTON",col:"#FFD700",bg:"#1A1400",match:"Arsenal vs Chelsea",league:"Premier League",prediction:"Over 4.5 cartons dans le match",prob:74,sources:["Footystats","WhoScored"],raisons:["Arbitre M. Oliver : moyenne 4.8 cartons/match cette saison","Arsenal vs Chelsea historiquement agressif — 4.2 cartons/match H2H","Chelsea a l'exterieur : 2.1 cartons concedes en moyenne par match","Derby de Londres — pression maximale, intensite garantie"]}
 ];
-// ── PARIS FOLIE (week-end — 100% IA) 
-var  FOLIE = {
- actif : true , // false en semaine si tu veux 
-date : "Ce week-end" ,
- cote : 67.50 ,
- sélections : [
-{ match : "Arsenal vs Chelsea" , mkt : "Arsenal gagne 2-0 exact" , cote : 9.50 },
-{ match : "Bayern vs Stuttgart" , mkt : "Bayern gagne + les 2 équipes marquent" , cote : 3.20 },
-{ match : "Real Madrid vs Barça" , mkt : "Match nul à la mi-temps + Barça gagne" , cote : 5.80 },
-{ match : "Celtics vs Heat" , mkt : "Celtics -12.5 handicap" , cote : 3.80 }
-],
-disclaimer : "Paris 100% généré par IA. Cote extrême = risque extrême. Mise en avant : 1% de ta bankroll maximum. Pour le plaisir uniquement."
+
+var FOLIE = {
+  actif: true,
+  date: "Ce week-end",
+  cote: 67.50,
+  selections: [
+    {match:"Arsenal vs Chelsea",mkt:"Arsenal gagne 2-0 exact",cote:9.50},
+    {match:"Bayern vs Stuttgart",mkt:"Bayern gagne + les 2 equipes marquent",cote:3.20},
+    {match:"Real Madrid vs Barca",mkt:"Match nul mi-temps + Barca gagne",cote:5.80},
+    {match:"Celtics vs Heat",mkt:"Celtics -12.5 handicap",cote:3.80}
+  ],
+  disclaimer:"Paris 100% genere par IA. Cote extreme = risque extreme. Mise suggeree : 1% de ta bankroll maximum. Pour le plaisir uniquement."
 };
-// ── HISTORIQUE 
-var  HISTO = [
-{ date : "10 Mar" , matchs : "Arsenal 1X + Bayern +1.5 + Celtics -5.5" , cote : 2.41 , res : "WIN" },
-{ date : "09 Mar" , matchs : "PSG Victoire + Man City +2.5 + Lakers ML" , cote : 2.18 , res : "WIN" },
-{ date : "08 Mar" , matchs : "Real Madrid 1X + BTTS Dortmund + Warriors" , cote : 1.96 , res : "LOSS" },
-{ date : "07 Mar" , matchs : "Inter Milan + Atletico +1.5 + Nuggets ML" , cote : 2.63 , res : "WIN" },
-{ date : "06 Mar" , matchs : "Liverpool 1X + +2.5 buts + Bucks -6.5" , cote : 2.29 , res : "WIN" },
-{ date : "05 Mar" , matchs : "Barça Victoire + Corners +9.5 + Heat ML" , cote : 2.11 , res : "WIN" },
-{ date : "04 Mar" , matchs : "Milan AC + BTTS Juventus + Heat ML" , cote : 2.55 , res : "LOSS" }
+
+var HISTO = [
+  {date:"12 Mar",matchs:"Celtics -5.5 + Jokic D-D + Arsenal 1X",cote:2.39,res:"WIN"},
+  {date:"10 Mar",matchs:"Arsenal 1X + Bayern +1.5 + Celtics -5.5",cote:2.41,res:"WIN"},
+  {date:"09 Mar",matchs:"PSG Victoire + Man City +2.5 + Lakers ML",cote:2.18,res:"WIN"},
+  {date:"08 Mar",matchs:"Real Madrid 1X + BTTS Dortmund + Warriors",cote:1.96,res:"LOSS"},
+  {date:"07 Mar",matchs:"Inter Milan + Atletico +1.5 + Nuggets ML",cote:2.63,res:"WIN"},
+  {date:"06 Mar",matchs:"Liverpool 1X + +2.5 buts + Bucks -6.5",cote:2.29,res:"WIN"},
+  {date:"05 Mar",matchs:"Barca Victoire + Corners +9.5 + Heat ML",cote:2.11,res:"WIN"},
+  {date:"04 Mar",matchs:"Milan AC + BTTS Juventus + Heat ML",cote:2.55,res:"LOSS"}
 ];
 // ═══ FIN ZONE ADMIN ═══
- </ script > < div id = "ticker" > ⚡ L'ORAK ne suit pas la foule — il lit les chiffres. </ div > < div class = "hdr" > < div style = "display:flex;justify- content:space-between;align- items:flex-start;margin- bottom:16px" > < div > < div class = "logo" > ORAK </ div > < div class = "slogan" > Ce que les autres ne voient pas. </div> </div> < div style = "text-align:right; padding-top:8px" > < div class = "live" > < div class = "dot" > </div> < span class = "live-t" > EN DIRECT</span> </div> < div style = " font - size : 9px ; color : var ( --dim) ; margin-top:5px" id = "ds" > </ div > </ div > </ div > < div class = "stats" id = "sr" > </ div > </ div > < div class = "tabs" > < button class = "tab on" id = "t0" onclick = "go(0)" > 🎯 < br > Coupon </ button > < button class = " tab" id = "t1" onclick = "go(1)" > 💡 < br > Conseils < / button > < button class
- 
- 
- 
+</script>
 
- 
- 
+<div id="ticker">L'ORAK ne suit pas la foule — il lit les chiffres.</div>
 
- 
-   
-  
+<div class="hdr">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px">
+    <div>
+      <div class="logo">ORAK</div>
+      <div class="slogan">Ce que les autres ne voient pas.</div>
+    </div>
+    <div style="text-align:right;padding-top:8px">
+      <div class="live"><div class="dot"></div><span class="live-t">LIVE</span></div>
+      <div style="font-size:9px;color:var(--dim);margin-top:5px" id="ds"></div>
+    </div>
+  </div>
+  <div class="stats" id="sr"></div>
+</div>
 
+<div class="tabs">
+  <button class="tab on" id="t0" onclick="go(0)">🎯<br>Coupon</button>
+  <button class="tab" id="t1" onclick="go(1)">💡<br>Tips</button>
+  <button class="tab" id="t2" onclick="go(2)">📊<br>Stats</button>
+  <button class="tab" id="t3" onclick="go(3)">🧮<br>Kelly</button>
+  <button class="tab" id="t4" onclick="go(4)">🧠<br>Mindset</button>
+  <button class="tab" id="t5" onclick="go(5)">🔮<br>Folie</button>
+</div>
 
-  
+<div class="content">
+  <div id="p0" class="panel on"></div>
+  <div id="p1" class="panel"></div>
+  <div id="p2" class="panel"></div>
+  <div id="p3" class="panel"></div>
+  <div id="p4" class="panel"></div>
+  <div id="p5" class="panel"></div>
+</div>
 
- 
-   
-   
- = "tab"  id = "t2"  onclick = "go(2)" > 📊 < br > Stats </ button > < button class = " tab " id = " t3 " onclick = " go ( 3 ) " > 🧮 < br > Kelly < / button > < button class = " tab " id = " t4" onclick = "go(4)" > 🧠 < br > Mindset </ button > < button class = "tab premium-tab" id = "t5" onclick = "go(5)" > 🔮 < br > Folie </ button > < / div > < div class = "content" > < div id = "p0" class = "panel on" > </ div > < div id = "p1" class = "panel" > </ div > < div id = "p2" class = "panel" > </ div > < div id = "p3" class = "panel" > </ div > < div id = "p4" class = "panel" > </ div > < div id = "p5" class = "panel" > </ div > </ div > < script >
-   
-   
-   
+<script>
+function fmtD(f){var j=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],m=['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'],n=new Date();return f?j[n.getDay()]+' '+n.getDate()+' '+m[n.getMonth()]+' '+n.getFullYear():n.getDate()+' '+m[n.getMonth()];}
+function impl(c){return Math.round(100/c);}
+function totC(){return COUPON.selections.reduce(function(a,s){return a*s.cote;},1).toFixed(2);}
+function totP(){return (COUPON.selections.reduce(function(a,s){return a*(s.prob/100);},1)*100).toFixed(1);}
+var wins=HISTO.filter(function(h){return h.res==='WIN';}).length;
+var taux=Math.round(wins/HISTO.length*100);
 
- 
-  
-  
-  
-  
-  
-  
+var tips2=["L'ORAK ne suit pas la foule — il lit les chiffres.","Apres une perte, attends 24h. L'emotion detruit plus de bankrolls que les mauvais coupons.","Le Kelly ne ment pas. Suis-le meme quand ton instinct crie non.","La discipline a fait plus de millionnaires que la chance. Sans exception.","Une cote elevee n'est pas un cadeau — c'est un piege avec un ruban.","5 coupons gagnants d'afilee ? C'est la que les gens perdent tout.","Ta bankroll est un capital. Un investisseur, pas un joueur.","Chase la valeur. Ne chase jamais une perte.","Ce que les autres voient tard, l'ORAK l'a vu la veille."];
+var ti=0,tel=document.getElementById('ticker');
+setInterval(function(){tel.style.opacity=0;setTimeout(function(){ti=(ti+1)%tips2.length;tel.textContent=tips2[ti];tel.style.opacity=1;},500);},5500);
 
+document.getElementById('ds').textContent=fmtD(false);
+var sdata=[{l:'Reussite',v:taux+'%',h:true},{l:'Ce mois',v:wins+'/'+HISTO.length},{l:'Cote moy.',v:'2.30'},{l:'ROI',v:'+34%'}];
+document.getElementById('sr').innerHTML=sdata.map(function(s){return'<div class="sb'+(s.h?' hot':'')+'"><div class="sv">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
 
-// ── UTILITAIRES
-fonction fmtD(full){
-var j=['Dimanche','Lundi','Mardi', 'Mercredi','Jeudi','Vendredi', 'Samedi'];
-var m=['janvier','février','mars', 'avril','mai','juin','juillet' ,'août','septembre','octobre', 'novembre','décembre'];
-var n=new Date();
-retourner complet?j[n.getDay()]+' '+n.getDate()+' '+m[n.getMonth()]+' '+n.getFullYear():n.getDate()+ ' '+m[n.getMonth()];
+function go(i){
+  for(var j=0;j<6;j++){document.getElementById('p'+j).classList.remove('on');document.getElementById('t'+j).classList.remove('on');}
+  document.getElementById('p'+i).classList.add('on');
+  document.getElementById('t'+i).classList.add('on');
+  if(i===3)updateKelly();
 }
-fonction impl(c){return Math.round(100/c)}
-fonction totC(){return COUPON.selections.reduce( function(a,s){return a*s.cote},1).toFixed(2)}
-fonction totP(){return (COUPON.selections.reduce( function(a,s){return a*(s.prob/100)},1)*100). toFixed(1)}
-var wins=HISTO.filter(function(h){ return h.res==='WIN'}).length;
-var taux=Math.round(wins/HISTO.length *100);
-// ── TICKER
-var tips2=["⚡ L'ORAK ne suit pas la foule — il lit les chiffres.","🧠 Après une perte, attend 24h. L'émotion est l'ennemi n°1.","📊 Le Kelly ne ment pas. Suis-le même quand l'instinct crie non.","🎯 La discipline a fait plus de millionnaires que la chance.","⚠️ Une cote élevée n'est pas un cadeau — c'est un piège.","🔥 5 coupons gagnants ? C'est là que les gens perdent tout.","💰 Ta bankroll est un capital.","🚫 Ne chasse jamais une perte.","👁️ Ce que les autres voient tard, l'ORAK l'a vu la veille."];
-var ti=0,tel=document. getElementById('ticker');
-setInterval(function(){tel. style.opacity=0;setTimeout( function(){ti=(ti+1)%tips2. length;tel.textContent=tips2[ ti];tel.style.opacity=1;},500) ;},5500);
-// ── EN-TÊTE
-document.getElementById('ds'). textContent=fmtD(false);
-var sdata=[{l:'Réussite',v:taux+'% ',h:true},{l:'Ce mois',v:wins+'/'+HISTO.length} ,{l:'Cote moy.',v:'2.30'},{l:'ROI',v:'+ 34%'}];
-document.getElementById('sr'). innerHTML=sdata.map(function( s){return'< div  class = "sb'+(sh?' hot':'')+'" >< div  class = "sv" >'+s.v+'</ div >< div  class = "sl" >'+s.l+'</ div ></ div > ';}).join('');
-// ── ONGLETS
-fonction go(i){
-for(var j=0;j<6;j++){document.getElementById ('p'+j) .classList.remove('on'); document.getElementById('t'+j) .classList.remove('on');}
-document.getElementById('p'+i) .classList.add('on');
-document.getElementById('t'+i) .classList.add('on');
-si (i===3)mettre à jour Kelly();
+
+function buildCoupon(){
+  var el=document.getElementById('p0');
+  if(!COUPON.actif){el.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--card);border-radius:18px;border:1px dashed var(--bdr)"><div style="font-size:44px;margin-bottom:14px">⏳</div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Pas de coupon viable aujourd\'hui.</div><div style="font-size:13px;color:#444;line-height:1.6">L\'ORAK n\'a pas trouve de combinaison depassant 70% de viabilite.<br>On ne propose rien plutot que de risquer ta bankroll.</div></div>';return;}
+  var h='<div class="banner"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="ban-lbl">COUPON DU JOUR — L\'ORAK A PARLE</div><div class="ban-date">'+fmtD(true)+'</div></div><div style="text-align:right"><div class="ban-cote">x'+totC()+'</div><div style="font-size:10px;color:#444;margin-top:2px">cote totale</div></div></div><div class="ban-meta"><div class="mb"><div class="mv">'+totP()+'%</div><div class="ml">Viabilite</div></div><div class="mb"><div class="mv">'+COUPON.selections.length+' PICKS</div><div class="ml">Selections</div></div><div class="mb"><div class="mv">VALIDE</div><div class="ml">Statut</div></div></div></div>';
+  h+='<div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px">Appuie pour voir l\'analyse complete</div>';
+  COUPON.selections.forEach(function(s,i){
+    var edge=s.prob-impl(s.cote);
+    h+='<div class="card"><div class="cb"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="flex:1"><div class="cl">'+s.sport+' '+s.league+'</div><div class="cm">'+s.match+'</div><div class="cmk">'+s.market+'</div></div><div style="text-align:right;flex-shrink:0"><div class="cc">'+s.cote+'</div><div class="cp">'+s.prob+'% reel</div></div></div><div class="vbar"><div class="vrow"><span class="vl">Probabilite calculee</span><span class="ve">+'+edge+'% VALUE EDGE</span></div><div class="vtrack"><div class="vfill" style="width:'+s.prob+'%"></div></div></div><button class="abtn" onclick="tog(\'ca'+i+'\')" id="cb'+i+'">Sur quoi l\'ORAK base cette selection ?</button></div><div id="ca'+i+'" class="abody" style="display:none"><div class="srcs">'+s.sources.map(function(x){return'<span class="stag">'+x+'</span>';}).join('')+'<span class="itag">Cote implicite : '+impl(s.cote)+'%</span></div>'+s.raisons.map(function(r){return'<div class="rsn"><span class="rdot">◆</span><span>'+r+'</span></div>';}).join('')+'</div></div>';
+  });
+  h+='<div class="hint">Va dans Tips pour des stats supplementaires a ajouter sur ton coupon.</div>';
+  el.innerHTML=h;
 }
-// ── ÉTAT D'ESPRIT
-fonction construireMindset(){
-var articles=[
-{i:'🎲',t:'Le biais du joueur — l\'ennemi invisible',b:'Après 5 défaites, le cerveau croit que la victoire est \'due\'. Faux. Chaque pari est indépendant. La chance n'a pas de mémoire. Ne modifie jamais ta stratégie à cause d\'une série.'},
-{i:'📉',t:'La mise de récupération — le piège fatal',b:'Doubler après une perte pour \'récupérer\' est le comportement le plus destructeur. Il transforme une petite perte en désastre. Le Kelly existe précisément pour éviter ça.'},
-{i:'⚡',t:'L\'overconfidence — le danger des séries gagnantes',b:'5 coupons gagnants d\'affilée ? C\'est là qu\'il faut être le plus rigoureux. L'excès de confiance pousse à parier trop, trop vite, avec moins d'analyse. Le marché punit toujours l\'arrogance.'},
-{i:'🏆',t:'La routine du parieur gagnant',b:'Analyse le matin à tête reposée. Posez vos sélections l\'après-midi. Ne modifiez jamais un coupon 30 minutes avant le match. Les décisions de dernière minute coûtent cher.'},
-{i:'👁️',t:'Value betting — voir ce que les autres ignorent',b:'Un vrai parieur ne cherche pas qui va gagner. Il cherche où le bookmaker se trompe. Si la probabilité réelle est de 70% et la cote implique 55%, c\'est là qu\'on mise. Pas ailleurs.'},
-{i:'🧊',t:'Gérer une mauvaise série — rester froid',b:'3 défaites de suite ? C\'est statistiquement normal, même avec une stratégie gagnante à 70%. La réponse correcte : réduisez les mises à 50%, relire vos analyses, attendre. Jamais augmenter.'},
-{i:'⏰',t:'Le parieur impatient perd toujours',b:'Les profits en paris sportifs se construisent sur des mois, pas des jours. Celui qui veut doubler sa bankroll en une semaine va la perdre en une semaine. La patience est l\'arme principale.'},
-{i:'📵',t:'Ne jamais parier sous influence',b:'Alcool, fatigue, stress intense — dans ces états le cerveau prend des décisions émotionnelles. La règle est simple : si tu n'es pas à 100%, tu ne paries pas. Indiquer.'},
-{i:'💡',t:'Séparer l\'argent des paris de l\'argent de la vie',b:'La bankroll doit être une somme que tu peux perdre entièrement sans conséquence sur ta vie quotidienne. Loyer, nourriture, transport — ces dépenses ne touchent jamais à la bankroll.'},
-{i:'🔍',t:'Analyser ses pertes comme ses victoires',b:'Après chaque coupon perdu, la question n\'est pas \'pourquoi j\'ai pas eu de chance\' mais \'est-ce que mon analyse était solide ?\'. Si oui, continuez. Si non, je comprends l\'erreur. Les pertes intelligentes font les gagnants.'},
-{i:'🎯',t:'La spécialisation — la clé des pronostiqueurs qui durent',b:'Les parieurs qui gagnent sur le long terme ne parient pas sur tout. Ils maîtrisent 2-3 ligues à fond. Ils connaissent les arbitres, les calendriers, les dynamiques d'équipe. Spécialise-toi.'},
-{i:'🚫',t:'Les marchés à éviter absolument',b:'Cotes très élevées sans analyse profonde, marchés exotiques mal connus, matchs amicaux sans enjeu — ces marchés révèlent massivement le bookmaker. L\'ORAK les évite systématiquement.'}
-];
-var h='< div  class = "slbl" >◆ MINDSET — PSYCHOLOGIE DU PARIEUR</ div >';
-h+='< p  class = "pdesc" >Les meilleures analyses ne valent rien sans la bonne tête. C'est une carte par jour.</ p >';
-articles.forEach(function(a){ h+='< div  class = "pcard" >< div  class = "pico" >'+a.i+'</ div >< div  class = "ptitle" >'+a.t+'</ div >< d iv  class = "pbody" >'+a.b+'</ div ></ d iv >';});
-document.getElementById('p4'). innerHTML=h;
+function tog(id){var el=document.getElementById(id);var i=id.replace('ca','');var btn=document.getElementById('cb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Sur quoi l\'ORAK base cette selection ?';}}
+
+function buildTips(){
+  var h='<div class="slbl" style="color:var(--gold)">TIPS DU JOUR — STATISTIQUES RECURRENTES</div>';
+  h+='<div style="font-size:12px;color:#444;margin:6px 0 16px;line-height:1.6">Stats a haute probabilite pour enrichir tes coupons. Probabilite cible : 70 a 75%.</div>';
+  TIPS.forEach(function(t,i){
+    h+='<div class="tip-card"><div class="tip-body"><div class="tip-type" style="background:'+t.bg+';color:'+t.col+'">'+t.type+'</div><div style="font-size:10px;color:#444;margin-bottom:5px">'+t.league+'</div><div class="tip-match">'+t.match+'</div><div class="tip-pred" style="color:'+t.col+'">'+t.prediction+'</div><div class="tip-prob">Probabilite ORAK : <span>'+t.prob+'%</span></div><button class="tip-abtn" onclick="togT(\'ta'+i+'\')" id="tb'+i+'">Pourquoi ce tip ?</button></div><div id="ta'+i+'" class="tip-abody" style="display:none"><div class="srcs">'+t.sources.map(function(x){return'<span class="stag" style="background:'+t.bg+';color:'+t.col+'">'+x+'</span>';}).join('')+'</div>'+t.raisons.map(function(r){return'<div class="tip-why"><span style="color:'+t.col+';flex-shrink:0">◆</span><span>'+r+'</span></div>';}).join('')+'<div class="tip-warn">Ce tip n\'a pas de cote associee. Retrouve le marche sur ton bookmaker pour l\'integrer a ton coupon.</div></div></div>';
+  });
+  document.getElementById('p1').innerHTML=h;
 }
-// ── COUPON
-fonction construireCoupon(){
-var el=document.getElementById(' p0');
-if(!COUPON.actif){el. innerHTML='< div  style = "text-align:center; padding:60px 20px;background:var(--card); border-radius:18px;border:1px dashed var(--bdr)" >< div  style = "font-size:44px;margin- bottom:14px" >⏳</ div >< div  style = "font-size:18px;font- weight:700;margin-bottom:10px" >Pas de coupon viable aujourd\'hui.</ div >< div  style = "font-size:13px;color:# 444;line-height:1.6" >L\'ORAK n\'a pas trouvé de combinaison dépassant 70% de viable.< br >On ne propose rien plutôt que de risquer ta bankroll.</ div ></ div >';return; }
-var h='< div  class = "banner" >< div  style = "display:flex;justify- content:space-between;align- items:flex-start" >< div >< div  class = "ban-lbl" >◆ COUPON DU JOUR — L'ORAK A PARLÉ</ div >< div  class = "ban-date" >'+fmtD(true)+ '</ div ></ div >< div  style = "text-align:right" >< div  class = "ban-cote" >x'+totC()+'</ div >< div  style = "font-size:10px;color:# 444;margin-top:2px" >cote totale</ div > </ div ></ div >< div  class = "ban-meta" >< div  class = "mb" >< div  class = "mv" >'+totP()+'%</ div >< d iv  class = "ml" >Viabilité</ div ></ di v >< div  class = "mb" >< div  class = "mv" >'+COUPON. selections.length+' PICKS</ div >< div  class = "ml" >Sélections</ div ></ d iv >< div  class = "mb" >< div  class = "mv" >✅ VALIDE</ div >< div  class = "ml" >Statut</ div ></ div >< / div ></ div >';
-h+='< div  style = "font-size:9px;color: var(--dim);text-transform: uppercase;letter-spacing:. 12em;margin-bottom:10px" >▼ Appuie pour voir l\'analyse complète</ div >';
-COUPON.selections.forEach( function(s,i){
-var edge=s.prob-impl(s.cote);
-h+='< div  class = "card" >< div  class = "cb" >< div  style = "display:flex;justify- content:space-between;align- items:flex-start;gap:10px" >< di v  style = "flex:1" >< div  class = "cl" >'+s.sport+'   '+ s.league+'</ div >< div  class = "cm" >'+s.match+'</ div >< d iv  class = "cmk" >'+s.market+'</ div > </ div >< div  style = "text-align:right;flex- shrink:0" >< div  class = "cc" >'+s.cote+'</ div >< di v  class = "cp" >'+s.prob+'% réel</ div ></ div ></ div >< div  class = "vbar" >< div  class = "vrow" >< span  class = "vl" >Probabilité calculée</ span >< span  class = "ve" >+'+edge+'% VALUE EDGE</ span ></ div >< div  class = "vtrack" >< div  class = "vfill"  style = "width:'+s.prob+'%" ></ di v ></ div ></ div >< button  class = "abtn"  onclick = "tog(\'ca'+i+'\')"  id = "cb'+i+'" >▼ Sur quoi l\'ORAK base cette sélection ?</ button ></ div >< div  id = "ca'+i+'"  class = "abody"  style = "display:none" >< div  class = "srcs" >'+s.sources.map( function(x){return'< span  class = "stag" >📡 '+x+'</ span >';}).join('')+'< sp an class = "itag" >Cote implicite : '+impl(s.cote)+'%</ span ></ div > '+s.raisons.map(function(r){ return'< div  class = "rsn" >< span  class = "rdot" >◆</ span >< span >'+ r+'</ span ></ div >';}).join('')+ '</ div ></ div >';
-});
-h+='< div  class = "hint" >💡 Va dans < span  style = "color:var(--or);font- weight:700" >Tips</ span > pour des stats supplémentaires à ajouter sur ton coupon.</ div >';
-el.innerHTML=h;
+function togT(id){var el=document.getElementById(id);var i=id.replace('ta','');var btn=document.getElementById('tb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Pourquoi ce tip ?';}}
+
+function buildStats(){
+  var h='<div class="shdr"><div class="slbl">RESULTATS — TRANSPARENCE TOTALE</div><div class="tbadge">'+taux+'% reussite</div></div>';
+  h+='<div class="hgrid"><div class="hs"><div class="hsv" style="color:var(--win)">'+wins+'</div><div class="hsl">Victoires</div></div><div class="hs"><div class="hsv" style="color:var(--or)">'+(HISTO.length-wins)+'</div><div class="hsl">Defaites</div></div><div class="hs"><div class="hsv" style="color:var(--txt)">'+HISTO.length+'</div><div class="hsl">Total</div></div></div>';
+  HISTO.forEach(function(h2){var w=h2.res==='WIN';h+='<div class="hrow" style="border:1px solid '+(w?'#0D1F0D':'#1F0D0D')+'"><div class="hico" style="background:'+(w?'#0D2A0D':'#2A0D0D')+'">'+(w?'V':'X')+'</div><div style="flex:1;min-width:0"><div class="hd">'+h2.date+'</div><div class="hm">'+h2.matchs+'</div></div><div style="text-align:right;flex-shrink:0"><div class="hc">x'+h2.cote+'</div><div class="hp" style="color:'+(w?'var(--win)':'var(--or)')+'">'+(w?'+'+Math.round((h2.cote-1)*100)+'%':'-100%')+'</div></div></div>';});
+  h+='<div class="pacte"><span style="color:var(--or);font-weight:700">Pacte de transparence ORAK.</span> Chaque coupon — gagne ou perdu — est enregistre ici. Aucun resultat supprime. Jamais.</div>';
+  document.getElementById('p2').innerHTML=h;
 }
-function tog(id){var el=document.getElementById(id) ;var i=id.replace('ca','');var btn=document.getElementById(' cb'+i);if(el.style.display===' none'){el.style.display=' block';btn.textContent='▲ Masquer l\'analyse';}else{el.style. display='aucun';btn. textContent='▼ Sur quoi l\'ORAK base cette sélection ?';}}
-// ── CONSEILS
-fonction buildTips(){
-var el=document.getElementById(' p1');
-var typeColors={'🟨 CARTON':'#FFD700','📐 COIN':'#00BCD4','🎯 TIR CADRÉ':'#4CAF50','🏀 NBA TIP':'#FF9800'};
-var typeBgs={'🟨 CARTON':'#1A1400','📐 COIN':'#001A1C','🎯 TIR CADRÉ':'#001A00','🏀 NBA TIP':'#1A0A00'};
-var h='< div  class = "slbl gold" >◆ TIPS DU JOUR — STATISTIQUES RÉCURRENTES</ div >';
-h+='< div  style = "font-size:12px;color:# 444;margin:6px 0 16px;line-height:1.6" >Stats à haute probabilité pour enrichir vos coupons. Ajoute ceux qui te semblent solides. Probabilité cible : 70–75%.</ div >';
-CONSEILS.forEach(fonction(t,i){
-var col=typeColors[t.type]||'# FFD700';
-var bg=typeBgs[t.type]||'#1A1400';
-h+='< div  class = "tip-card" >< div  class = "tip-body" >< div  class = "tip-type"  style = "background:'+bg+'; color:'+col+'" >'+t.type+'</ div >< div  style = "font-size:10px;color:# 444;margin-bottom:5px" >'+t. ligue+'</ div >< div  class = "tip-match" >'+t.match+'< / div >< div  class = "tip-pred"  style = "color:'+col+'" >→ '+t.prediction+'</ div >< div  class = "tip-prob" >Probabilité ORAK : < span >'+t.prob+'%</ span ></ div > < button  class = "tip-abtn"  onclick = "togT(\'ta'+i+'\')"  id = "tb'+i+'"  style = "border-color:#252525; color:#555" >▼ Pourquoi ce conseil ?</ button ></ div >< div  id = "ta'+i+'"  class = "tip-abody"  style = "display:none" >< div  class = "srcs" >'+t.sources.map( function(x){return'< span  class = "stag"  style = "background:'+bg+'; color:'+col+'" >📡 '+x+'</ span >';}).join('')+'</ d iv >'+t.raisons.map(function(r) {return'< div  class = "tip-why" >< span  class = "tip-why-dot"  style = "color:'+col+'" >◆</ span > < span >'+r+'</ span ></ div >';}). join('')+'< div  class = "tip-warn" >💡 Ce tip n\'a pas de cote associé. Retrouve le marché correspondant sur ton bookmaker pour l\'intégrer à ton coupon.</ div ></ div ></ div >';
-});
-el.innerHTML=h;
+
+function buildKelly(){
+  document.getElementById('p3').innerHTML='<div class="klbl">CRITERE DE KELLY — MISE OPTIMALE</div><p class="kdesc">Kelly calcule combien miser pour maximiser tes gains sur le long terme sans detruire ta bankroll. La methode des traders et parieurs professionnels.</p><div class="kfield"><label>Bankroll totale ($)</label><input class="kinput" type="number" id="kb" value="200" oninput="updateKelly()"></div><div class="kfield"><label>Probabilite reelle estimee (%)</label><input class="kinput" type="number" id="kp" value="72" min="1" max="99" oninput="updateKelly()"></div><div class="kfield"><label>Cote du bookmaker</label><input class="kinput" type="number" id="kc" value="2.2" step="0.01" oninput="updateKelly()"></div><div class="kres"><div class="kreslbl">Mise recommandee par l\'ORAK</div><div class="kamt" id="kamt">$0</div><div class="kpct" id="kpct">= 0% de ta bankroll</div><div class="kgrid"><div class="kbox"><div class="kbv" id="kgain">+$0</div><div class="kbl">Gain net potentiel</div></div><div class="kbox"><div class="kbv" id="kverdict" style="font-size:12px">—</div><div class="kbl">Verdict Kelly</div></div></div><div class="knote">Regle absolue : ne jamais depasser 5% de ta bankroll sur un seul coupon.</div></div>';
+  updateKelly();
 }
-function togT(id){var el=document.getElementById(id) ;var i=id.replace('ta','');var btn=document.getElementById(' tb'+i);if(el.style.display===' none'){el.style.display=' block';btn.textContent='▲ Masquer l\'analyse';}else{el.style. display='none';btn. textContent='▼ Pourquoi ce conseil ?';}}
-// ── STATISTIQUES
-fonction buildStats(){
-var h='< div  class = "shdr" >< div  class = "slbl" >◆ RÉSULTATS — TRANSPARENCE TOTALE</ div >< div  class = "tbadge" >'+taux+'% réussite</ div ></ div >';
-h+='< div  class = "hgrid" >< div  class = "hs" >< div  class = "hsv"  style = "color:var(--win)" >'+ wins+'</ div >< div  class = "hsl" >Victoires</ div ></ div > < div  class = "hs" >< div  class = "hsv"  style = "color:var(--or)" > '+( HISTO.length-wins)+'</ div >< div  class = "hsl" >Défaites</ div ></ div >< div  class = "hs" >< div  class = "hsv"  style = "color:var(--txt)" >'+ HISTO.length+'</ div >< div  class = "hsl" >Total</ div ></ div >< / div >';
-HISTO.forEach(function(h2){var w=h2.res==='WIN';h+='< div  class = "hrow"  style = "border:1px solid '+(w?'#0D1F0D':'#1F0D0D')+'" >< div  class = "hico"  style = "background:'+(w?'# 0D2A0D':'#2A0D0D')+'" >'+(w?'✓' :'✗')+'</ div >< div  style = "flex:1;min-width:0" >< di v  class = "hd" >'+h2.date+'</ div >< d iv  class = "hm" >'+h2.matchs+'</ div > </ div >< div  style = "text-align:right;flex- shrink:0" >< div  class = "hc" >x'+h2.cote+'</ div >< div  class = "hp"  style = "color:'+(w?'var(--win)' :'var(--or)')+'" >'+(w?'+'+ Math.round((h2.cote-1)*100)+'% ':'-100%')+'</ div ></ div ></ div > ';});
-h+='< div  class = "pacte" >< span  style = "color:var(--or);font- weight:700" >Pacte de transparence ORAK.</ span > Chaque coupon gagné ou perdu est enregistré ici. Aucun résultat supprimé. Jamais.</ div >';
-document.getElementById('p2'). intérieurHTML=h;
+function updateKelly(){
+  var bank=parseFloat(document.getElementById('kb').value)||0;
+  var prob=parseFloat(document.getElementById('kp').value)||0;
+  var cote=parseFloat(document.getElementById('kc').value)||1.01;
+  var p=prob/100,b=cote-1,k=(b*p-(1-p))/b;
+  var kpct=Math.max(0,k*100).toFixed(1);
+  var kcash=((kpct/100)*bank).toFixed(2);
+  var gain=(kcash*(cote-1)).toFixed(2);
+  var pos=parseFloat(kpct)>0,danger=parseFloat(kpct)>5;
+  document.getElementById('kamt').textContent='$'+kcash;
+  document.getElementById('kamt').style.color=pos?'#FF4D00':'#333';
+  document.getElementById('kpct').textContent='= '+kpct+'% de ta bankroll';
+  document.getElementById('kgain').textContent='+$'+gain;
+  var vd=document.getElementById('kverdict');
+  vd.textContent=danger?'REDUIRE':pos?'VALEUR+':'EVITER';
+  vd.style.color=danger?'#FF4D00':pos?'#4CAF50':'#666';
 }
-// ── KELLY
-fonction construireKelly(){
-document.getElementById('p3'). innerHTML='< div  class = "klbl" >◆ CRITÈRE DE KELLY — MISE OPTIMALE</ div >< p  class = "kdesc" >Kelly calcule combien miser pour maximiser tes gains sur le long terme sans détruire ta bankroll.</ p >< div  class = "kfield" >< label >Bankroll total ($)</ label >< input  class = "kinput"  type = "number"  id = "kb"  value = "200"  oninput = "updateKelly()" ></ div > < div  class = "kfield" >< label > Probabilité réelle estimée (%)</ label >< input  class = "kinput"  type = "number"  id = "kp"  value = "72"  min = "1"  max = "99"  oninput = "updateKelly()" ></ div > < div  class = "kfield" >< label >Cote du bookmaker</ label >< input  class = "kinput"  type = "nombre"  id = "kc"  valeur = "2.2"  étape = "0.01"  oninput = "updateKelly()" ></ div > < div  class = "kres" >< div  class = "kreslbl" >Mise recommandée par l\'ORAK</ div >< div  class = "kamt"  id = "kamt" >$0</ div >< div  class = "kpct"  id = "kpct" >= 0% de votre bankroll</ div >< div  class = "kgrid" >< classe div  = "kbox" >< classe div = "kbv" id = "kgain" >+$0</  div >< div  class = "kbl" >Gain net potentiel</ div ></ div >< div  class = "kbox" >< div  class = "kbv"  id = "kverdict"  style = "font-size:12px" >—</ div > < div  class = "kbl" >Verdict Kelly</ div ></ div ></ div >< div  class = "knote" >Règle absolue : ne jamais dépasser 5% de ta bankroll sur un seul coupon.</ div ></ div >';
-mettre à jour Kelly();
+
+function buildMindset(){
+  var A=[
+    {i:'🎲',t:'Le biais du joueur — l\'ennemi invisible',b:'Apres 5 defaites, le cerveau croit que la victoire est due. Faux. Chaque pari est independant. La chance n\'a pas de memoire. Ne modifie jamais ta strategie a cause d\'une serie.'},
+    {i:'📉',t:'La mise de recuperation — le piege fatal',b:'Doubler apres une perte pour recuperer est le comportement le plus destructeur. Il transforme une petite perte en desastre. Le Kelly existe precisement pour eviter ca.'},
+    {i:'⚡',t:'L\'overconfidence — le danger des series gagnantes',b:'5 coupons gagnants d\'afilee ? C\'est la qu\'il faut etre le plus rigoureux. L\'exces de confiance pousse a parier trop, trop vite, avec moins d\'analyse. Le marche punit toujours l\'arrogance.'},
+    {i:'🏆',t:'La routine du parieur gagnant',b:'Analyse le matin a tete reposee. Pose tes selections l\'apres-midi. Ne modifie jamais un coupon 30 minutes avant le match. Les decisions de derniere minute coutent cher.'},
+    {i:'👁️',t:'Value betting — voir ce que les autres ignorent',b:'Un vrai parieur ne cherche pas qui va gagner. Il cherche ou le bookmaker se trompe. Si la probabilite reelle est 70% et la cote implique 55%, c\'est la qu\'on mise. Pas ailleurs.'},
+    {i:'🧊',t:'Gerer une mauvaise serie — rester froid',b:'3 defaites de suite ? C\'est statistiquement normal meme avec 70% de win rate. La reponse correcte : reduire les mises a 50%, relire tes analyses, attendre. Jamais augmenter.'},
+    {i:'⏰',t:'Le parieur impatient perd toujours',b:'Les profits en paris sportifs se construisent sur des mois, pas des jours. Celui qui veut doubler sa bankroll en une semaine va la perdre en une semaine. La patience est l\'arme principale.'},
+    {i:'📵',t:'Ne jamais parier sous influence',b:'Alcool, fatigue extreme, stress, dispute — dans ces etats le cerveau prend des decisions emotionnelles. Regle simple : si tu n\'es pas a 100%, tu ne paries pas. Point.'},
+    {i:'💡',t:'Separer l\'argent des paris de l\'argent de la vie',b:'La bankroll doit etre une somme que tu peux perdre entierement sans consequence sur ta vie quotidienne. Loyer, nourriture, transport — ces depenses ne touchent jamais a la bankroll.'},
+    {i:'🔍',t:'Analyser ses pertes comme ses victoires',b:'Apres chaque coupon perdu, la question n\'est pas pourquoi j\'ai pas eu de chance mais est-ce que mon analyse etait solide. Si oui, continue. Si non, comprends l\'erreur. Les pertes intelligentes font les gagnants.'},
+    {i:'🎯',t:'La specialisation — la cle des tipsters qui durent',b:'Les parieurs qui gagnent sur le long terme ne parient pas sur tout. Ils maitrisent 2 a 3 ligues a fond. Ils connaissent les arbitres, les calendriers, les dynamiques d\'equipe. Specialise-toi.'},
+    {i:'🚫',t:'Les marches a eviter absolument',b:'Cotes tres elevees sans analyse profonde, marches exotiques mal connus, matchs amicaux sans enjeu — ces marches favorisent massivement le bookmaker. L\'ORAK les evite systematiquement.'},
+    {i:'💎',t:'Le secret des vrais gagnants',b:'Les meilleurs tipsters du monde ne gagnent pas 80% de leurs paris. Ils gagnent 56 a 60% — mais avec une gestion de bankroll parfaite et une recherche constante de value. La regularite bat l\'exploit.'},
+    {i:'🧠',t:'Comprendre les cotes pour les dominer',b:'Une cote de 2.00 signifie que le bookmaker pense que tu as 50% de chances. Ton travail : trouver ou il se trompe. Si tu penses 60% — la cote 2.00 est une mine d\'or. C\'est ca le value betting.'}
+  ];
+  var h='<div class="slbl">MINDSET — PSYCHOLOGIE DU PARIEUR</div><p class="pdesc">Les meilleures analyses ne valent rien sans la bonne tete. Lis une carte par jour.</p>';
+  A.forEach(function(a){h+='<div class="pcard"><div class="pico">'+a.i+'</div><div class="ptitle">'+a.t+'</div><div class="pbody">'+a.b+'</div></div>';});
+  document.getElementById('p4').innerHTML=h;
 }
-fonction updateKelly(){
-var bank=parseFloat(document. getElementById('kb').value)|| 0 ;
-var prob=parseFloat(document. getElementById('kp').value)|| 0 ;
-var cote=parseFloat(document.getElementById ('kc').value)|| 1,01 ;
-var p=prob/100,b=cote-1,k=(b*p-(1- p))/b;
-var kpct=Math.max(0,k*100). toFixed(1);
-var kcash=((kpct/100)*bank). toFixed(2);
-var gain=(kcash*(cote-1)).toFixed( 2);
-var pos=parseFloat(kpct)>0,danger= parseFloat(kpct)>5;
-document.getElementById('kamt' ).textContent='$'+kcash;
-document.getElementById('kamt' ).style.color=pos?'#FF4D00':'# 333';
-document.getElementById('kpct' ).textContent='= '+kpct+'% de votre bankroll';
-document.getElementById(' kgain').textContent='+$'+gain;
-var vd=document.getElementById(' kverdict');
-vd.textContent=danger?'⚠️ RÉDUIRE':pos?'✅ VALEUR+':'❌ ÉVITER';
-vd.style.color=danger?'# FF4D00':pos?'#4CAF50':'#666';
+
+var premiumUnlocked=false;
+function buildFolie(){
+  var el=document.getElementById('p5');
+  var lock='<div class="premium-lock"><div class="premium-badge">PREMIUM ORAK</div><div style="font-size:26px;font-weight:900;color:#ddd;margin-bottom:10px">Paris Folie</div><div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px">Le paris hebdomadaire 100% IA.<br>Cotes entre 50 et 100 — pour le frisson.</div><div style="font-size:12px;color:var(--purple);font-weight:700;margin-bottom:4px">1 semaine gratuite — sans carte bancaire</div><button class="trial-btn" onclick="unlockPremium()">Commencer mon essai gratuit</button></div>';
+  var folie='<div class="folie-banner"><div class="folie-lbl">PARIS FOLIE DU WEEK-END — 100% IA</div><div class="folie-title">LE GRAND FRISSON</div><div class="folie-sub">Genere exclusivement par l\'intelligence artificielle. Pour le plaisir du jeu. Mise maximum : 1% de ta bankroll.</div><div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-size:10px;color:#888;margin-bottom:4px">Cote totale</div><div class="folie-cote">x'+FOLIE.cote+'</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--purple);font-weight:700">'+FOLIE.date+'</div><div style="font-size:10px;color:#555;margin-top:4px">'+FOLIE.selections.length+' selections</div></div></div></div>';
+  folie+='<div class="slbl" style="color:var(--purple);margin-bottom:12px">LES SELECTIONS</div>';
+  FOLIE.selections.forEach(function(s){folie+='<div class="folie-sel"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="folie-sel-match">'+s.match+'</div><div class="folie-sel-mkt">'+s.mkt+'</div></div><div class="folie-sel-cote">x'+s.cote+'</div></div></div>';});
+  folie+='<div class="folie-warn">'+FOLIE.disclaimer+'</div>';
+  el.innerHTML=premiumUnlocked?folie:lock;
 }
-// ── FOLIE DE PARIS
-var premiumUnlocked = false;
-fonction buildFolie(){
-var el=document.getElementById(' p5');
-var lock='< div  class = "premium-lock" >< div  class = "premium-badge" >⭐ PREMIUM ORAK</ div >< div  style = "font-size:22px;font- weight:900;color:#ddd;margin- bottom:8px" >Paris Folie</ div >< div  style = "font-size:13px;color:# 555;line-height:1.7;margin- bottom:4px" >Accède au Paris Folie hebdomadaire généré par l\'IA.< br >Cotes entre 50 et 100 — pour le frisson.</ div >< div  style = "font-size:11px;color: var(--purple); font-weight:700 ; div >< bouton  classe = "trial-btn"  onclick = "unlockPremium()" > Commencer mon essai gratuit</ bouton ></ div >';
-var folie='< div  class = "folie-banner" >< div  class = "folie-lbl" >◆ PARIS FOLIE DU WEEK-END — 100% IA</ div >< div  class = "folie-title" >LE GRAND FRISSON</ div >< div  class = "folie-sub" >Généré exclusivement par l\'intelligence artificielle. Pour le plaisir du jeu. Mise maximale conseillée : 1% de votre bankroll.</ div >< div  style = "display:flex;justify- content:space-between;align- items:flex-end" >< div >< div  style = "font-size:10px;color:# 888;margin-bottom:4px" >Cote totale</ div >< div  class = "folie-cote" >x'+FOLIE. cote+'</ div ></ div >< div  style = "text-align:right" >< div  style = "font-size:10px;color: var(--purple);font-weight:700" >'+FOLIE.date+'</ div >< div  style = "font-size:10px;color:# 555;margin-top:4px" >'+FOLIE. selections.length+' sélections</ div ></ div ></ div ></ div >';
-folie+='< div  class = "slbl purple"  style = "margin-bottom:12px" >◆ LES SÉLECTIONS</ div >';
-FOLIE.selections.forEach( function(s){folie+='< div  class = "folie-sel" >< div  style = "display:flex;justify- content:space-between;align- items:center" >< div >< div  class = "folie-sel-match" >'+s. match+'</ div >< div  class = "folie-sel-mkt" >'+s.mkt+ '</ div ></ div >< div  class = "folie-sel-cote" >x'+s. cote+'</ div ></ div ></ div >';});
-folie+='< div  class = "folie-warn" >⚠️ '+FOLIE.disclaimer+'</ div >';
-el.innerHTML = premiumUnlocked ? folie : lock;
-}
-fonction unlockPremium(){
-premiumDéverrouillé=true ;
-construireFolie();
-// ICI : connecter à votre système de paiement plus tard
-}
-// ── INIT
-buildCoupon();buildTips(); buildStats ( );buildKelly(); buildMindset ( ) ; buildFolie();
- </script> </body> </html>
+function unlockPremium(){premiumUnlocked=true;buildFolie();}
+
+buildCoupon();buildTips();buildStats();buildKelly();buildMindset();buildFolie();
+</script>
+</body>
+</html>
