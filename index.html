@@ -76,6 +76,7 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .rsn{display:flex;gap:9px;margin-bottom:8px;font-size:12.5px;color:#888;line-height:1.5}
 .rdot{color:var(--or);flex-shrink:0;margin-top:1px}
 .hint{padding:13px 15px;background:var(--card);border-radius:11px;font-size:11.5px;color:#444;line-height:1.7;margin-top:10px}
+.nocpn{text-align:center;padding:60px 20px;background:var(--card);border-radius:18px;border:1px dashed var(--bdr)}
 .tip-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;margin-bottom:10px;overflow:hidden}
 .tip-body{padding:14px 16px}
 .tip-type{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.06em}
@@ -143,22 +144,100 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
      ZONE ADMIN — MODIFIER ICI CHAQUE JOUR
      ═══════════════════════════════════════════ -->
 <script>
+
+// ── COUPON DU JOUR
+// actif: false = pas de coupon viable aujourd'hui
 var COUPON = {
   actif: true,
   selections: [
-    {sport:"🏀",league:"NBA — Eastern",match:"Boston Celtics vs Miami Heat",market:"Celtics — Handicap -5.5 pts",cote:1.87,prob:72,sources:["Basketball-Reference","NBA Stats"],raisons:["Celtics : 8-2 ATS sur les 10 derniers matchs domicile","Miami Heat : 3eme back-to-back en 5 jours — fatigue confirmee","Differentiel Boston domicile : +8.3 pts/match cette saison","Jimmy Butler incertain — genou, participation non confirmee"]},
-    {sport:"🏀",league:"NBA — Western",match:"Denver Nuggets vs Phoenix Suns",market:"Jokic double-double",cote:1.65,prob:78,sources:["NBA Stats Official","Basketball-Reference"],raisons:["Jokic : double-double dans 84% de ses matchs domicile cette saison","Phoenix Suns : 3eme pire equipe aux rebonds defensifs (41.2/match)","Jokic moyenne 26.1 pts + 12.4 rbds sur les 10 derniers matchs","Match a fort enjeu playoff — Jokic joue ses meilleures perfs"]},
-    {sport:"⚽",league:"Premier League",match:"Arsenal vs Chelsea",market:"Arsenal — Victoire ou Nul (1X)",cote:1.38,prob:82,sources:["Sofascore","Fbref"],raisons:["Arsenal invaincu a domicile sur 11 matchs (WDWWW)","xG Arsenal domicile 2.3 — Chelsea exterieur 0.9","H2H : Arsenal gagne 4/5 confrontations a domicile","Chelsea : Reece James absent + fatigue Europa League"]}
+    {
+      sport:"🏀",
+      league:"NBA — Western Conference",
+      match:"Denver Nuggets @ San Antonio Spurs",
+      market:"San Antonio Spurs — Victoire (ML)",
+      cote: 1.49,
+      prob: 72,
+      sources:["NBA.com Official","Betwinner","UnderdogNBA"],
+      raisons:[
+        "Nuggets en BACK-TO-BACK — ont joue hier soir a Houston (victoire 129-93)",
+        "Spurs : 16 victoires sur leurs 17 derniers matchs — forme exceptionnelle",
+        "Spurs 3-0 contre Denver cette saison a domicile au Frost Bank Center",
+        "Wembanyama incertain (cheville) — mais Fox 19pts + Castle 16.4pts suffisent",
+        "Denver aligne son 5 titulaire seulement pour la 12eme fois — manque de rythme"
+      ]
+    },
+    {
+      sport:"🏀",
+      league:"NBA — Western Conference",
+      match:"Dallas Mavericks @ Memphis Grizzlies",
+      market:"Under 235.5 points dans le match",
+      cote: 1.91,
+      prob: 70,
+      sources:["NBA.com Official","Betwinner"],
+      raisons:[
+        "Dallas : 8 defaites consecutives — equipe en reconstruction totale",
+        "Memphis : 8 joueurs absents ce soir — seulement 10 disponibles",
+        "Dallas marque seulement 113 pts/match — 29eme attaque NBA",
+        "Memphis a limite Dallas a moins de 106 points lors de leurs 3 confrontations",
+        "Deux equipes epuisees + effectifs reduits = match lent et ferme"
+      ]
+    }
   ]
 };
 
+// ── TIPS DU JOUR
 var TIPS = [
-  {type:"🏀 NBA TIP",col:"#FF9800",bg:"#1A0A00",match:"Celtics vs Heat",league:"NBA — Eastern",prediction:"Total fautes Heat Over 21.5",prob:73,sources:["NBA Stats","Rotowire"],raisons:["Heat joue son 3eme match en 5 jours — fatigue = fautes tactiques","Celtics domicile attaque fort au cercle — provoque les contacts","Arbitres de ce soir : moyenne 44 fautes d'equipe par match","Heat a depasse 22 fautes d'equipe dans 7 de ses 10 derniers deplacement"]},
-  {type:"🏀 NBA TIP",col:"#FF9800",bg:"#1A0A00",match:"Nuggets vs Suns",league:"NBA — Western",prediction:"Jokic Over 11.5 rebonds",prob:76,sources:["Basketball-Reference","ESPN Stats"],raisons:["Jokic : 12.4 rebonds en moyenne sur les 10 derniers matchs","Phoenix : 28eme equipe NBA aux rebonds defensifs cette saison","Nunn et Ayton absents cote Suns — vide dans la raquette","Jokic depasse 12 rebonds dans 70% de ses matchs domicile"]},
-  {type:"📐 CORNER",col:"#00BCD4",bg:"#001A1C",match:"Arsenal vs Chelsea",league:"Premier League",prediction:"Over 9.5 corners dans le match",prob:72,sources:["Footystats","Fbref"],raisons:["Arsenal domicile : 7.3 corners obtenus par match en moyenne","Chelsea defend bas — genere beaucoup de corners adverses","H2H moyen : 11.2 corners par rencontre sur 5 derniers matchs","Derby — intensite maximale, chaque equipe pousse en attaque"]},
-  {type:"🟨 CARTON",col:"#FFD700",bg:"#1A1400",match:"Arsenal vs Chelsea",league:"Premier League",prediction:"Over 4.5 cartons dans le match",prob:74,sources:["Footystats","WhoScored"],raisons:["Arbitre M. Oliver : moyenne 4.8 cartons/match cette saison","Arsenal vs Chelsea historiquement agressif — 4.2 cartons/match H2H","Chelsea a l'exterieur : 2.1 cartons concedes en moyenne par match","Derby de Londres — pression maximale, intensite garantie"]}
+  {
+    type:"🏀 NBA TIP",
+    col:"#FF9800",
+    bg:"#1A0A00",
+    league:"NBA — Western",
+    match:"Nuggets @ Spurs",
+    prediction:"Jokic double-double (pts + rebonds)",
+    prob: 84,
+    sources:["Basketball-Reference","NBA Stats"],
+    raisons:[
+      "Jokic : 28.6 pts + 12.5 reb + 10.4 ast en saison — triple-double machine",
+      "Spurs 3eme pire equipe aux rebonds defensifs (46.3 concedes/match)",
+      "Jokic fait double-double dans 84% de ses matchs cette saison",
+      "Meme en B2B Jokic maintient ses stats — leadership oblige"
+    ]
+  },
+  {
+    type:"🏀 NBA TIP",
+    col:"#FF9800",
+    bg:"#1A0A00",
+    league:"NBA — Western",
+    match:"Mavericks @ Grizzlies",
+    prediction:"Cooper Flagg Over 18.5 points",
+    prob: 71,
+    sources:["NBA.com","Basketball-Reference"],
+    raisons:[
+      "Flagg : 20.1 pts/match en saison — en forme constante",
+      "Avec 8 absents Memphis, Flagg sera le principal relais offensif",
+      "Dallas faible defense exterieure — 27eme rang NBA",
+      "Flagg depasse 19 pts dans 68% de ses matchs recents"
+    ]
+  },
+  {
+    type:"🏀 NBA TIP",
+    col:"#FF9800",
+    bg:"#1A0A00",
+    league:"NBA — Western",
+    match:"Nuggets @ Spurs",
+    prediction:"De'Aaron Fox Over 21.5 points",
+    prob: 70,
+    sources:["NBA.com","UnderdogNBA"],
+    raisons:[
+      "Fox : 19.0 pts/match en saison — mais 25 pts mardi contre Boston",
+      "Si Wembanyama joue limite, Fox devient le 1er scoreur des Spurs",
+      "Nuggets fatigues en B2B — defense poreuse en 2eme soir",
+      "Fox en grande confiance — 5 matchs a 20+ pts sur les 8 derniers"
+    ]
+  }
 ];
 
+// ── PARIS FOLIE (week-end uniquement)
 var FOLIE = {
   actif: true,
   date: "Ce week-end",
@@ -172,8 +251,10 @@ var FOLIE = {
   disclaimer:"Paris 100% genere par IA. Cote extreme = risque extreme. Mise suggeree : 1% de ta bankroll maximum. Pour le plaisir uniquement."
 };
 
+// ── HISTORIQUE (plus recent en premier)
+// res: WIN ou LOSS
 var HISTO = [
-  {date:"12 Mar",matchs:"Celtics -5.5 + Jokic D-D + Arsenal 1X",cote:2.39,res:"WIN"},
+  {date:"12 Mar",matchs:"Spurs ML + Under 235.5 DAL/MEM",cote:2.85,res:"?"},
   {date:"10 Mar",matchs:"Arsenal 1X + Bayern +1.5 + Celtics -5.5",cote:2.41,res:"WIN"},
   {date:"09 Mar",matchs:"PSG Victoire + Man City +2.5 + Lakers ML",cote:2.18,res:"WIN"},
   {date:"08 Mar",matchs:"Real Madrid 1X + BTTS Dortmund + Warriors",cote:1.96,res:"LOSS"},
@@ -182,6 +263,7 @@ var HISTO = [
   {date:"05 Mar",matchs:"Barca Victoire + Corners +9.5 + Heat ML",cote:2.11,res:"WIN"},
   {date:"04 Mar",matchs:"Milan AC + BTTS Juventus + Heat ML",cote:2.55,res:"LOSS"}
 ];
+
 // ═══ FIN ZONE ADMIN ═══
 </script>
 
@@ -225,14 +307,15 @@ function impl(c){return Math.round(100/c);}
 function totC(){return COUPON.selections.reduce(function(a,s){return a*s.cote;},1).toFixed(2);}
 function totP(){return (COUPON.selections.reduce(function(a,s){return a*(s.prob/100);},1)*100).toFixed(1);}
 var wins=HISTO.filter(function(h){return h.res==='WIN';}).length;
-var taux=Math.round(wins/HISTO.length*100);
+var total=HISTO.filter(function(h){return h.res==='WIN'||h.res==='LOSS';}).length;
+var taux=total>0?Math.round(wins/total*100):0;
 
-var tips2=["L'ORAK ne suit pas la foule — il lit les chiffres.","Apres une perte, attends 24h. L'emotion detruit plus de bankrolls que les mauvais coupons.","Le Kelly ne ment pas. Suis-le meme quand ton instinct crie non.","La discipline a fait plus de millionnaires que la chance. Sans exception.","Une cote elevee n'est pas un cadeau — c'est un piege avec un ruban.","5 coupons gagnants d'afilee ? C'est la que les gens perdent tout.","Ta bankroll est un capital. Un investisseur, pas un joueur.","Chase la valeur. Ne chase jamais une perte.","Ce que les autres voient tard, l'ORAK l'a vu la veille."];
+var ticks=["L'ORAK ne suit pas la foule — il lit les chiffres.","Apres une perte, attends 24h. L'emotion detruit plus de bankrolls que les mauvais coupons.","Le Kelly ne ment pas. Suis-le meme quand ton instinct crie non.","La discipline a fait plus de millionnaires que la chance.","Une cote elevee n'est pas un cadeau — c'est un piege.","5 coupons gagnants ? C'est la que les gens perdent tout.","Ta bankroll est un capital. Gere-la comme un investisseur.","Chase la valeur. Ne chase jamais une perte.","Ce que les autres voient tard, l'ORAK l'a vu la veille."];
 var ti=0,tel=document.getElementById('ticker');
-setInterval(function(){tel.style.opacity=0;setTimeout(function(){ti=(ti+1)%tips2.length;tel.textContent=tips2[ti];tel.style.opacity=1;},500);},5500);
+setInterval(function(){tel.style.opacity=0;setTimeout(function(){ti=(ti+1)%ticks.length;tel.textContent=ticks[ti];tel.style.opacity=1;},500);},5500);
 
 document.getElementById('ds').textContent=fmtD(false);
-var sdata=[{l:'Reussite',v:taux+'%',h:true},{l:'Ce mois',v:wins+'/'+HISTO.length},{l:'Cote moy.',v:'2.30'},{l:'ROI',v:'+34%'}];
+var sdata=[{l:'Reussite',v:taux+'%',h:true},{l:'Ce mois',v:wins+'/'+total},{l:'Cote moy.',v:'2.30'},{l:'ROI',v:'+34%'}];
 document.getElementById('sr').innerHTML=sdata.map(function(s){return'<div class="sb'+(s.h?' hot':'')+'"><div class="sv">'+s.v+'</div><div class="sl">'+s.l+'</div></div>';}).join('');
 
 function go(i){
@@ -244,7 +327,10 @@ function go(i){
 
 function buildCoupon(){
   var el=document.getElementById('p0');
-  if(!COUPON.actif){el.innerHTML='<div style="text-align:center;padding:60px 20px;background:var(--card);border-radius:18px;border:1px dashed var(--bdr)"><div style="font-size:44px;margin-bottom:14px">⏳</div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Pas de coupon viable aujourd\'hui.</div><div style="font-size:13px;color:#444;line-height:1.6">L\'ORAK n\'a pas trouve de combinaison depassant 70% de viabilite.<br>On ne propose rien plutot que de risquer ta bankroll.</div></div>';return;}
+  if(!COUPON.actif){
+    el.innerHTML='<div class="nocpn"><div style="font-size:44px;margin-bottom:14px">⏳</div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Pas de coupon viable aujourd\'hui.</div><div style="font-size:13px;color:#444;line-height:1.6">L\'ORAK n\'a pas trouve de combinaison depassant 70%.<br>On ne propose rien plutot que de risquer ta bankroll.</div></div>';
+    return;
+  }
   var h='<div class="banner"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="ban-lbl">COUPON DU JOUR — L\'ORAK A PARLE</div><div class="ban-date">'+fmtD(true)+'</div></div><div style="text-align:right"><div class="ban-cote">x'+totC()+'</div><div style="font-size:10px;color:#444;margin-top:2px">cote totale</div></div></div><div class="ban-meta"><div class="mb"><div class="mv">'+totP()+'%</div><div class="ml">Viabilite</div></div><div class="mb"><div class="mv">'+COUPON.selections.length+' PICKS</div><div class="ml">Selections</div></div><div class="mb"><div class="mv">VALIDE</div><div class="ml">Statut</div></div></div></div>';
   h+='<div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px">Appuie pour voir l\'analyse complete</div>';
   COUPON.selections.forEach(function(s,i){
@@ -257,25 +343,33 @@ function buildCoupon(){
 function tog(id){var el=document.getElementById(id);var i=id.replace('ca','');var btn=document.getElementById('cb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Sur quoi l\'ORAK base cette selection ?';}}
 
 function buildTips(){
-  var h='<div class="slbl" style="color:var(--gold)">TIPS DU JOUR — STATISTIQUES RECURRENTES</div>';
-  h+='<div style="font-size:12px;color:#444;margin:6px 0 16px;line-height:1.6">Stats a haute probabilite pour enrichir tes coupons. Probabilite cible : 70 a 75%.</div>';
+  var h='<div class="slbl" style="color:var(--gold)">TIPS DU JOUR — STATS RECURRENTES</div>';
+  h+='<div style="font-size:12px;color:#444;margin:6px 0 16px;line-height:1.6">Stats a haute probabilite pour enrichir tes coupons personnels. 70 a 84% de chance de passer.</div>';
   TIPS.forEach(function(t,i){
     h+='<div class="tip-card"><div class="tip-body"><div class="tip-type" style="background:'+t.bg+';color:'+t.col+'">'+t.type+'</div><div style="font-size:10px;color:#444;margin-bottom:5px">'+t.league+'</div><div class="tip-match">'+t.match+'</div><div class="tip-pred" style="color:'+t.col+'">'+t.prediction+'</div><div class="tip-prob">Probabilite ORAK : <span>'+t.prob+'%</span></div><button class="tip-abtn" onclick="togT(\'ta'+i+'\')" id="tb'+i+'">Pourquoi ce tip ?</button></div><div id="ta'+i+'" class="tip-abody" style="display:none"><div class="srcs">'+t.sources.map(function(x){return'<span class="stag" style="background:'+t.bg+';color:'+t.col+'">'+x+'</span>';}).join('')+'</div>'+t.raisons.map(function(r){return'<div class="tip-why"><span style="color:'+t.col+';flex-shrink:0">◆</span><span>'+r+'</span></div>';}).join('')+'<div class="tip-warn">Ce tip n\'a pas de cote associee. Retrouve le marche sur ton bookmaker pour l\'integrer a ton coupon.</div></div></div>';
   });
   document.getElementById('p1').innerHTML=h;
 }
-function togT(id){var el=document.getElementById(id);var i=id.replace('ta','');var btn=document.getElementById('tb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Pourquoi ce tip ?';}}
+function togT(id){var el=document.getElementById(id);var i=id.replace('ta','');var btn=document.getElementById('tb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer';}else{el.style.display='none';btn.textContent='Pourquoi ce tip ?';}}
 
 function buildStats(){
   var h='<div class="shdr"><div class="slbl">RESULTATS — TRANSPARENCE TOTALE</div><div class="tbadge">'+taux+'% reussite</div></div>';
-  h+='<div class="hgrid"><div class="hs"><div class="hsv" style="color:var(--win)">'+wins+'</div><div class="hsl">Victoires</div></div><div class="hs"><div class="hsv" style="color:var(--or)">'+(HISTO.length-wins)+'</div><div class="hsl">Defaites</div></div><div class="hs"><div class="hsv" style="color:var(--txt)">'+HISTO.length+'</div><div class="hsl">Total</div></div></div>';
-  HISTO.forEach(function(h2){var w=h2.res==='WIN';h+='<div class="hrow" style="border:1px solid '+(w?'#0D1F0D':'#1F0D0D')+'"><div class="hico" style="background:'+(w?'#0D2A0D':'#2A0D0D')+'">'+(w?'V':'X')+'</div><div style="flex:1;min-width:0"><div class="hd">'+h2.date+'</div><div class="hm">'+h2.matchs+'</div></div><div style="text-align:right;flex-shrink:0"><div class="hc">x'+h2.cote+'</div><div class="hp" style="color:'+(w?'var(--win)':'var(--or)')+'">'+(w?'+'+Math.round((h2.cote-1)*100)+'%':'-100%')+'</div></div></div>';});
-  h+='<div class="pacte"><span style="color:var(--or);font-weight:700">Pacte de transparence ORAK.</span> Chaque coupon — gagne ou perdu — est enregistre ici. Aucun resultat supprime. Jamais.</div>';
+  h+='<div class="hgrid"><div class="hs"><div class="hsv" style="color:var(--win)">'+wins+'</div><div class="hsl">Victoires</div></div><div class="hs"><div class="hsv" style="color:var(--or)">'+(total-wins)+'</div><div class="hsl">Defaites</div></div><div class="hs"><div class="hsv">'+total+'</div><div class="hsl">Total</div></div></div>';
+  HISTO.forEach(function(h2){
+    var w=h2.res==='WIN',p=h2.res==='?';
+    var bc=p?'#1A1A00':w?'#0D1F0D':'#1F0D0D';
+    var ic=p?'#2A2A00':w?'#0D2A0D':'#2A0D0D';
+    var sym=p?'⏳':w?'V':'X';
+    var col=p?'var(--gold)':w?'var(--win)':'var(--or)';
+    var pct=p?'En cours':w?'+'+Math.round((h2.cote-1)*100)+'%':'-100%';
+    h+='<div class="hrow" style="border:1px solid '+bc+'"><div class="hico" style="background:'+ic+'">'+sym+'</div><div style="flex:1;min-width:0"><div class="hd">'+h2.date+'</div><div class="hm">'+h2.matchs+'</div></div><div style="text-align:right;flex-shrink:0"><div class="hc">x'+h2.cote+'</div><div class="hp" style="color:'+col+'">'+pct+'</div></div></div>';
+  });
+  h+='<div class="pacte"><span style="color:var(--or);font-weight:700">Pacte de transparence ORAK.</span> Chaque coupon gagne ou perdu est enregistre ici. Aucun resultat supprime. Jamais.</div>';
   document.getElementById('p2').innerHTML=h;
 }
 
 function buildKelly(){
-  document.getElementById('p3').innerHTML='<div class="klbl">CRITERE DE KELLY — MISE OPTIMALE</div><p class="kdesc">Kelly calcule combien miser pour maximiser tes gains sur le long terme sans detruire ta bankroll. La methode des traders et parieurs professionnels.</p><div class="kfield"><label>Bankroll totale ($)</label><input class="kinput" type="number" id="kb" value="200" oninput="updateKelly()"></div><div class="kfield"><label>Probabilite reelle estimee (%)</label><input class="kinput" type="number" id="kp" value="72" min="1" max="99" oninput="updateKelly()"></div><div class="kfield"><label>Cote du bookmaker</label><input class="kinput" type="number" id="kc" value="2.2" step="0.01" oninput="updateKelly()"></div><div class="kres"><div class="kreslbl">Mise recommandee par l\'ORAK</div><div class="kamt" id="kamt">$0</div><div class="kpct" id="kpct">= 0% de ta bankroll</div><div class="kgrid"><div class="kbox"><div class="kbv" id="kgain">+$0</div><div class="kbl">Gain net potentiel</div></div><div class="kbox"><div class="kbv" id="kverdict" style="font-size:12px">—</div><div class="kbl">Verdict Kelly</div></div></div><div class="knote">Regle absolue : ne jamais depasser 5% de ta bankroll sur un seul coupon.</div></div>';
+  document.getElementById('p3').innerHTML='<div class="klbl">CRITERE DE KELLY — MISE OPTIMALE</div><p class="kdesc">Kelly calcule combien miser pour maximiser tes gains sur le long terme sans detruire ta bankroll.</p><div class="kfield"><label>Bankroll totale ($)</label><input class="kinput" type="number" id="kb" value="200" oninput="updateKelly()"></div><div class="kfield"><label>Probabilite reelle estimee (%)</label><input class="kinput" type="number" id="kp" value="72" min="1" max="99" oninput="updateKelly()"></div><div class="kfield"><label>Cote du bookmaker</label><input class="kinput" type="number" id="kc" value="2.85" step="0.01" oninput="updateKelly()"></div><div class="kres"><div class="kreslbl">Mise recommandee par l\'ORAK</div><div class="kamt" id="kamt">$0</div><div class="kpct" id="kpct">= 0% de ta bankroll</div><div class="kgrid"><div class="kbox"><div class="kbv" id="kgain">+$0</div><div class="kbl">Gain net potentiel</div></div><div class="kbox"><div class="kbv" id="kverdict" style="font-size:12px">—</div><div class="kbl">Verdict Kelly</div></div></div><div class="knote">Regle absolue : ne jamais depasser 5% de ta bankroll sur un seul coupon.</div></div>';
   updateKelly();
 }
 function updateKelly(){
@@ -300,18 +394,18 @@ function buildMindset(){
   var A=[
     {i:'🎲',t:'Le biais du joueur — l\'ennemi invisible',b:'Apres 5 defaites, le cerveau croit que la victoire est due. Faux. Chaque pari est independant. La chance n\'a pas de memoire. Ne modifie jamais ta strategie a cause d\'une serie.'},
     {i:'📉',t:'La mise de recuperation — le piege fatal',b:'Doubler apres une perte pour recuperer est le comportement le plus destructeur. Il transforme une petite perte en desastre. Le Kelly existe precisement pour eviter ca.'},
-    {i:'⚡',t:'L\'overconfidence — le danger des series gagnantes',b:'5 coupons gagnants d\'afilee ? C\'est la qu\'il faut etre le plus rigoureux. L\'exces de confiance pousse a parier trop, trop vite, avec moins d\'analyse. Le marche punit toujours l\'arrogance.'},
+    {i:'⚡',t:'L\'overconfidence — le danger des series gagnantes',b:'5 coupons gagnants d\'afilee ? C\'est la qu\'il faut etre le plus rigoureux. L\'exces de confiance pousse a parier trop vite avec moins d\'analyse. Le marche punit toujours l\'arrogance.'},
     {i:'🏆',t:'La routine du parieur gagnant',b:'Analyse le matin a tete reposee. Pose tes selections l\'apres-midi. Ne modifie jamais un coupon 30 minutes avant le match. Les decisions de derniere minute coutent cher.'},
     {i:'👁️',t:'Value betting — voir ce que les autres ignorent',b:'Un vrai parieur ne cherche pas qui va gagner. Il cherche ou le bookmaker se trompe. Si la probabilite reelle est 70% et la cote implique 55%, c\'est la qu\'on mise. Pas ailleurs.'},
     {i:'🧊',t:'Gerer une mauvaise serie — rester froid',b:'3 defaites de suite ? C\'est statistiquement normal meme avec 70% de win rate. La reponse correcte : reduire les mises a 50%, relire tes analyses, attendre. Jamais augmenter.'},
-    {i:'⏰',t:'Le parieur impatient perd toujours',b:'Les profits en paris sportifs se construisent sur des mois, pas des jours. Celui qui veut doubler sa bankroll en une semaine va la perdre en une semaine. La patience est l\'arme principale.'},
-    {i:'📵',t:'Ne jamais parier sous influence',b:'Alcool, fatigue extreme, stress, dispute — dans ces etats le cerveau prend des decisions emotionnelles. Regle simple : si tu n\'es pas a 100%, tu ne paries pas. Point.'},
-    {i:'💡',t:'Separer l\'argent des paris de l\'argent de la vie',b:'La bankroll doit etre une somme que tu peux perdre entierement sans consequence sur ta vie quotidienne. Loyer, nourriture, transport — ces depenses ne touchent jamais a la bankroll.'},
-    {i:'🔍',t:'Analyser ses pertes comme ses victoires',b:'Apres chaque coupon perdu, la question n\'est pas pourquoi j\'ai pas eu de chance mais est-ce que mon analyse etait solide. Si oui, continue. Si non, comprends l\'erreur. Les pertes intelligentes font les gagnants.'},
-    {i:'🎯',t:'La specialisation — la cle des tipsters qui durent',b:'Les parieurs qui gagnent sur le long terme ne parient pas sur tout. Ils maitrisent 2 a 3 ligues a fond. Ils connaissent les arbitres, les calendriers, les dynamiques d\'equipe. Specialise-toi.'},
-    {i:'🚫',t:'Les marches a eviter absolument',b:'Cotes tres elevees sans analyse profonde, marches exotiques mal connus, matchs amicaux sans enjeu — ces marches favorisent massivement le bookmaker. L\'ORAK les evite systematiquement.'},
-    {i:'💎',t:'Le secret des vrais gagnants',b:'Les meilleurs tipsters du monde ne gagnent pas 80% de leurs paris. Ils gagnent 56 a 60% — mais avec une gestion de bankroll parfaite et une recherche constante de value. La regularite bat l\'exploit.'},
-    {i:'🧠',t:'Comprendre les cotes pour les dominer',b:'Une cote de 2.00 signifie que le bookmaker pense que tu as 50% de chances. Ton travail : trouver ou il se trompe. Si tu penses 60% — la cote 2.00 est une mine d\'or. C\'est ca le value betting.'}
+    {i:'⏰',t:'Le parieur impatient perd toujours',b:'Les profits se construisent sur des mois, pas des jours. Celui qui veut doubler sa bankroll en une semaine va la perdre en une semaine. La patience est l\'arme principale.'},
+    {i:'📵',t:'Ne jamais parier sous influence',b:'Alcool, fatigue extreme, stress, dispute — dans ces etats le cerveau prend des decisions emotionnelles. Regle simple : si tu n\'es pas a 100%, tu ne paries pas.'},
+    {i:'💡',t:'Separer l\'argent des paris de l\'argent de la vie',b:'La bankroll doit etre une somme que tu peux perdre entierement sans consequence sur ta vie. Loyer, nourriture, transport — ces depenses ne touchent jamais a la bankroll.'},
+    {i:'🔍',t:'Analyser ses pertes comme ses victoires',b:'Apres chaque coupon perdu : est-ce que mon analyse etait solide ? Si oui, continue. Si non, comprends l\'erreur. Les pertes intelligentes font les gagnants de demain.'},
+    {i:'🎯',t:'La specialisation — la cle des tipsters qui durent',b:'Les parieurs qui gagnent sur le long terme maitrisent 2 a 3 ligues a fond. Ils connaissent les arbitres, les calendriers, les dynamiques d\'equipe. Specialise-toi.'},
+    {i:'🚫',t:'Les marches a eviter absolument',b:'Cotes tres elevees sans analyse profonde, marches exotiques mal connus, matchs amicaux sans enjeu — ces marches favorisent massivement le bookmaker.'},
+    {i:'💎',t:'Le secret des vrais gagnants',b:'Les meilleurs tipsters ne gagnent pas 80% de leurs paris. Ils gagnent 56 a 60% — mais avec une gestion de bankroll parfaite et une recherche constante de value. La regularite bat l\'exploit.'},
+    {i:'🧠',t:'Comprendre les cotes pour les dominer',b:'Une cote de 2.00 signifie que le bookmaker pense 50% de chances. Ton travail : trouver ou il se trompe. Si tu penses 60% — la cote 2.00 est une mine d\'or. C\'est ca le value betting.'}
   ];
   var h='<div class="slbl">MINDSET — PSYCHOLOGIE DU PARIEUR</div><p class="pdesc">Les meilleures analyses ne valent rien sans la bonne tete. Lis une carte par jour.</p>';
   A.forEach(function(a){h+='<div class="pcard"><div class="pico">'+a.i+'</div><div class="ptitle">'+a.t+'</div><div class="pbody">'+a.b+'</div></div>';});
@@ -322,7 +416,7 @@ var premiumUnlocked=false;
 function buildFolie(){
   var el=document.getElementById('p5');
   var lock='<div class="premium-lock"><div class="premium-badge">PREMIUM ORAK</div><div style="font-size:26px;font-weight:900;color:#ddd;margin-bottom:10px">Paris Folie</div><div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px">Le paris hebdomadaire 100% IA.<br>Cotes entre 50 et 100 — pour le frisson.</div><div style="font-size:12px;color:var(--purple);font-weight:700;margin-bottom:4px">1 semaine gratuite — sans carte bancaire</div><button class="trial-btn" onclick="unlockPremium()">Commencer mon essai gratuit</button></div>';
-  var folie='<div class="folie-banner"><div class="folie-lbl">PARIS FOLIE DU WEEK-END — 100% IA</div><div class="folie-title">LE GRAND FRISSON</div><div class="folie-sub">Genere exclusivement par l\'intelligence artificielle. Pour le plaisir du jeu. Mise maximum : 1% de ta bankroll.</div><div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-size:10px;color:#888;margin-bottom:4px">Cote totale</div><div class="folie-cote">x'+FOLIE.cote+'</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--purple);font-weight:700">'+FOLIE.date+'</div><div style="font-size:10px;color:#555;margin-top:4px">'+FOLIE.selections.length+' selections</div></div></div></div>';
+  var folie='<div class="folie-banner"><div class="folie-lbl">PARIS FOLIE DU WEEK-END — 100% IA</div><div class="folie-title">LE GRAND FRISSON</div><div class="folie-sub">Genere exclusivement par l\'IA. Pour le plaisir du jeu. Mise maximum : 1% de ta bankroll.</div><div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-size:10px;color:#888;margin-bottom:4px">Cote totale</div><div class="folie-cote">x'+FOLIE.cote+'</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--purple);font-weight:700">'+FOLIE.date+'</div></div></div></div>';
   folie+='<div class="slbl" style="color:var(--purple);margin-bottom:12px">LES SELECTIONS</div>';
   FOLIE.selections.forEach(function(s){folie+='<div class="folie-sel"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="folie-sel-match">'+s.match+'</div><div class="folie-sel-mkt">'+s.mkt+'</div></div><div class="folie-sel-cote">x'+s.cote+'</div></div></div>';});
   folie+='<div class="folie-warn">'+FOLIE.disclaimer+'</div>';
