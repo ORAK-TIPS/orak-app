@@ -76,7 +76,11 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .rsn{display:flex;gap:9px;margin-bottom:8px;font-size:12.5px;color:#888;line-height:1.5}
 .rdot{color:var(--or);flex-shrink:0;margin-top:1px}
 .hint{padding:13px 15px;background:var(--card);border-radius:11px;font-size:11.5px;color:#444;line-height:1.7;margin-top:10px}
-.nocpn{text-align:center;padding:60px 20px;background:var(--card);border-radius:18px;border:1px dashed var(--bdr)}
+.aff-btn{display:block;background:linear-gradient(135deg,#1a6b1a,#2d9e2d);color:#fff;border:none;border-radius:14px;padding:16px 20px;font-size:14px;font-weight:700;width:100%;text-align:center;margin:14px 0;text-decoration:none;letter-spacing:.03em;touch-action:manipulation}
+.aff-btn:active{opacity:.85}
+.aff-banner{background:linear-gradient(135deg,#0A1A0A,#0F1F0F);border:1.5px solid #2d9e2d;border-radius:14px;padding:16px;margin:14px 0;text-align:center}
+.aff-title{font-size:13px;font-weight:700;color:#4CAF50;margin-bottom:6px}
+.aff-sub{font-size:11px;color:#555;line-height:1.6;margin-bottom:12px}
 .tip-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;margin-bottom:10px;overflow:hidden}
 .tip-body{padding:14px 16px}
 .tip-type{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:8px;letter-spacing:.06em}
@@ -264,6 +268,9 @@ var HISTO = [
   {date:"04 Mar",matchs:"Milan AC + BTTS Juventus + Heat ML",cote:2.55,res:"LOSS"}
 ];
 
+// ── LIEN AFFILIÉ 1xBET
+var AFFILIE = "https://reffpa.com/L?tag=d_5355055m_97c_&site=5355055&ad=97";
+
 // ═══ FIN ZONE ADMIN ═══
 </script>
 
@@ -338,6 +345,7 @@ function buildCoupon(){
     h+='<div class="card"><div class="cb"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="flex:1"><div class="cl">'+s.sport+' '+s.league+'</div><div class="cm">'+s.match+'</div><div class="cmk">'+s.market+'</div></div><div style="text-align:right;flex-shrink:0"><div class="cc">'+s.cote+'</div><div class="cp">'+s.prob+'% reel</div></div></div><div class="vbar"><div class="vrow"><span class="vl">Probabilite calculee</span><span class="ve">+'+edge+'% VALUE EDGE</span></div><div class="vtrack"><div class="vfill" style="width:'+s.prob+'%"></div></div></div><button class="abtn" onclick="tog(\'ca'+i+'\')" id="cb'+i+'">Sur quoi l\'ORAK base cette selection ?</button></div><div id="ca'+i+'" class="abody" style="display:none"><div class="srcs">'+s.sources.map(function(x){return'<span class="stag">'+x+'</span>';}).join('')+'<span class="itag">Cote implicite : '+impl(s.cote)+'%</span></div>'+s.raisons.map(function(r){return'<div class="rsn"><span class="rdot">◆</span><span>'+r+'</span></div>';}).join('')+'</div></div>';
   });
   h+='<div class="hint">Va dans Tips pour des stats supplementaires a ajouter sur ton coupon.</div>';
+  h+='<div class="aff-banner"><div class="aff-title">🎰 Joue ce coupon sur 1xBet</div><div class="aff-sub">Meilleurs cotes + bonus de bienvenue disponible.<br>Inscris-toi via ORAK et soutiens le projet.</div><a class="aff-btn" href="'+AFFILIE+'" target="_blank" rel="noopener">Ouvrir un compte 1xBet →</a></div>';
   el.innerHTML=h;
 }
 function tog(id){var el=document.getElementById(id);var i=id.replace('ca','');var btn=document.getElementById('cb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Sur quoi l\'ORAK base cette selection ?';}}
@@ -415,7 +423,7 @@ function buildMindset(){
 var premiumUnlocked=false;
 function buildFolie(){
   var el=document.getElementById('p5');
-  var lock='<div class="premium-lock"><div class="premium-badge">PREMIUM ORAK</div><div style="font-size:26px;font-weight:900;color:#ddd;margin-bottom:10px">Paris Folie</div><div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px">Le paris hebdomadaire 100% IA.<br>Cotes entre 50 et 100 — pour le frisson.</div><div style="font-size:12px;color:var(--purple);font-weight:700;margin-bottom:4px">1 semaine gratuite — sans carte bancaire</div><button class="trial-btn" onclick="unlockPremium()">Commencer mon essai gratuit</button></div>';
+  var lock='<div class="premium-lock"><div class="premium-badge">PREMIUM ORAK</div><div style="font-size:26px;font-weight:900;color:#ddd;margin-bottom:10px">Paris Folie</div><div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px">Le paris hebdomadaire 100% IA.<br>Cotes entre 50 et 100 — pour le frisson.</div><div style="font-size:12px;color:var(--purple);font-weight:700;margin-bottom:4px">1 semaine gratuite — sans carte bancaire</div><div style="font-size:11px;color:#444;margin-bottom:4px">Cree ton compte 1xBet via ORAK pour activer le premium</div><a class="aff-btn" href="'+AFFILIE+'" target="_blank" rel="noopener" style="background:linear-gradient(135deg,var(--purple),#7D3C98);margin-bottom:10px">Creer mon compte 1xBet →</a><button class="trial-btn" onclick="unlockPremium()" style="margin-top:6px;font-size:12px;background:#1A1A1A;border:1px solid #333">Deja inscrit — voir le Paris Folie</button></div>';
   var folie='<div class="folie-banner"><div class="folie-lbl">PARIS FOLIE DU WEEK-END — 100% IA</div><div class="folie-title">LE GRAND FRISSON</div><div class="folie-sub">Genere exclusivement par l\'IA. Pour le plaisir du jeu. Mise maximum : 1% de ta bankroll.</div><div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-size:10px;color:#888;margin-bottom:4px">Cote totale</div><div class="folie-cote">x'+FOLIE.cote+'</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--purple);font-weight:700">'+FOLIE.date+'</div></div></div></div>';
   folie+='<div class="slbl" style="color:var(--purple);margin-bottom:12px">LES SELECTIONS</div>';
   FOLIE.selections.forEach(function(s){folie+='<div class="folie-sel"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="folie-sel-match">'+s.match+'</div><div class="folie-sel-mkt">'+s.mkt+'</div></div><div class="folie-sel-cote">x'+s.cote+'</div></div></div>';});
