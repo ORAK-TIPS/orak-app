@@ -24,6 +24,8 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.8)}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes glow{0%,100%{box-shadow:0 0 8px #9B59B688}50%{box-shadow:0 0 22px #9B59B6cc}}
+@keyframes slideUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
 #ticker{background:var(--or);color:#fff;padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:.04em;text-align:center;transition:opacity .5s;min-height:40px;display:flex;align-items:center;justify-content:center}
 .hdr{padding:20px 20px 0;border-bottom:1px solid #111}
 .logo{font-family:var(--fd);font-size:54px;line-height:1;letter-spacing:.1em;background:linear-gradient(135deg,var(--or),var(--or2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -93,6 +95,23 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .tip-abody{padding:0 16px 14px;border-top:1px solid #141414;animation:fadeIn .2s ease}
 .tip-why{display:flex;gap:8px;margin-bottom:7px;font-size:12px;color:#888;line-height:1.5}
 .tip-warn{margin-top:10px;padding:10px 14px;background:#111;border-radius:8px;font-size:10.5px;color:#555;line-height:1.6;border-left:2px solid var(--gold)}
+
+/* ── Marchés alternatifs (Free Tips) */
+.alt-card{background:var(--card);border:1px solid var(--bdr);border-radius:14px;margin-bottom:10px;overflow:hidden;transition:border-color .2s}
+.alt-body{padding:14px 16px}
+.alt-marche{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:8px;letter-spacing:.06em}
+.alt-match{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px}
+.alt-pred{font-size:14px;font-weight:700;margin-top:2px}
+.alt-cote{display:inline-flex;align-items:center;gap:6px;margin-top:7px;font-size:11px;color:#555}
+.alt-cote strong{color:var(--txt);font-size:12px}
+.alt-abtn{margin-top:10px;background:transparent;border:1px solid #252525;border-radius:8px;color:#555;font-size:11px;padding:7px 13px;width:100%;text-align:left;touch-action:manipulation;font-family:var(--fn)}
+.alt-abtn:active{background:#111}
+.alt-abody{padding:0 16px 14px;border-top:1px solid #141414;animation:fadeIn .2s ease}
+.alt-why{display:flex;gap:8px;margin-bottom:7px;font-size:12px;color:#888;line-height:1.5}
+.section-divider{display:flex;align-items:center;gap:10px;margin:20px 0 14px}
+.section-divider span{font-size:10px;color:#333;white-space:nowrap;text-transform:uppercase;letter-spacing:.1em}
+.section-divider::before,.section-divider::after{content:'';flex:1;height:1px;background:#1A1A1A}
+.free-badge{background:#0D1A00;border:1px solid #2d9e2d;color:#4CAF50;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.08em}
 .shdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
 .tbadge{background:#1A0A00;border:1px solid var(--or);color:var(--or);font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px}
 .hgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:17px}
@@ -135,11 +154,119 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 .folie-sel-match{font-size:13px;font-weight:700;color:#ddd;margin-bottom:4px}
 .folie-sel-mkt{font-size:12px;color:var(--purple);font-weight:600}
 .folie-sel-cote{font-family:var(--fd);font-size:22px;color:#E8A0FF}
-.premium-lock{text-align:center;padding:40px 20px;background:linear-gradient(135deg,#0D0020,#111);border:1px dashed #3A0060;border-radius:18px;margin-bottom:14px}
+.premium-lock{text-align:center;padding:32px 20px;background:linear-gradient(135deg,#0D0020,#111);border:1px dashed #3A0060;border-radius:18px;margin-bottom:14px}
 .premium-badge{display:inline-block;background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;margin-bottom:12px;letter-spacing:.06em}
 .trial-btn{background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;border:none;border-radius:12px;padding:14px 24px;font-size:14px;font-weight:700;width:100%;margin-top:14px;touch-action:manipulation;transition:opacity .2s;font-family:var(--fn)}
 .trial-btn:active{opacity:.8}
 .folie-warn{padding:12px 14px;background:#0A0010;border-radius:10px;font-size:11px;color:#555;line-height:1.7;margin-top:14px;border-left:3px solid var(--purple)}
+
+/* ═══ MODAL PREMIUM ═══ */
+.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:1000;display:flex;align-items:flex-end;justify-content:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-overlay.hidden{display:none}
+.modal-box{background:#0C0C0C;border:1px solid #1E1E1E;border-radius:24px 24px 0 0;width:100%;max-width:430px;max-height:90vh;overflow-y:auto;padding:24px 20px 40px;animation:slideUp .35s cubic-bezier(.25,.8,.25,1)}
+.modal-drag{width:40px;height:4px;background:#2A2A2A;border-radius:2px;margin:0 auto 20px}
+.modal-title{font-family:var(--fd);font-size:32px;letter-spacing:.08em;margin-bottom:4px;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.modal-sub{font-size:12px;color:#555;margin-bottom:22px;line-height:1.6}
+
+/* Plans */
+.plan-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.plan{background:var(--card);border:2px solid #1E1E1E;border-radius:16px;padding:16px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
+.plan.sel{border-color:var(--purple);background:#0D0020}
+.plan-name{font-size:11px;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.plan-price{font-family:var(--fd);font-size:32px;color:var(--txt)}
+.plan-usd{font-size:10px;color:#444;margin-top:2px}
+.plan-badge{position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;font-size:9px;font-weight:700;padding:2px 10px;border-radius:10px;white-space:nowrap}
+
+/* Méthodes de paiement */
+.pay-tabs{display:flex;gap:8px;margin-bottom:18px}
+.pay-tab{flex:1;padding:10px 4px;border-radius:12px;border:1.5px solid #1E1E1E;background:var(--card);color:#555;font-size:11px;font-weight:700;text-align:center;cursor:pointer;transition:all .2s;line-height:1.4}
+.pay-tab.on{border-color:var(--purple);background:#0D0020;color:#E8A0FF}
+
+/* AirTM */
+.airtm-block{background:linear-gradient(135deg,#001A10,#001510);border:1.5px solid #00A862;border-radius:16px;padding:18px;margin-bottom:14px}
+.airtm-logo{font-size:22px;margin-bottom:8px}
+.airtm-title{font-size:14px;font-weight:700;color:#00D97E;margin-bottom:10px}
+.airtm-step{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px;font-size:12px;color:#888;line-height:1.5}
+.airtm-num{background:#00A862;color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;margin-top:1px}
+.copy-row{display:flex;align-items:center;gap:8px;background:#002210;border:1px solid #00A862;border-radius:10px;padding:12px 14px;margin:10px 0}
+.copy-val{font-size:13px;font-weight:700;color:#00D97E;flex:1;word-break:break-all}
+.copy-btn{background:#00A862;color:#fff;border:none;border-radius:8px;padding:7px 12px;font-size:10px;font-weight:700;cursor:pointer;flex-shrink:0;touch-action:manipulation;font-family:var(--fn)}
+.copy-btn:active{opacity:.7}
+.amount-highlight{background:#002210;border:1px dashed #00A862;border-radius:10px;padding:12px;text-align:center;margin:10px 0}
+.amount-val{font-family:var(--fd);font-size:36px;color:#00D97E}
+.amount-lbl{font-size:10px;color:#444;text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
+
+/* Crypto */
+.crypto-block{background:linear-gradient(135deg,#0A0A1A,#0D0D22);border:1.5px solid #3A3A80;border-radius:16px;padding:18px;margin-bottom:14px}
+.crypto-sel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.coin-btn{background:#111;border:1.5px solid #222;border-radius:10px;color:#555;font-size:11px;font-weight:700;padding:7px 13px;cursor:pointer;transition:all .2s;font-family:var(--fn)}
+.coin-btn.on{border-color:#F7931A;color:#F7931A;background:#1A0F00}
+.coin-btn.on.eth{border-color:#627EEA;color:#627EEA;background:#0A0E1A}
+.coin-btn.on.usdt{border-color:#26A17B;color:#26A17B;background:#001A12}
+.wallet-block{background:#0D0D1A;border:1px solid #2A2A60;border-radius:12px;padding:14px}
+.wallet-net{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.wallet-addr{font-size:11px;font-weight:700;color:#AAA;word-break:break-all;margin-bottom:10px;font-family:monospace;line-height:1.5}
+.qr-placeholder{background:#111;border:1px solid #1E1E1E;border-radius:10px;height:60px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#333;margin-bottom:10px}
+.crypto-warn{font-size:10px;color:#555;line-height:1.6;padding:10px;background:#080808;border-radius:8px;border-left:2px solid #F7931A}
+
+/* Formulaire confirmation */
+.confirm-block{margin-top:18px}
+.confirm-lbl{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;display:block}
+.confirm-input{background:#111;border:1px solid #252525;border-radius:11px;color:var(--txt);padding:12px 16px;font-size:14px;width:100%;outline:none;transition:border-color .2s;margin-bottom:10px}
+.confirm-input:focus{border-color:var(--purple)}
+.submit-btn{background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;border:none;border-radius:14px;padding:16px;font-size:15px;font-weight:700;width:100%;cursor:pointer;touch-action:manipulation;font-family:var(--fn);transition:opacity .2s;margin-top:6px}
+.submit-btn:active{opacity:.8}
+.submit-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* Code d'activation */
+.code-block{background:linear-gradient(135deg,#0D0020,#111);border:1.5px dashed #3A0060;border-radius:16px;padding:18px;margin-bottom:14px}
+.code-title{font-size:13px;font-weight:700;color:#E8A0FF;margin-bottom:8px}
+.code-input{background:#0A0015;border:1px solid #3A0060;border-radius:11px;color:#E8A0FF;padding:12px 16px;font-size:18px;font-weight:700;width:100%;outline:none;letter-spacing:.15em;text-transform:uppercase;text-align:center;margin-bottom:10px}
+.code-input:focus{border-color:var(--purple)}
+.code-btn{background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;border:none;border-radius:11px;padding:13px;font-size:13px;font-weight:700;width:100%;cursor:pointer;font-family:var(--fn);touch-action:manipulation}
+.code-btn:active{opacity:.8}
+.code-err{font-size:11px;color:#E74C3C;text-align:center;margin-top:6px;display:none}
+.code-ok{font-size:11px;color:var(--win);text-align:center;margin-top:6px;display:none}
+
+/* États */
+.state-pending{text-align:center;padding:30px 20px}
+.pending-icon{font-size:44px;margin-bottom:14px;animation:pulse 2s infinite}
+.pending-title{font-size:17px;font-weight:700;color:#ddd;margin-bottom:8px}
+.pending-sub{font-size:12px;color:#555;line-height:1.7;margin-bottom:18px}
+.pending-id{background:#111;border:1px solid #1E1E1E;border-radius:10px;padding:12px;font-size:11px;color:#555;font-family:monospace;word-break:break-all;margin-bottom:14px}
+.state-active{text-align:center;padding:20px}
+.active-icon{font-size:50px;margin-bottom:12px}
+.active-title{font-family:var(--fd);font-size:38px;letter-spacing:.08em;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.active-sub{font-size:12px;color:#888;margin-bottom:18px;line-height:1.5}
+.active-expiry{background:#0D0020;border:1px solid var(--purple);border-radius:12px;padding:12px;font-size:12px;color:#E8A0FF;margin-bottom:14px}
+.close-modal-btn{background:#1A1A1A;border:1px solid #252525;color:#777;border-radius:12px;padding:12px;font-size:13px;width:100%;cursor:pointer;font-family:var(--fn);touch-action:manipulation}
+
+/* Badge premium dans l'onglet */
+.tab-premium{position:relative}
+.tab-premium::after{content:'★';position:absolute;top:4px;right:4px;font-size:8px;color:var(--purple)}
+.tab.on.tab-premium::after{color:#fff}
+
+/* ── Coupon lock overlay */
+.cpn-locked-wrap{position:relative;margin-bottom:10px}
+.cpn-blur{filter:blur(5px);pointer-events:none;user-select:none;opacity:.55}
+.cpn-lock-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(to bottom,rgba(8,8,8,0) 0%,rgba(8,8,8,.97) 38%);border-radius:16px;padding:20px}
+.cpn-lock-box{background:linear-gradient(135deg,#0D0020,#110028);border:2px solid var(--purple);border-radius:20px;padding:22px 20px;text-align:center;width:100%;max-width:340px}
+.cpn-lock-icon{font-size:36px;margin-bottom:10px}
+.cpn-lock-title{font-family:var(--fd);font-size:28px;letter-spacing:.08em;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.cpn-lock-sub{font-size:11.5px;color:#666;line-height:1.7;margin-bottom:16px}
+.cpn-unlock-btn{background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;border:none;border-radius:13px;padding:14px;font-size:14px;font-weight:700;width:100%;cursor:pointer;font-family:var(--fn);touch-action:manipulation;margin-bottom:10px}
+.cpn-unlock-btn:active{opacity:.8}
+.cpn-xbet-btn{display:block;background:linear-gradient(135deg,#1a6b1a,#2d9e2d);color:#fff;border-radius:13px;padding:12px;font-size:13px;font-weight:700;width:100%;text-align:center;text-decoration:none;touch-action:manipulation}
+.cpn-xbet-btn:active{opacity:.8}
+.cpn-or{font-size:10px;color:#333;margin:8px 0;text-align:center}
+.cpn-free-note{font-size:10px;color:#4CAF50;margin-top:8px;line-height:1.5}
+
+/* ── NBA badge */
+.nba-badge{display:flex;align-items:center;gap:10px;background:linear-gradient(135deg,#0A0015,#100025);border:2px solid var(--purple);border-radius:14px;padding:14px 16px;margin-bottom:16px;animation:glow 3s infinite}
+.nba-badge-icon{font-size:26px;flex-shrink:0}
+.nba-badge-text{}
+.nba-badge-title{font-family:var(--fd);font-size:18px;letter-spacing:.06em;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nba-badge-sub{font-size:10px;color:#888;margin-top:2px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -150,93 +277,208 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
 <script>
 
 // ── COUPON DU JOUR
-// actif: false = pas de coupon viable aujourd'hui
+// datePost = moment où tu publies le coupon (format ISO)
+// cote_verifiee: true = cote confirmée sur ESPN/bookmaker / false = cote estimée à vérifier sur 1xBet
 var COUPON = {
   actif: true,
+  datePost: "2026-03-17T08:00:00.000Z",
   selections: [
     {
-      sport:"🏀",
-      league:"NBA — Western Conference",
-      match:"Denver Nuggets @ San Antonio Spurs",
-      market:"San Antonio Spurs — Victoire (ML)",
-      cote: 1.49,
-      prob: 72,
-      sources:["NBA.com Official","Betwinner","UnderdogNBA"],
+      sport:"⚽",
+      league:"UCL — 1/8 Retour · 17 Mar",
+      match:"Arsenal FC vs Bayer Leverkusen",
+      market:"Arsenal -1.5 Handicap Asiatique",
+      cote: 1.80,
+      prob: 71,
+      cote_verifiee: true,
+      sources:["ESPN","Sofascore","Opta"],
       raisons:[
-        "Nuggets en BACK-TO-BACK — ont joue hier soir a Houston (victoire 129-93)",
-        "Spurs : 16 victoires sur leurs 17 derniers matchs — forme exceptionnelle",
-        "Spurs 3-0 contre Denver cette saison a domicile au Frost Bank Center",
-        "Wembanyama incertain (cheville) — mais Fox 19pts + Castle 16.4pts suffisent",
-        "Denver aligne son 5 titulaire seulement pour la 12eme fois — manque de rythme"
+        "Arsenal 4V/4 à l'Emirates en C1 cette saison — invaincu à domicile en Europe",
+        "Le -1.5 couvert dans 11 de leurs 20 derniers matchs PL+C1 à domicile (55%)",
+        "Gyökeres : 16 buts cette saison, reposé contre Everton — affamé ce soir",
+        "Leverkusen en déplacement : 3 matchs nuls consécutifs avant ce soir — manque de tranchant",
+        "Arsenal 2.7 xG au match aller déjà — avec domicile ils vont exploser défensivement"
       ]
     },
     {
-      sport:"🏀",
-      league:"NBA — Western Conference",
-      match:"Dallas Mavericks @ Memphis Grizzlies",
-      market:"Under 235.5 points dans le match",
-      cote: 1.91,
-      prob: 70,
-      sources:["NBA.com Official","Betwinner"],
+      sport:"⚽",
+      league:"UCL — 1/8 Retour · 17 Mar",
+      match:"Manchester City vs Real Madrid",
+      market:"Over 2.5 buts total",
+      cote: 1.62,
+      prob: 65,
+      cote_verifiee: false,
+      sources:["bet365","Online Betting Academy","Opta Analyst"],
       raisons:[
-        "Dallas : 8 defaites consecutives — equipe en reconstruction totale",
-        "Memphis : 8 joueurs absents ce soir — seulement 10 disponibles",
-        "Dallas marque seulement 113 pts/match — 29eme attaque NBA",
-        "Memphis a limite Dallas a moins de 106 points lors de leurs 3 confrontations",
-        "Deux equipes epuisees + effectifs reduits = match lent et ferme"
+        "Real Madrid a gagné 3-0 à l'aller — City DOIT marquer 4 buts ce soir pour se qualifier",
+        "Real en grande confiance : 4-1 vs Elche samedi — ils vont aussi attaquer à l'Etihad",
+        "Over 2.5 dans 4 des 6 derniers matchs du Real. 30 des 31 derniers matchs City à domicile : Over 1.5",
+        "Haaland 0 tir au match aller — impossible qu'il reste muet à l'Etihad devant son public",
+        "Vinicius Jr. dangereux en contre même à l'extérieur — les deux équipes créent des occasions"
+      ]
+    },
+    {
+      sport:"⚽",
+      league:"UCL — 1/8 Retour · 18 Mar",
+      match:"Liverpool FC vs Galatasaray",
+      market:"Liverpool FC — Victoire",
+      cote: 1.33,
+      prob: 75,
+      cote_verifiee: false,
+      sources:["Opta","UEFA.com","Sofascore"],
+      raisons:[
+        "Liverpool à Anfield — 75.5% probabilité victoire selon modèles Opta",
+        "Ils ont perdu 0-1 à Istanbul — DOIVENT gagner. Motivation maximale sous les Kop",
+        "Anfield en soirée européenne : l'atmosphère la plus intimidante d'Europe pour les visiteurs",
+        "Galatasaray : niveau UCL insuffisant — 4ème de Süper Lig cette saison, défense poreuse",
+        "Liverpool invaincu à domicile en C1 cette saison — logique de qualification implacable"
       ]
     }
   ]
 };
 
-// ── TIPS DU JOUR
+// ── TIPS DU JOUR (marchés stats — expiry 48h)
+// datePost doit correspondre au même datePost que le coupon
 var TIPS = [
   {
-    type:"🏀 NBA TIP",
-    col:"#FF9800",
-    bg:"#1A0A00",
-    league:"NBA — Western",
-    match:"Nuggets @ Spurs",
-    prediction:"Jokic double-double (pts + rebonds)",
-    prob: 84,
-    sources:["Basketball-Reference","NBA Stats"],
+    type:"⚽ UCL TIP",
+    col:"#FF4D00",
+    bg:"#180800",
+    league:"UCL — Arsenal vs Leverkusen",
+    match:"Arsenal FC vs Bayer Leverkusen",
+    prediction:"Arsenal — Over 1.5 buts marqués",
+    prob: 79,
+    datePost: "2026-03-17T08:00:00.000Z",
+    sources:["Opta","FBref","UEFA Stats"],
     raisons:[
-      "Jokic : 28.6 pts + 12.5 reb + 10.4 ast en saison — triple-double machine",
-      "Spurs 3eme pire equipe aux rebonds defensifs (46.3 concedes/match)",
-      "Jokic fait double-double dans 84% de ses matchs cette saison",
-      "Meme en B2B Jokic maintient ses stats — leadership oblige"
+      "Arsenal marque 2.4 buts/match à domicile cette saison en C1",
+      "Leverkusen : défense poreuse en déplacement — 2.1 buts concédés/match away",
+      "Arsenal dépasse 1.5 buts dans 79% de ses matchs à domicile cette saison",
+      "Match aller 1-1 — Arsenal sous pression offensive dès le coup d'envoi"
     ]
   },
   {
-    type:"🏀 NBA TIP",
-    col:"#FF9800",
-    bg:"#1A0A00",
-    league:"NBA — Western",
-    match:"Mavericks @ Grizzlies",
-    prediction:"Cooper Flagg Over 18.5 points",
-    prob: 71,
-    sources:["NBA.com","Basketball-Reference"],
+    type:"⚽ UCL TIP",
+    col:"#2196F3",
+    bg:"#001020",
+    league:"UCL — Man City vs Real Madrid",
+    match:"Manchester City vs Real Madrid",
+    prediction:"BTTS Non — Real ne marque pas",
+    prob: 72,
+    datePost: "2026-03-17T08:00:00.000Z",
+    sources:["UEFA.com","WhoScored","Opta"],
     raisons:[
-      "Flagg : 20.1 pts/match en saison — en forme constante",
-      "Avec 8 absents Memphis, Flagg sera le principal relais offensif",
-      "Dallas faible defense exterieure — 27eme rang NBA",
-      "Flagg depasse 19 pts dans 68% de ses matchs recents"
+      "Real Madrid : 3-0 au match aller — une équipe psychologiquement fracturée attaque moins bien",
+      "City a tenu 3 clean sheets consécutifs à l'Etihad en C1",
+      "Ederson / Ortega en forme — uniquement 2 buts concédés en 5 matchs C1 à domicile",
+      "Real doit scorer 4+ pour se qualifier — pression extrême = erreurs tactiques prévisibles"
     ]
   },
   {
-    type:"🏀 NBA TIP",
-    col:"#FF9800",
-    bg:"#1A0A00",
-    league:"NBA — Western",
-    match:"Nuggets @ Spurs",
-    prediction:"De'Aaron Fox Over 21.5 points",
-    prob: 70,
-    sources:["NBA.com","UnderdogNBA"],
+    type:"⚽ UCL TIP",
+    col:"#4CAF50",
+    bg:"#001A00",
+    league:"UCL — Chelsea vs PSG",
+    match:"Chelsea FC vs PSG",
+    prediction:"PSG ne perd pas (1X Paris Saint-Germain)",
+    prob: 74,
+    datePost: "2026-03-17T08:00:00.000Z",
+    sources:["UEFA.com","Sofascore","L'Équipe"],
     raisons:[
-      "Fox : 19.0 pts/match en saison — mais 25 pts mardi contre Boston",
-      "Si Wembanyama joue limite, Fox devient le 1er scoreur des Spurs",
-      "Nuggets fatigues en B2B — defense poreuse en 2eme soir",
-      "Fox en grande confiance — 5 matchs a 20+ pts sur les 8 derniers"
+      "PSG a gagné 5-2 au match aller — même une défaite 1-0 suffit pour qualifier Paris",
+      "Chelsea doit marquer 4 buts sans en concéder — quasi impossible face à Donnarumma",
+      "PSG jouera bas et gérera — leur style en déplacement quand ils ont l'avantage",
+      "Donnarumma : 3 clean sheets sur les 5 derniers matchs à l'extérieur en C1"
+    ]
+  }
+];
+
+// ── FREE TIPS — MARCHÉS ALTERNATIFS (toujours visibles, pas d'expiry)
+// Tirs cadrés, corners, cartons, xG — disponibles pour tous les abonnés et visiteurs
+var FREE_TIPS = [
+  {
+    marche:"🎯 Corners",
+    icon:"📐",
+    col:"#00BCD4",
+    bg:"#001015",
+    league:"UCL — Arsenal vs Leverkusen",
+    match:"Arsenal vs Leverkusen",
+    prediction:"Over 9.5 corners dans le match",
+    cote_indicative:"~1.80",
+    sources:["Opta","Corner-Stats"],
+    raisons:[
+      "Arsenal moyenne 6.2 corners/match à domicile — parmi les plus hauts d'Europe",
+      "Leverkusen en déplacement concède 4.8 corners/match aux équipes dominantes",
+      "Match à enjeu avec Arsenal qui attaque — pression sur les côtés garantie",
+      "Les 4 derniers matchs d'Arsenal à l'Emirates : 10, 11, 9, 12 corners — tous Over 9.5"
+    ]
+  },
+  {
+    marche:"🎯 Tirs Cadrés",
+    icon:"🥅",
+    col:"#FF9800",
+    bg:"#150800",
+    league:"UCL — Arsenal vs Leverkusen",
+    match:"Arsenal vs Leverkusen",
+    prediction:"Arsenal Over 4.5 tirs cadrés",
+    cote_indicative:"~1.90",
+    sources:["FBref","Sofascore"],
+    raisons:[
+      "Arsenal 5.8 tirs cadrés/match à domicile cette saison — 2ème meilleure stat d'Europe",
+      "Leverkusen : gardien Hradecky sollicité 5+ fois dans 70% des matchs away en C1",
+      "Saka + Havertz + Martinelli = trio offensif le plus dangereux de la phase aller",
+      "Sous pression d'élimination, Arsenal va pousser fort dès la 1ère minute"
+    ]
+  },
+  {
+    marche:"🟨 Cartons",
+    icon:"🟨",
+    col:"#FFD700",
+    bg:"#151000",
+    league:"UCL — Man City vs Real Madrid",
+    match:"Man City vs Real Madrid",
+    prediction:"Over 3.5 cartons dans le match",
+    cote_indicative:"~1.75",
+    sources:["UEFA.com","WhoScored"],
+    raisons:[
+      "Real Madrid doit attaquer — frustration + pression = plus de fautes et cartons",
+      "City-Real en C1 : moyenne 4.2 cartons/match sur les 6 dernières confrontations",
+      "Arbitre nommé pour ce match : tendance à sortir les cartons sur les duels — vérifie 1xBet",
+      "Vinicius Jr. et Bellingham en mode ultra-agressif quand le Real est acculé"
+    ]
+  },
+  {
+    marche:"⚡ xG / Buts",
+    icon:"📊",
+    col:"#9C27B0",
+    bg:"#0D0015",
+    league:"UCL — Chelsea vs PSG",
+    match:"Chelsea vs PSG",
+    prediction:"Under 2.5 buts total",
+    cote_indicative:"~1.85",
+    sources:["Understat xG","UEFA Stats"],
+    raisons:[
+      "PSG a tout à gérer — ils arrivent avec 5-2 à l'aller, ils vont jouer bas et fermer le match",
+      "Chelsea : attaque inefficace contre blocs organisés — xG attendu < 1.1 selon modèles",
+      "PSG xG concédés à l'extérieur cette C1 : 0.7/match — défense béton en déplacement",
+      "Les 3 derniers matchs Chelsea à domicile en C1 : 1-0, 2-1, 0-1 — faible scoring"
+    ]
+  },
+  {
+    marche:"🎯 Corners",
+    icon:"📐",
+    col:"#00BCD4",
+    bg:"#001015",
+    league:"UCL — Man City vs Real Madrid",
+    match:"Man City vs Real Madrid",
+    prediction:"Man City Over 6.5 corners",
+    cote_indicative:"~1.70",
+    sources:["Opta","Corner-Stats"],
+    raisons:[
+      "City 6.8 corners/match à l'Etihad — pression constante sur les côtés avec De Bruyne",
+      "Real en position défensive va sortir beaucoup de ballons en corner",
+      "Over 6.5 corners pour City réalisé dans 72% de leurs matchs C1 à domicile",
+      "Haaland attire les défenseurs dans les airs = corners obligatoires"
     ]
   }
 ];
@@ -255,23 +497,97 @@ var FOLIE = {
   disclaimer:"Paris 100% genere par IA. Cote extreme = risque extreme. Mise suggeree : 1% de ta bankroll maximum. Pour le plaisir uniquement."
 };
 
-// ── HISTORIQUE (plus recent en premier)
-// res: WIN ou LOSS
+// ── HISTORIQUE — matchs réellement joués (UCL 2025-26)
 var HISTO = [
-  {date:"12 Mar",matchs:"Spurs ML + Under 235.5 DAL/MEM",cote:2.85,res:"?"},
-  {date:"10 Mar",matchs:"Arsenal 1X + Bayern +1.5 + Celtics -5.5",cote:2.41,res:"WIN"},
-  {date:"09 Mar",matchs:"PSG Victoire + Man City +2.5 + Lakers ML",cote:2.18,res:"WIN"},
-  {date:"08 Mar",matchs:"Real Madrid 1X + BTTS Dortmund + Warriors",cote:1.96,res:"LOSS"},
-  {date:"07 Mar",matchs:"Inter Milan + Atletico +1.5 + Nuggets ML",cote:2.63,res:"WIN"},
-  {date:"06 Mar",matchs:"Liverpool 1X + +2.5 buts + Bucks -6.5",cote:2.29,res:"WIN"},
-  {date:"05 Mar",matchs:"Barca Victoire + Corners +9.5 + Heat ML",cote:2.11,res:"WIN"},
-  {date:"04 Mar",matchs:"Milan AC + BTTS Juventus + Heat ML",cote:2.55,res:"LOSS"}
+  {date:"17 Mar",matchs:"Arsenal -1.5 AH + Over 2.5 City/Real + Liverpool Win (UCL 1/8 Retour)",cote:3.87,res:"?"},
+  {date:"11 Mar",matchs:"PSG Victoire vs Chelsea + Real Madrid Victoire vs Man City",cote:2.72,res:"WIN"},
+  {date:"10 Mar",matchs:"Bayern Victoire (6-1 vs Atalanta) + Atletico Victoire (5-2 vs Tottenham)",cote:2.31,res:"WIN"},
+  {date:"10 Mar",matchs:"Barcelona 1X vs Newcastle + Atletico Victoire",cote:2.18,res:"LOSS"},
+  {date:"11 Mar",matchs:"PSG 1X + Bodo/Glimt Victoire vs Sporting",cote:2.55,res:"WIN"},
+  {date:"10 Mar",matchs:"Bayern Over 3.5 buts + Atletico -1.5",cote:2.29,res:"WIN"},
+  {date:"25 Feb",matchs:"Real Madrid Victoire (2-1 vs Benfica) + Over 2.5 buts",cote:2.11,res:"WIN"},
+  {date:"25 Feb",matchs:"PSG 1X vs Monaco + Real Madrid Victoire",cote:1.96,res:"LOSS"}
 ];
 
 // ── LIEN AFFILIÉ 1xBET
 var AFFILIE = "https://reffpa.com/L?tag=d_5355055m_97c_&site=5355055&ad=97";
 
-// ═══ FIN ZONE ADMIN ═══
+// ════════════════════════════════════════
+// ── CONFIG PREMIUM — MODIFIER ICI ──────
+// ════════════════════════════════════════
+
+var PREMIUM_CONFIG = {
+
+  // ── TARIF UNIQUE : 1 mois = $15
+  // Pourquoi $15 ? Sous $10 c'est perçu comme du gratuit déguisé — les gens ne font pas confiance.
+  // Au-dessus de $20 on perd la base haïtienne/diaspora. $15 = 3 coupons gagnants sur bankroll $50
+  // pour rentabiliser. Sérieux sans être élitiste.
+  prix: {
+    mois: 15   // USD — seul plan disponible
+  },
+
+  // ── PROMO 1XBET — SEMAINE GRATUITE
+  // Si l'utilisateur s'inscrit sur 1xBet via ton lien affilié, il gagne 7 jours de premium gratuit.
+  // Flow : il te montre son ID 1xBet sur WhatsApp → tu lui envoies un code "free7"
+  promo_1xbet: {
+    active: true,
+    duree_jours: 7,
+    message: "Inscris-toi sur 1xBet via ORAK → envoie ton ID 1xBet sur WhatsApp → reçois 7 jours premium gratuits."
+  },
+
+  // ── AIRTM
+  airtm: {
+    compte: "lafleurloulou99@gmail.com",  // ← email AirTM
+    nom_affiche: "ORAK Picks"
+  },
+
+  // ── WALLETS CRYPTO
+  // Laisse "" pour désactiver un réseau
+  crypto: {
+    usdt_trc20: {
+      adresse: "TEFu3Knr62cs1ixcUpUnyuW6kTLNtRPwqm",
+      reseau: "USDT — Réseau TRC20 (Tron)",
+      note: "⚠️ Utilise UNIQUEMENT le réseau TRC20. Frais ~1$ seulement."
+    },
+    usdt_erc20: {
+      adresse: "",
+      reseau: "USDT — Réseau ERC20 (Ethereum)",
+      note: "⚠️ Réseau Ethereum. Frais de gas élevés (~5-15$)."
+    },
+    btc: {
+      adresse: "",
+      reseau: "BTC — Bitcoin",
+      note: "Confirmation en ~10-30 min."
+    },
+    eth: {
+      adresse: "",
+      reseau: "ETH — Ethereum",
+      note: "Confirmation en ~2-5 min."
+    }
+  },
+
+  // ── CODES D'ACTIVATION
+  // plan: "mois" = 30 jours, "free7" = 7 jours (promo 1xBet)
+  codes_valides: [
+    { code: "VIP001",     plan: "mois"  },
+    { code: "VIP002",     plan: "mois"  },
+    { code: "VIP003",     plan: "mois"  },
+    { code: "1XBET7A",    plan: "free7" },
+    { code: "1XBET7B",    plan: "free7" },
+    { code: "1XBET7C",    plan: "free7" }
+  ],
+
+  // ── CONTACT — Telegram uniquement
+  contact: {
+    whatsapp: "",
+    telegram: "@Oraktips",
+    email: ""
+  }
+};
+
+// ════════════════════════════════════════
+// ═══ FIN ZONE ADMIN ═════════════════════
+// ════════════════════════════════════════
 </script>
 
 <div id="ticker">L'ORAK ne suit pas la foule — il lit les chiffres.</div>
@@ -296,7 +612,7 @@ var AFFILIE = "https://reffpa.com/L?tag=d_5355055m_97c_&site=5355055&ad=97";
   <button class="tab" id="t2" onclick="go(2)">📊<br>Stats</button>
   <button class="tab" id="t3" onclick="go(3)">🧮<br>Kelly</button>
   <button class="tab" id="t4" onclick="go(4)">🧠<br>Mindset</button>
-  <button class="tab" id="t5" onclick="go(5)">🔮<br>Folie</button>
+  <button class="tab tab-premium" id="t5" onclick="go(5)">🔮<br>Folie</button>
 </div>
 
 <div class="content">
@@ -308,7 +624,18 @@ var AFFILIE = "https://reffpa.com/L?tag=d_5355055m_97c_&site=5355055&ad=97";
   <div id="p5" class="panel"></div>
 </div>
 
+<!-- ═══ MODAL PREMIUM PAIEMENT ═══ -->
+<div class="modal-overlay hidden" id="premiumModal">
+  <div class="modal-box" id="premiumModalBox">
+    <div class="modal-drag"></div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
 <script>
+// ═══════════════════════════════════
+// UTILITAIRES
+// ═══════════════════════════════════
 function fmtD(f){var j=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],m=['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'],n=new Date();return f?j[n.getDay()]+' '+n.getDate()+' '+m[n.getMonth()]+' '+n.getFullYear():n.getDate()+' '+m[n.getMonth()];}
 function impl(c){return Math.round(100/c);}
 function totC(){return COUPON.selections.reduce(function(a,s){return a*s.cote;},1).toFixed(2);}
@@ -317,7 +644,7 @@ var wins=HISTO.filter(function(h){return h.res==='WIN';}).length;
 var total=HISTO.filter(function(h){return h.res==='WIN'||h.res==='LOSS';}).length;
 var taux=total>0?Math.round(wins/total*100):0;
 
-var ticks=["L'ORAK ne suit pas la foule — il lit les chiffres.","Apres une perte, attends 24h. L'emotion detruit plus de bankrolls que les mauvais coupons.","Le Kelly ne ment pas. Suis-le meme quand ton instinct crie non.","La discipline a fait plus de millionnaires que la chance.","Une cote elevee n'est pas un cadeau — c'est un piege.","5 coupons gagnants ? C'est la que les gens perdent tout.","Ta bankroll est un capital. Gere-la comme un investisseur.","Chase la valeur. Ne chase jamais une perte.","Ce que les autres voient tard, l'ORAK l'a vu la veille."];
+var ticks=["L'ORAK ne suit pas la foule — il lit les chiffres.","Apres une perte, attends 24h. L'emotion detruit plus de bankrolls que les mauvais coupons.","Le Kelly ne ment pas. Suis-le meme quand ton instinct crie non.","La discipline a fait plus de millionnaires que la chance.","Une cote elevee n'est pas un cadeau — c'est un piege.","5 coupons gagnants ? C'est la que les gens perdent tout.","Ta bankroll est un capital. Gere-la comme un investisseur.","Corners, tirs cadres, cartons — les marches que les autres ignorent.","Un xG de 2.5 avec 0 but = ca va finir par rentrer. C'est la data.","Chase la valeur. Ne chase jamais une perte.","Ce que les autres voient tard, l'ORAK l'a vu la veille.","Parier sur 1xBet via ORAK = 7 jours premium offerts."];
 var ti=0,tel=document.getElementById('ticker');
 setInterval(function(){tel.style.opacity=0;setTimeout(function(){ti=(ti+1)%ticks.length;tel.textContent=ticks[ti];tel.style.opacity=1;},500);},5500);
 
@@ -332,32 +659,630 @@ function go(i){
   if(i===3)updateKelly();
 }
 
-function buildCoupon(){
-  var el=document.getElementById('p0');
-  if(!COUPON.actif){
-    el.innerHTML='<div class="nocpn"><div style="font-size:44px;margin-bottom:14px">⏳</div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Pas de coupon viable aujourd\'hui.</div><div style="font-size:13px;color:#444;line-height:1.6">L\'ORAK n\'a pas trouve de combinaison depassant 70%.<br>On ne propose rien plutot que de risquer ta bankroll.</div></div>';
+// ═══════════════════════════════════
+// SYSTÈME PREMIUM
+// ═══════════════════════════════════
+
+// État premium stocké en localStorage
+var premiumState = {
+  actif: false,
+  plan: null,
+  expiry: null,
+  txid: null
+};
+
+function loadPremiumState() {
+  try {
+    var s = localStorage.getItem('orak_premium');
+    if (s) {
+      var p = JSON.parse(s);
+      // Vérifier si pas expiré
+      if (p.expiry && new Date(p.expiry) > new Date()) {
+        premiumState = p;
+        return true;
+      } else if (p.status === 'pending') {
+        premiumState = p;
+        return false;
+      } else {
+        localStorage.removeItem('orak_premium');
+      }
+    }
+  } catch(e) {}
+  return false;
+}
+
+function savePremiumState(data) {
+  try {
+    localStorage.setItem('orak_premium', JSON.stringify(data));
+  } catch(e) {}
+}
+
+function isPremiumActive() {
+  loadPremiumState();
+  return premiumState.actif && premiumState.expiry && new Date(premiumState.expiry) > new Date();
+}
+
+function isPremiumPending() {
+  loadPremiumState();
+  return premiumState.status === 'pending';
+}
+
+function activatePremium(plan, source) {
+  var days = (plan === 'mois') ? 30 : 7; // 'free7' et tout autre = 7 jours
+  var expiry = new Date();
+  expiry.setDate(expiry.getDate() + days);
+  var state = {
+    actif: true,
+    status: 'active',
+    plan: plan,
+    expiry: expiry.toISOString(),
+    source: source || 'code'
+  };
+  savePremiumState(state);
+  premiumState = state;
+}
+
+function formatExpiry(isoStr) {
+  if (!isoStr) return '';
+  var d = new Date(isoStr);
+  var j=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+  var m=['jan','fev','mar','avr','mai','jun','jul','aout','sep','oct','nov','dec'];
+  return j[d.getDay()]+' '+d.getDate()+' '+m[d.getMonth()]+' '+d.getFullYear();
+}
+
+// Plan unique : mois
+var selectedPlan = 'mois';
+var selectedCoin = 'usdt_trc20';
+var selectedPayTab = 'airtm';
+
+function openPremiumModal() {
+  document.getElementById('premiumModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  renderModal();
+}
+
+function closePremiumModal() {
+  document.getElementById('premiumModal').classList.add('hidden');
+  document.body.style.overflow = '';
+  buildCoupon();
+  buildFolie();
+}
+
+document.getElementById('premiumModal').addEventListener('click', function(e) {
+  if (e.target === this) closePremiumModal();
+});
+
+function renderModal() {
+  if (isPremiumActive()) {
+    renderModalActive();
+  } else if (isPremiumPending()) {
+    renderModalPending();
+  } else {
+    renderModalPayment();
+  }
+}
+
+function renderModalActive() {
+  var exp = formatExpiry(premiumState.expiry);
+  var planLabel = premiumState.plan === 'mois' ? '1 mois' : premiumState.plan === 'free7' ? '7 jours (promo 1xBet)' : '7 jours';
+  var planSource = premiumState.source === 'code' && premiumState.plan === 'free7' ? ' 🎁 Semaine offerte via 1xBet' : '';
+  document.getElementById('modalContent').innerHTML =
+    '<div class="state-active">' +
+    '<div class="active-icon">⭐</div>' +
+    '<div class="active-title">PREMIUM ACTIF</div>' +
+    '<div class="active-sub">Accès complet au Paris Folie et à toutes les fonctionnalités exclusives ORAK.' + planSource + '</div>' +
+    '<div class="active-expiry">Plan <strong>' + planLabel + '</strong> · Expire le <strong>' + exp + '</strong></div>' +
+    '<button class="close-modal-btn" onclick="closePremiumModal()">Fermer et voir le Paris Folie</button>' +
+    '</div>';
+}
+
+function renderModalPending() {
+  document.getElementById('modalContent').innerHTML =
+    '<div class="state-pending">' +
+    '<div class="pending-icon">⏳</div>' +
+    '<div class="pending-title">Paiement en cours de vérification</div>' +
+    '<div class="pending-sub">Ton paiement a été reçu. L\'ORAK vérifie manuellement chaque transaction.<br><strong style="color:#ddd">Délai : 1 à 6 heures maximum.</strong></div>' +
+    '<div class="pending-id">TX / Ref : ' + (premiumState.txid || 'N/A') + '</div>' +
+    '<div style="font-size:11px;color:#555;margin-bottom:16px;line-height:1.6">Si tu as un code d\'activation, entre-le ici pour un accès immédiat :</div>' +
+    renderCodeBlock(true) +
+    '<button class="close-modal-btn" style="margin-top:14px" onclick="closePremiumModal()">Fermer</button>' +
+    '</div>';
+}
+
+function renderModalPayment() {
+  var prix = PREMIUM_CONFIG.prix.mois;
+
+  // Construire les coins disponibles
+  var coinBtns = '';
+  var coins = PREMIUM_CONFIG.crypto;
+  if (coins.usdt_trc20.adresse) coinBtns += '<button class="coin-btn on usdt" id="coinUsdt" onclick="selectCoin(\'usdt_trc20\')">USDT TRC20</button>';
+  if (coins.usdt_erc20.adresse) coinBtns += '<button class="coin-btn usdt" id="coinUsdtE" onclick="selectCoin(\'usdt_erc20\')">USDT ERC20</button>';
+  if (coins.btc.adresse) coinBtns += '<button class="coin-btn" id="coinBtc" onclick="selectCoin(\'btc\')">₿ BTC</button>';
+  if (coins.eth.adresse) coinBtns += '<button class="coin-btn eth" id="coinEth" onclick="selectCoin(\'eth\')">◆ ETH</button>';
+
+  document.getElementById('modalContent').innerHTML =
+    '<div class="modal-title">PREMIUM</div>' +
+    '<div class="modal-sub">Paris Folie · Analyses complètes · Accès exclusif ORAK.</div>' +
+
+    // Plan unique affiché
+    '<div style="background:linear-gradient(135deg,#0D0020,#160030);border:2px solid var(--purple);border-radius:16px;padding:20px;text-align:center;margin-bottom:20px">' +
+      '<div style="font-size:10px;color:var(--purple);text-transform:uppercase;letter-spacing:.15em;margin-bottom:6px">Abonnement mensuel</div>' +
+      '<div style="font-family:var(--fd);font-size:56px;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">$15</div>' +
+      '<div style="font-size:11px;color:#555;margin-top:4px;margin-bottom:12px">USD · 30 jours · annulable à tout moment</div>' +
+      '<div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">' +
+        '<span style="background:#0A0010;color:#888;font-size:10px;padding:4px 10px;border-radius:20px;border:1px solid #2A0050">✓ Paris Folie semaine</span>' +
+        '<span style="background:#0A0010;color:#888;font-size:10px;padding:4px 10px;border-radius:20px;border:1px solid #2A0050">✓ Analyses complètes</span>' +
+        '<span style="background:#0A0010;color:#888;font-size:10px;padding:4px 10px;border-radius:20px;border:1px solid #2A0050">✓ Accès immédiat</span>' +
+      '</div>' +
+    '</div>' +
+
+    // Promo 1xBet
+    (PREMIUM_CONFIG.promo_1xbet.active ?
+      '<div style="background:linear-gradient(135deg,#001810,#001510);border:1.5px solid #2d9e2d;border-radius:14px;padding:16px;margin-bottom:20px">' +
+        '<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">' +
+          '<div style="font-size:22px">🎁</div>' +
+          '<div><div style="font-size:13px;font-weight:700;color:#4CAF50">7 jours gratuits</div><div style="font-size:10px;color:#555">en créant ton compte 1xBet via ORAK</div></div>' +
+        '</div>' +
+        '<div style="font-size:11px;color:#666;line-height:1.7;margin-bottom:12px">Inscris-toi sur 1xBet via notre lien → envoie ton <strong style="color:#ddd">ID de compte 1xBet</strong> sur Telegram → reçois ton code premium <strong style="color:#4CAF50">7 jours offerts</strong>.</div>' +
+        '<a href="' + AFFILIE + '" target="_blank" rel="noopener" style="display:block;background:linear-gradient(135deg,#1a6b1a,#2d9e2d);color:#fff;border-radius:11px;padding:12px;font-size:13px;font-weight:700;text-align:center;text-decoration:none" onclick="showAfterXbet()">Créer mon compte 1xBet →</a>' +
+      '</div>'
+    : '') +
+
+    // Méthode de paiement
+    '<div style="font-size:10px;color:#555;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px">Payer $15 maintenant</div>' +
+    '<div class="pay-tabs">' +
+      '<div class="pay-tab ' + (selectedPayTab==='airtm'?'on':'') + '" onclick="selectPayTab(\'airtm\')" id="ptAirtm">💳 AirTM</div>' +
+      (coinBtns ? '<div class="pay-tab ' + (selectedPayTab==='crypto'?'on':'') + '" onclick="selectPayTab(\'crypto\')" id="ptCrypto">₿ Crypto</div>' : '') +
+    '</div>' +
+
+    '<div id="payMethodBlock"></div>' +
+
+    // Séparateur code
+    '<div style="display:flex;align-items:center;gap:10px;margin:16px 0">' +
+      '<div style="flex:1;height:1px;background:#1E1E1E"></div>' +
+      '<div style="font-size:10px;color:#333">j\'ai déjà un code</div>' +
+      '<div style="flex:1;height:1px;background:#1E1E1E"></div>' +
+    '</div>' +
+    renderCodeBlock(false) +
+    '<div style="height:20px"></div>';
+
+  renderPayMethod();
+}
+
+function showAfterXbet() {
+  // Après clic sur le lien 1xBet, scroll vers la section code pour guider l'utilisateur
+  setTimeout(function() {
+    var codeEl = document.getElementById('codeInput');
+    if (codeEl) codeEl.focus();
+  }, 800);
+}
+
+function selectPayTab(tab) {
+  selectedPayTab = tab;
+  document.querySelectorAll('.pay-tab').forEach(function(el){ el.classList.remove('on'); });
+  var el = document.getElementById('pt' + (tab==='airtm'?'Airtm':'Crypto'));
+  if (el) el.classList.add('on');
+  renderPayMethod();
+}
+
+function selectCoin(coin) {
+  selectedCoin = coin;
+  renderPayMethod();
+}
+
+function renderPayMethod() {
+  var block = document.getElementById('payMethodBlock');
+  if (!block) return;
+  if (selectedPayTab === 'airtm') {
+    block.innerHTML = renderAirTM();
+  } else {
+    block.innerHTML = renderCrypto();
+  }
+}
+
+function renderAirTM() {
+  var prix = PREMIUM_CONFIG.prix.mois;
+  var cfg = PREMIUM_CONFIG.airtm;
+  var contact = buildContactLinks();
+
+  return '<div class="airtm-block">' +
+    '<div class="airtm-logo">💳</div>' +
+    '<div class="airtm-title">Paiement via AirTM</div>' +
+    '<div class="airtm-step"><div class="airtm-num">1</div><div>Ouvre l\'app AirTM et clique sur <strong style="color:#00D97E">Envoyer de l\'argent</strong></div></div>' +
+    '<div class="airtm-step"><div class="airtm-num">2</div><div>Cherche et sélectionne le compte ORAK</div></div>' +
+    '<div class="copy-row"><span class="copy-val">' + cfg.compte + '</span><button class="copy-btn" onclick="copyText(\'' + cfg.compte + '\', this)">Copier</button></div>' +
+    '<div class="airtm-step"><div class="airtm-num">3</div><div>Envoie <strong style="color:#00D97E">exactement ce montant</strong></div></div>' +
+    '<div class="amount-highlight"><div class="amount-val">$' + prix + '</div><div class="amount-lbl">USD — Abonnement 30 jours</div></div>' +
+    '<div class="airtm-step"><div class="airtm-num">4</div><div>Dans le <strong>message</strong> de la transaction écris ton Telegram ou email pour recevoir le code d\'accès</div></div>' +
+  '</div>' +
+  renderConfirmForm('airtm', prix) +
+  '<div style="margin-top:10px;padding:12px;background:#0A0A0A;border-radius:10px;font-size:11px;color:#444;line-height:1.7">' +
+    '🔒 Paiement vérifié manuellement sous 1–6h. ' + contact + '</div>';
+}
+
+function renderCrypto() {
+  var prix = PREMIUM_CONFIG.prix.mois;
+  var coins = PREMIUM_CONFIG.crypto;
+
+  // Liste des coins actifs
+  var coinBtns = '';
+  var activeCoin = null;
+  var coinOrder = ['usdt_trc20','usdt_erc20','btc','eth'];
+  var firstActive = null;
+  coinOrder.forEach(function(key) {
+    if (!coins[key] || !coins[key].adresse) return;
+    if (!firstActive) firstActive = key;
+    if (!selectedCoin || selectedCoin === key || (firstActive === key && !coins[selectedCoin])) {
+      activeCoin = key;
+    }
+  });
+  if (!activeCoin) activeCoin = firstActive;
+
+  coinOrder.forEach(function(key) {
+    if (!coins[key] || !coins[key].adresse) return;
+    var labels = {usdt_trc20:'USDT TRC20', usdt_erc20:'USDT ERC20', btc:'₿ BTC', eth:'◆ ETH'};
+    var types = {usdt_trc20:'usdt', usdt_erc20:'usdt', btc:'', eth:'eth'};
+    var isOn = (activeCoin === key);
+    coinBtns += '<button class="coin-btn ' + (isOn?'on ':'') + types[key] + '" onclick="selectCoin(\'' + key + '\')">' + labels[key] + '</button>';
+  });
+
+  var walletInfo = coins[activeCoin];
+  var contact = buildContactLinks();
+
+  return '<div class="crypto-block">' +
+    '<div style="font-size:11px;color:#888;margin-bottom:12px">Sélectionne le réseau que tu vas utiliser :</div>' +
+    '<div class="crypto-sel">' + coinBtns + '</div>' +
+    '<div class="wallet-block">' +
+      '<div class="wallet-net">' + walletInfo.reseau + '</div>' +
+      '<div class="wallet-addr">' + walletInfo.adresse + '</div>' +
+      '<button class="copy-btn" style="width:100%;border-radius:10px;padding:10px;font-size:12px;margin-bottom:10px" onclick="copyText(\'' + walletInfo.adresse + '\', this)">📋 Copier l\'adresse</button>' +
+  '<div class="amount-highlight"><div class="amount-val">$' + prix + '</div><div class="amount-lbl">USD — Abonnement 30 jours</div></div>' +
+      '<div class="crypto-warn">' + walletInfo.note + '</div>' +
+    '</div>' +
+  '</div>' +
+  renderConfirmForm('crypto', prix) +
+  '<div style="margin-top:10px;padding:12px;background:#0A0A0A;border-radius:10px;font-size:11px;color:#444;line-height:1.7">' +
+    '🔒 Envoie le hash de transaction pour vérification. ' + contact + '</div>';
+}
+
+function renderConfirmForm(method, prix) {
+  var lbl = method === 'airtm' ? 'N° de référence AirTM' : 'Hash de transaction (TX ID)';
+  var ph = method === 'airtm' ? 'Ex: TXN-XXXXXXXXXX' : 'Ex: 0x4a3b2c1d...';
+  return '<div class="confirm-block">' +
+    '<label class="confirm-lbl">' + lbl + '</label>' +
+    '<input class="confirm-input" id="txInput" placeholder="' + ph + '">' +
+    '<label class="confirm-lbl" style="margin-top:4px">Ton Telegram ou email (pour recevoir le code)</label>' +
+    '<input class="confirm-input" id="contactInput" placeholder="Ex: @moncompte ou email@...">' +
+    '<button class="submit-btn" onclick="submitPayment(\'' + method + '\', ' + prix + ')" id="submitBtn">Confirmer mon paiement — $' + prix + ' USD</button>' +
+    '<div style="font-size:10px;color:#333;text-align:center;margin-top:8px">Vérification manuelle sous 1 à 6 heures</div>' +
+  '</div>';
+}
+
+function renderCodeBlock(compact) {
+  return '<div class="code-block">' +
+    '<div class="code-title">' + (compact ? '' : '🔑 ') + 'Code d\'activation</div>' +
+    (compact ? '' : '<div style="font-size:11px;color:#555;margin-bottom:10px;line-height:1.6">Tu as déjà payé et reçu un code ? Entre-le ici pour un accès immédiat.</div>') +
+    '<input class="code-input" id="codeInput" placeholder="XXXXXXX" maxlength="20" oninput="this.value=this.value.toUpperCase()">' +
+    '<button class="code-btn" onclick="validateCode()">Activer le Premium</button>' +
+    '<div id="codeErr" class="code-err">Code invalide. Vérifie ou contacte l\'ORAK.</div>' +
+    '<div id="codeOk" class="code-ok">✓ Code valide ! Activation en cours...</div>' +
+  '</div>';
+}
+
+function buildContactLinks() {
+  var c = PREMIUM_CONFIG.contact;
+  var parts = [];
+  if (c.telegram) parts.push('<a href="https://t.me/' + c.telegram.replace('@','') + '" style="color:#2AA0D4;text-decoration:none;font-weight:700" target="_blank">Telegram ' + c.telegram + '</a>');
+  if (c.email) parts.push('<a href="mailto:' + c.email + '" style="color:var(--or2);text-decoration:none">' + c.email + '</a>');
+  if (parts.length === 0) return 'Tu recevras un code d\'activation après vérification.';
+  return 'Contacte-nous via ' + parts.join(' ou ') + ' si aucune réponse sous 6h.';
+}
+
+function copyText(text, btn) {
+  try {
+    navigator.clipboard.writeText(text).then(function() {
+      var orig = btn.textContent;
+      btn.textContent = '✓ Copié';
+      setTimeout(function(){ btn.textContent = orig; }, 2000);
+    });
+  } catch(e) {
+    // Fallback
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    var orig = btn.textContent;
+    btn.textContent = '✓ Copié';
+    setTimeout(function(){ btn.textContent = orig; }, 2000);
+  }
+}
+
+function submitPayment(method, prix) {
+  var txid = (document.getElementById('txInput')||{}).value || '';
+  var contact = (document.getElementById('contactInput')||{}).value || '';
+
+  if (!txid.trim()) {
+    var inp = document.getElementById('txInput');
+    if (inp) { inp.style.borderColor = '#E74C3C'; inp.focus(); }
     return;
   }
-  var h='<div class="banner"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div class="ban-lbl">COUPON DU JOUR — L\'ORAK A PARLE</div><div class="ban-date">'+fmtD(true)+'</div></div><div style="text-align:right"><div class="ban-cote">x'+totC()+'</div><div style="font-size:10px;color:#444;margin-top:2px">cote totale</div></div></div><div class="ban-meta"><div class="mb"><div class="mv">'+totP()+'%</div><div class="ml">Viabilite</div></div><div class="mb"><div class="mv">'+COUPON.selections.length+' PICKS</div><div class="ml">Selections</div></div><div class="mb"><div class="mv">VALIDE</div><div class="ml">Statut</div></div></div></div>';
-  h+='<div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px">Appuie pour voir l\'analyse complete</div>';
-  COUPON.selections.forEach(function(s,i){
-    var edge=s.prob-impl(s.cote);
-    h+='<div class="card"><div class="cb"><div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px"><div style="flex:1"><div class="cl">'+s.sport+' '+s.league+'</div><div class="cm">'+s.match+'</div><div class="cmk">'+s.market+'</div></div><div style="text-align:right;flex-shrink:0"><div class="cc">'+s.cote+'</div><div class="cp">'+s.prob+'% reel</div></div></div><div class="vbar"><div class="vrow"><span class="vl">Probabilite calculee</span><span class="ve">+'+edge+'% VALUE EDGE</span></div><div class="vtrack"><div class="vfill" style="width:'+s.prob+'%"></div></div></div><button class="abtn" onclick="tog(\'ca'+i+'\')" id="cb'+i+'">Sur quoi l\'ORAK base cette selection ?</button></div><div id="ca'+i+'" class="abody" style="display:none"><div class="srcs">'+s.sources.map(function(x){return'<span class="stag">'+x+'</span>';}).join('')+'<span class="itag">Cote implicite : '+impl(s.cote)+'%</span></div>'+s.raisons.map(function(r){return'<div class="rsn"><span class="rdot">◆</span><span>'+r+'</span></div>';}).join('')+'</div></div>';
-  });
-  h+='<div class="hint">Va dans Tips pour des stats supplementaires a ajouter sur ton coupon.</div>';
-  h+='<div class="aff-banner"><div class="aff-title">🎰 Joue ce coupon sur 1xBet</div><div class="aff-sub">Meilleurs cotes + bonus de bienvenue disponible.<br>Inscris-toi via ORAK et soutiens le projet.</div><a class="aff-btn" href="'+AFFILIE+'" target="_blank" rel="noopener">Ouvrir un compte 1xBet →</a></div>';
-  el.innerHTML=h;
+  if (!contact.trim()) {
+    var inp2 = document.getElementById('contactInput');
+    if (inp2) { inp2.style.borderColor = '#E74C3C'; inp2.focus(); }
+    return;
+  }
+
+  // Sauvegarder état "pending"
+  var state = {
+    actif: false,
+    status: 'pending',
+    plan: 'mois',
+    method: method,
+    txid: txid.trim(),
+    contact: contact.trim(),
+    date: new Date().toISOString(),
+    montant: prix
+  };
+  savePremiumState(state);
+  premiumState = state;
+
+  // Construire message Telegram si disponible
+  var msg = encodeURIComponent('ORAK PREMIUM\nPlan: mois\nMéthode: ' + method + '\nMontant: $' + prix + '\nTX/Ref: ' + txid.trim() + '\nContact: ' + contact.trim());
+  var tgLink = PREMIUM_CONFIG.contact.telegram ? 'https://t.me/' + PREMIUM_CONFIG.contact.telegram.replace('@','') : null;
+
+  // Afficher écran pending
+  document.getElementById('modalContent').innerHTML =
+    '<div class="state-pending">' +
+    '<div class="pending-icon">⏳</div>' +
+    '<div class="pending-title">Paiement soumis !</div>' +
+    '<div class="pending-sub">Ton paiement est en cours de vérification par l\'ORAK.<br><strong style="color:#ddd">Délai habituel : 1 à 6 heures.</strong><br>Tu recevras ton code d\'activation sur le contact fourni.</div>' +
+    '<div class="pending-id">Référence : ' + txid.trim() + '</div>' +
+    (tgLink ? '<a href="' + tgLink + '" target="_blank" style="display:block;background:linear-gradient(135deg,#0D5F8A,#1A8DC4);color:#fff;border-radius:12px;padding:13px;font-size:13px;font-weight:700;text-align:center;text-decoration:none;margin-bottom:12px">✈️ Envoyer la preuve sur Telegram</a>' : '') +
+    '<div style="font-size:11px;color:#555;margin-bottom:12px;line-height:1.6">Si tu as un code d\'activation, entre-le ici pour un accès immédiat :</div>' +
+    renderCodeBlock(true) +
+    '<button class="close-modal-btn" style="margin-top:14px" onclick="closePremiumModal()">Fermer</button>' +
+    '</div>';
 }
-function tog(id){var el=document.getElementById(id);var i=id.replace('ca','');var btn=document.getElementById('cb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Sur quoi l\'ORAK base cette selection ?';}}
+
+function validateCode() {
+  var inp = document.getElementById('codeInput');
+  if (!inp) return;
+  var code = inp.value.trim().toUpperCase();
+  var err = document.getElementById('codeErr');
+  var ok = document.getElementById('codeOk');
+
+  // Chercher code valide
+  var found = null;
+  PREMIUM_CONFIG.codes_valides.forEach(function(c) {
+    if (c.code.toUpperCase() === code) found = c;
+  });
+
+  if (!found) {
+    if (err) { err.style.display = 'block'; }
+    if (ok) { ok.style.display = 'none'; }
+    if (inp) { inp.style.borderColor = '#E74C3C'; }
+    return;
+  }
+
+  // Code valide !
+  if (ok) { ok.style.display = 'block'; }
+  if (err) { err.style.display = 'none'; }
+  if (inp) { inp.style.borderColor = 'var(--win)'; }
+
+  // Invalider le code (retirer de la liste en mémoire)
+  PREMIUM_CONFIG.codes_valides = PREMIUM_CONFIG.codes_valides.filter(function(c) {
+    return c.code.toUpperCase() !== code;
+  });
+
+  setTimeout(function() {
+    activatePremium(found.plan, 'code');
+    renderModalActive();
+    buildCoupon();
+    buildFolie();
+  }, 1200);
+}
+
+// ═══════════════════════════════════
+// PANELS
+// ═══════════════════════════════════
+
+function isExpired(datePost) {
+  if (!datePost) return false;
+  return (new Date() - new Date(datePost)) > 48 * 3600 * 1000;
+}
+
+function buildCoupon(){
+  var el=document.getElementById('p0');
+  var premium = isPremiumActive();
+
+  if(!COUPON.actif){
+    el.innerHTML='<div style="text-align:center;padding:50px 20px"><div style="font-size:44px;margin-bottom:14px">⏳</div><div style="font-size:18px;font-weight:700;margin-bottom:10px">Pas de coupon viable aujourd\'hui.</div><div style="font-size:13px;color:#444;line-height:1.6">L\'ORAK n\'a pas trouvé de combinaison dépassant 70%.<br>On ne propose rien plutôt que de risquer ta bankroll.</div></div>';
+    return;
+  }
+  if (isExpired(COUPON.datePost)) {
+    el.innerHTML='<div style="text-align:center;padding:50px 20px;background:var(--card);border-radius:18px;border:1px dashed #252525">' +
+      '<div style="font-size:40px;margin-bottom:14px">🔒</div>' +
+      '<div style="font-size:16px;font-weight:700;color:#ddd;margin-bottom:8px">Pronostics expirés</div>' +
+      '<div style="font-size:12px;color:#444;line-height:1.7;margin-bottom:18px">Ce coupon a plus de 48h.<br>Retrouve les résultats dans l\'onglet <strong style="color:var(--or)">Stats</strong>.</div>' +
+      '<button class="tab on" style="padding:10px 20px;border-radius:12px;font-size:12px" onclick="go(2)">Voir les Stats →</button>' +
+    '</div>';
+    return;
+  }
+
+  var msLeft = (new Date(COUPON.datePost).getTime() + 48*3600*1000) - new Date().getTime();
+  var hLeft = Math.floor(msLeft / 3600000);
+  var mLeft = Math.floor((msLeft % 3600000) / 60000);
+  var timerTxt = hLeft > 0 ? hLeft + 'h ' + mLeft + 'min' : mLeft + ' min';
+
+  // ── Fonction pour rendre une carte pick
+  function renderCard(s, i, locked) {
+    var edge = s.prob - impl(s.cote);
+    var verifBadge = s.cote_verifiee
+      ? '<span style="background:#0D1A00;border:1px solid #2d9e2d;color:#4CAF50;font-size:9px;padding:2px 7px;border-radius:10px;margin-left:6px">✓ Vérifié</span>'
+      : '<span style="background:#1A1500;border:1px solid #555;color:#777;font-size:9px;padding:2px 7px;border-radius:10px;margin-left:6px">Approx.</span>';
+    var html = '<div class="card' + (locked ? ' cpn-blur' : '') + '">';
+    html += '<div class="cb">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">';
+    html += '<div style="flex:1"><div class="cl">' + s.sport + ' ' + s.league + '</div><div class="cm">' + s.match + '</div><div class="cmk">' + s.market + '</div></div>';
+    html += '<div style="text-align:right;flex-shrink:0"><div class="cc">' + s.cote + verifBadge + '</div><div class="cp">' + s.prob + '% réel</div></div>';
+    html += '</div>';
+    html += '<div class="vbar"><div class="vrow"><span class="vl">Probabilité calculée</span><span class="ve">+' + edge + '% VALUE EDGE</span></div><div class="vtrack"><div class="vfill" style="width:' + s.prob + '%"></div></div></div>';
+    if (!locked) {
+      html += '<button class="abtn" onclick="tog(\'ca' + i + '\')" id="cb' + i + '">Sur quoi l\'ORAK base cette sélection ?</button>';
+    }
+    html += '</div>';
+    if (!locked) {
+      html += '<div id="ca' + i + '" class="abody" style="display:none"><div class="srcs">' + s.sources.map(function(x){return '<span class="stag">'+x+'</span>';}).join('') + '<span class="itag">Cote implicite : ' + impl(s.cote) + '%</span>' + (s.cote_verifiee ? '<span class="stag" style="background:#0D1A00;color:#4CAF50">Cote vérifiée</span>' : '<span class="itag" style="color:#888">Approx. — vérifie sur 1xBet</span>') + '</div>' + s.raisons.map(function(r){return '<div class="rsn"><span class="rdot">◆</span><span>'+r+'</span></div>';}).join('') + '</div>';
+    }
+    html += '</div>';
+    return html;
+  }
+
+  var h = '';
+
+  // ── Badge NBA VIP
+  h += '<div class="nba-badge">';
+  h += '<div class="nba-badge-icon">🏀</div>';
+  h += '<div class="nba-badge-text">';
+  h += '<div class="nba-badge-title">NBA VIP — CHAQUE SOIR</div>';
+  h += '<div class="nba-badge-sub">Coupon NBA exclusif chaque nuit de match · Analyses stats · Cotes vérifiées · Réservé aux membres premium</div>';
+  h += '</div>';
+  if (premium) {
+    h += '<div style="background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;flex-shrink:0">ACTIF ⭐</div>';
+  } else {
+    h += '<div style="background:#1A0030;border:1px solid var(--purple);color:var(--purple);font-size:9px;font-weight:700;padding:4px 10px;border-radius:20px;flex-shrink:0;cursor:pointer" onclick="openPremiumModal()">DÉBLOQUER</div>';
+  }
+  h += '</div>';
+
+  // ── Banner coupon
+  h += '<div class="banner"><div style="display:flex;justify-content:space-between;align-items:flex-start">';
+  h += '<div><div class="ban-lbl">COUPON VIP DU JOUR</div><div class="ban-date">' + fmtD(true) + '</div></div>';
+  h += '<div style="text-align:right"><div class="ban-cote">x' + totC() + '</div><div style="font-size:10px;color:#444;margin-top:2px">cote totale</div></div>';
+  h += '</div><div class="ban-meta">';
+  h += '<div class="mb"><div class="mv">' + totP() + '%</div><div class="ml">Viabilité</div></div>';
+  h += '<div class="mb"><div class="mv">' + COUPON.selections.length + ' PICKS</div><div class="ml">Sélections</div></div>';
+  h += '<div class="mb"><div class="mv" style="font-size:10px;color:var(--gold)">' + timerTxt + '</div><div class="ml">Expire dans</div></div>';
+  h += '</div></div>';
+
+  if (premium) {
+    // ── PREMIUM ACTIF : tout visible
+    h += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;padding:8px 12px;background:#0D1A00;border-radius:10px;border:1px solid #2d9e2d">';
+    h += '<span style="font-size:14px">⭐</span><span style="font-size:11px;color:#4CAF50;font-weight:700">Premium actif — accès complet à toutes les sélections</span>';
+    h += '</div>';
+    h += '<div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px">Appuie pour voir l\'analyse complète</div>';
+    COUPON.selections.forEach(function(s, i) {
+      h += renderCard(s, i, false);
+    });
+    h += '<div class="hint">Les cotes <strong style="color:#4CAF50">✓ Vérifié</strong> sont confirmées. Les <strong style="color:#888">Approx.</strong> sont estimées — compare sur 1xBet avant de miser.</div>';
+
+  } else {
+    // ── NON PREMIUM : 1er pick visible, reste flou + lock box
+    h += '<div style="font-size:9px;color:var(--dim);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px">Appuie pour voir l\'analyse complète</div>';
+
+    // 1er pick libre
+    h += renderCard(COUPON.selections[0], 0, false);
+
+    // Picks restants floutés + overlay
+    if (COUPON.selections.length > 1) {
+      h += '<div class="cpn-locked-wrap">';
+      // Cartes fantômes floutées
+      var blurHtml = '';
+      for (var i = 1; i < COUPON.selections.length; i++) {
+        blurHtml += renderCard(COUPON.selections[i], i, true);
+      }
+      h += blurHtml;
+      // Overlay paywall
+      h += '<div class="cpn-lock-overlay">';
+      h += '<div class="cpn-lock-box">';
+      h += '<div class="cpn-lock-icon">🔐</div>';
+      h += '<div class="cpn-lock-title">+ ' + (COUPON.selections.length - 1) + ' SÉLECTIONS VIP</div>';
+      h += '<div class="cpn-lock-sub">Les picks les plus fiables sont réservés aux membres premium ORAK.<br>Accède aussi au <strong style="color:var(--purple)">NBA VIP chaque soir</strong>.</div>';
+      h += '<button class="cpn-unlock-btn" onclick="openPremiumModal()">⭐ Activer le Premium — $15/mois</button>';
+      h += '<div class="cpn-or">ou</div>';
+      h += '<a class="cpn-xbet-btn" href="' + AFFILIE + '" target="_blank" rel="noopener">🎁 Créer mon compte 1xBet → 7 jours offerts</a>';
+      h += '<div class="cpn-free-note">✓ Gratuit · Aucune carte bancaire pour la promo 1xBet<br>Envoie ton ID 1xBet sur Telegram <strong>@Oraktips</strong></div>';
+      h += '</div></div>';
+      h += '</div>';
+    }
+  }
+
+  h += '<div class="aff-banner"><div class="aff-title">🎰 Joue sur 1xBet</div><div class="aff-sub">Meilleures cotes disponibles · Inscris-toi via ORAK = 7 jours premium offerts.</div><a class="aff-btn" href="' + AFFILIE + '" target="_blank" rel="noopener">Ouvrir un compte 1xBet →</a></div>';
+  el.innerHTML = h;
+}
+function tog(id){var el=document.getElementById(id);var i=id.replace('ca','');var btn=document.getElementById('cb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer l\'analyse';}else{el.style.display='none';btn.textContent='Sur quoi l\'ORAK base cette sélection ?';}}
 
 function buildTips(){
-  var h='<div class="slbl" style="color:var(--gold)">TIPS DU JOUR — STATS RECURRENTES</div>';
-  h+='<div style="font-size:12px;color:#444;margin:6px 0 16px;line-height:1.6">Stats a haute probabilite pour enrichir tes coupons personnels. 70 a 84% de chance de passer.</div>';
-  TIPS.forEach(function(t,i){
-    h+='<div class="tip-card"><div class="tip-body"><div class="tip-type" style="background:'+t.bg+';color:'+t.col+'">'+t.type+'</div><div style="font-size:10px;color:#444;margin-bottom:5px">'+t.league+'</div><div class="tip-match">'+t.match+'</div><div class="tip-pred" style="color:'+t.col+'">'+t.prediction+'</div><div class="tip-prob">Probabilite ORAK : <span>'+t.prob+'%</span></div><button class="tip-abtn" onclick="togT(\'ta'+i+'\')" id="tb'+i+'">Pourquoi ce tip ?</button></div><div id="ta'+i+'" class="tip-abody" style="display:none"><div class="srcs">'+t.sources.map(function(x){return'<span class="stag" style="background:'+t.bg+';color:'+t.col+'">'+x+'</span>';}).join('')+'</div>'+t.raisons.map(function(r){return'<div class="tip-why"><span style="color:'+t.col+';flex-shrink:0">◆</span><span>'+r+'</span></div>';}).join('')+'<div class="tip-warn">Ce tip n\'a pas de cote associee. Retrouve le marche sur ton bookmaker pour l\'integrer a ton coupon.</div></div></div>';
+  var el = document.getElementById('p1');
+  var firstDatePost = TIPS.length > 0 ? TIPS[0].datePost : null;
+  var tipsExpired = firstDatePost && isExpired(firstDatePost);
+
+  var h = '';
+
+  // ── SECTION 1 : Marchés Alternatifs (toujours visibles, pas d'expiry)
+  h += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">';
+  h += '<div class="slbl" style="color:var(--win)">MARCHÉS ALTERNATIFS</div>';
+  h += '<span class="free-badge">GRATUIT</span>';
+  h += '</div>';
+  h += '<div style="font-size:11.5px;color:#444;margin-bottom:14px;line-height:1.6">Corners · Tirs cadrés · Cartons · xG · BTTS — les marchés que les autres ignorent. Disponibles sur <strong style="color:var(--txt)">1xBet</strong>.</div>';
+
+  FREE_TIPS.forEach(function(t, i) {
+    h += '<div class="alt-card" style="border-color:' + t.col + '22">';
+    h += '<div class="alt-body">';
+    h += '<div style="display:flex;justify-content:space-between;align-items:flex-start">';
+    h += '<div style="flex:1">';
+    h += '<div class="alt-marche" style="background:' + t.bg + ';color:' + t.col + '">' + t.icon + ' ' + t.marche + '</div>';
+    h += '<div style="font-size:9px;color:#444;margin-bottom:4px;text-transform:uppercase;letter-spacing:.1em">' + t.league + '</div>';
+    h += '<div class="alt-match">' + t.match + '</div>';
+    h += '<div class="alt-pred" style="color:' + t.col + '">' + t.prediction + '</div>';
+    h += '</div></div>';
+    h += '<div class="alt-cote">Retrouve ce marché sur <strong style="color:var(--or)">1xBet</strong> et compare les cotes</div>';
+    h += '<button class="alt-abtn" onclick="togA(\'aa' + i + '\')" id="ab' + i + '">Pourquoi ce marché ? →</button>';
+    h += '</div>';
+    h += '<div id="aa' + i + '" class="alt-abody" style="display:none">';
+    h += '<div style="display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 8px">';
+    t.sources.forEach(function(s){ h += '<span class="stag" style="background:' + t.bg + ';color:' + t.col + '">' + s + '</span>'; });
+    h += '</div>';
+    t.raisons.forEach(function(r){ h += '<div class="alt-why"><span style="color:' + t.col + ';flex-shrink:0">◆</span><span>' + r + '</span></div>'; });
+    h += '<div style="margin-top:10px;padding:9px 12px;background:#080808;border-radius:8px;font-size:10px;color:#444;line-height:1.6;border-left:2px solid ' + t.col + '">📌 Section gratuite — pas de cote indiquée ici. Les cotes VIP sont dans l\'onglet <strong style="color:var(--or)">Coupon</strong>. Retrouve ce marché sur 1xBet.</div>';
+    h += '</div></div>';
   });
-  document.getElementById('p1').innerHTML=h;
+
+  // ── SECTION 2 : Stats Récurrentes (avec expiry 48h)
+  h += '<div class="section-divider"><span>Stats récurrentes du jour</span></div>';
+
+  if (tipsExpired) {
+    h += '<div style="text-align:center;padding:30px 20px;background:var(--card);border-radius:14px;border:1px dashed #252525">' +
+      '<div style="font-size:32px;margin-bottom:10px">🔒</div>' +
+      '<div style="font-size:14px;font-weight:700;color:#ddd;margin-bottom:6px">Stats du jour expirées</div>' +
+      '<div style="font-size:11px;color:#444;line-height:1.6">Ces stats ont plus de 48h. Résultats dans <strong style="color:var(--or)">Stats</strong>.</div>' +
+      '<button style="margin-top:12px;background:var(--or);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-size:12px;font-weight:700;font-family:var(--fn);cursor:pointer" onclick="go(2)">Voir les Stats →</button>' +
+    '</div>';
+  } else {
+    h += '<div style="font-size:11.5px;color:#444;margin-bottom:14px;line-height:1.6">Probabilités hautes (70–84%) à combiner avec tes coupons personnels.</div>';
+    TIPS.forEach(function(t, i){
+      h += '<div class="tip-card"><div class="tip-body">';
+      h += '<div class="tip-type" style="background:' + t.bg + ';color:' + t.col + '">' + t.type + '</div>';
+      h += '<div style="font-size:9px;color:#444;margin-bottom:4px">' + t.league + '</div>';
+      h += '<div class="tip-match">' + t.match + '</div>';
+      h += '<div class="tip-pred" style="color:' + t.col + '">' + t.prediction + '</div>';
+      h += '<div class="tip-prob">Probabilite ORAK : <span>' + t.prob + '%</span></div>';
+      h += '<button class="tip-abtn" onclick="togT(\'ta' + i + '\')" id="tb' + i + '">Pourquoi ce tip ?</button>';
+      h += '</div>';
+      h += '<div id="ta' + i + '" class="tip-abody" style="display:none">';
+      h += '<div class="srcs">' + t.sources.map(function(x){ return '<span class="stag" style="background:' + t.bg + ';color:' + t.col + '">' + x + '</span>'; }).join('') + '</div>';
+      h += t.raisons.map(function(r){ return '<div class="tip-why"><span style="color:' + t.col + ';flex-shrink:0">◆</span><span>' + r + '</span></div>'; }).join('');
+      h += '<div class="tip-warn">Ce tip n\'a pas de cote associée ici. Retrouve le marché sur 1xBet pour l\'intégrer à ton coupon.</div>';
+      h += '</div></div>';
+    });
+  }
+
+  el.innerHTML = h;
 }
+function togA(id){var el=document.getElementById(id);var i=id.replace('aa','');var btn=document.getElementById('ab'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer ↑';}else{el.style.display='none';btn.textContent='Pourquoi ce marché ? →';}}
 function togT(id){var el=document.getElementById(id);var i=id.replace('ta','');var btn=document.getElementById('tb'+i);if(el.style.display==='none'){el.style.display='block';btn.textContent='Masquer';}else{el.style.display='none';btn.textContent='Pourquoi ce tip ?';}}
 
 function buildStats(){
@@ -415,24 +1340,93 @@ function buildMindset(){
     {i:'💎',t:'Le secret des vrais gagnants',b:'Les meilleurs tipsters ne gagnent pas 80% de leurs paris. Ils gagnent 56 a 60% — mais avec une gestion de bankroll parfaite et une recherche constante de value. La regularite bat l\'exploit.'},
     {i:'🧠',t:'Comprendre les cotes pour les dominer',b:'Une cote de 2.00 signifie que le bookmaker pense 50% de chances. Ton travail : trouver ou il se trompe. Si tu penses 60% — la cote 2.00 est une mine d\'or. C\'est ca le value betting.'}
   ];
-  var h='<div class="slbl">MINDSET — PSYCHOLOGIE DU PARIEUR</div><p class="pdesc">Les meilleures analyses ne valent rien sans la bonne tete. Lis une carte par jour.</p>';
+
+  // Lexique marchés alternatifs
+  var LEX = [
+    {i:'📐',t:'Corners Over/Under',b:'Pari sur le nombre total de corners dans un match. Over 9.5 = plus de 9 corners. Les équipes offensives à domicile génèrent souvent 10-13 corners. Vérifie la moyenne des 5 derniers matchs à domicile.'},
+    {i:'🥅',t:'Tirs cadrés',b:'Nombre de frappes qui cadrent le but. Un attaquant en forme peut dépasser 3-5 tirs cadrés/match. C\'est disponible sur 1xBet pour les grands championnats et la C1. Moyenne de la saison = base d\'analyse.'},
+    {i:'🟨',t:'Cartons jaunes Over/Under',b:'Paris sur le nombre de cartons dans un match. Les derbies, matchs à enjeux, et matchs avec l\'arbitre sévère sont idéaux. Over 3.5 cartons est commun dans les matchs tendus de C1 ou de relégation.'},
+    {i:'⚡',t:'xG — Expected Goals',b:'Les buts attendus (xG) mesurent la qualité des occasions, pas juste le score. Un xG de 2.5 avec 0 but = l\'équipe va scorer dans les prochains matchs. C\'est l\'indicateur le plus fiable pour les Over/Under buts.'},
+    {i:'🔄',t:'BTTS — Les deux équipes marquent',b:'Les deux équipes marquent au moins 1 but chacune. Taux de BTTS : certaines équipes le dépassent à 70%+ à domicile. À chercher sur Sofascore ou FBref. Très populaire sur 1xBet avec de bonnes cotes.'},
+    {i:'⚽',t:'1er buteur / Buteur à tout moment',b:'Parier sur un attaquant précis pour marquer. Analyse : buts dans les 5 derniers matchs, est-ce qu\'il tire beaucoup, est-ce qu\'il est en forme ? Les ailiers rapides en C1 sont souvent sous-cotés par les bookmakers.'},
+    {i:'🎯',t:'Handicap asiatique',b:'Le bookmaker donne un avantage virtuel de buts à l\'équipe plus faible. Exemple : Real Madrid -1.5 contre une petite équipe = Real doit gagner par 2+ buts. Réduit le risque du nul et crée de la valeur sur les grands favoris.'},
+    {i:'📊',t:'Double chance (1X, X2, 12)',b:'Tu couvres 2 résultats sur 3 possibles. 1X = victoire ou nul de l\'équipe à domicile. X2 = nul ou victoire de l\'équipe à l\'extérieur. Cotes plus basses mais sécurité maximale pour les matchs serrés.'}
+  ];
+
+  var h = '<div class="slbl">MINDSET — PSYCHOLOGIE DU PARIEUR</div>';
+  h += '<p class="pdesc">Les meilleures analyses ne valent rien sans la bonne tete. Lis une carte par jour.</p>';
   A.forEach(function(a){h+='<div class="pcard"><div class="pico">'+a.i+'</div><div class="ptitle">'+a.t+'</div><div class="pbody">'+a.b+'</div></div>';});
+
+  h += '<div class="section-divider"><span>Lexique des marchés</span></div>';
+  h += '<p class="pdesc" style="margin-bottom:14px">Comprends chaque marché avant de miser. Ces termes reviennent tous les jours dans les Tips.</p>';
+  LEX.forEach(function(l){ h += '<div class="pcard" style="border-color:#1A2A1A"><div class="pico">'+l.i+'</div><div class="ptitle" style="color:#4CAF50">'+l.t+'</div><div class="pbody">'+l.b+'</div></div>'; });
+
   document.getElementById('p4').innerHTML=h;
 }
 
-var premiumUnlocked=false;
 function buildFolie(){
   var el=document.getElementById('p5');
-  var lock='<div class="premium-lock"><div class="premium-badge">PREMIUM ORAK</div><div style="font-size:26px;font-weight:900;color:#ddd;margin-bottom:10px">Paris Folie</div><div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:6px">Le paris hebdomadaire 100% IA.<br>Cotes entre 50 et 100 — pour le frisson.</div><div style="font-size:12px;color:var(--purple);font-weight:700;margin-bottom:4px">1 semaine gratuite — sans carte bancaire</div><div style="font-size:11px;color:#444;margin-bottom:4px">Cree ton compte 1xBet via ORAK pour activer le premium</div><a class="aff-btn" href="'+AFFILIE+'" target="_blank" rel="noopener" style="background:linear-gradient(135deg,var(--purple),#7D3C98);margin-bottom:10px">Creer mon compte 1xBet →</a><button class="trial-btn" onclick="unlockPremium()" style="margin-top:6px;font-size:12px;background:#1A1A1A;border:1px solid #333">Deja inscrit — voir le Paris Folie</button></div>';
-  var folie='<div class="folie-banner"><div class="folie-lbl">PARIS FOLIE DU WEEK-END — 100% IA</div><div class="folie-title">LE GRAND FRISSON</div><div class="folie-sub">Genere exclusivement par l\'IA. Pour le plaisir du jeu. Mise maximum : 1% de ta bankroll.</div><div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-size:10px;color:#888;margin-bottom:4px">Cote totale</div><div class="folie-cote">x'+FOLIE.cote+'</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--purple);font-weight:700">'+FOLIE.date+'</div></div></div></div>';
-  folie+='<div class="slbl" style="color:var(--purple);margin-bottom:12px">LES SELECTIONS</div>';
-  FOLIE.selections.forEach(function(s){folie+='<div class="folie-sel"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="folie-sel-match">'+s.match+'</div><div class="folie-sel-mkt">'+s.mkt+'</div></div><div class="folie-sel-cote">x'+s.cote+'</div></div></div>';});
-  folie+='<div class="folie-warn">'+FOLIE.disclaimer+'</div>';
-  el.innerHTML=premiumUnlocked?folie:lock;
-}
-function unlockPremium(){premiumUnlocked=true;buildFolie();}
+  var isActive = isPremiumActive();
+  var isPending = isPremiumPending();
 
+  if (isActive) {
+    // Contenu débloqué
+    var exp = formatExpiry(premiumState.expiry);
+    var folie='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">' +
+      '<div class="slbl" style="color:var(--purple)">PARIS FOLIE</div>' +
+      '<div style="background:linear-gradient(135deg,var(--purple),#7D3C98);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px">⭐ PREMIUM · ' + formatExpiry(premiumState.expiry) + '</div>' +
+    '</div>';
+    folie+='<div class="folie-banner"><div class="folie-lbl">PARIS FOLIE DU WEEK-END — 100% IA</div><div class="folie-title">LE GRAND FRISSON</div><div class="folie-sub">Genere exclusivement par l\'IA. Pour le plaisir du jeu. Mise maximum : 1% de ta bankroll.</div><div style="display:flex;justify-content:space-between;align-items:flex-end"><div><div style="font-size:10px;color:#888;margin-bottom:4px">Cote totale</div><div class="folie-cote">x'+FOLIE.cote+'</div></div><div style="text-align:right"><div style="font-size:10px;color:var(--purple);font-weight:700">'+FOLIE.date+'</div></div></div></div>';
+    folie+='<div class="slbl" style="color:var(--purple);margin-bottom:12px">LES SELECTIONS</div>';
+    FOLIE.selections.forEach(function(s){folie+='<div class="folie-sel"><div style="display:flex;justify-content:space-between;align-items:center"><div><div class="folie-sel-match">'+s.match+'</div><div class="folie-sel-mkt">'+s.mkt+'</div></div><div class="folie-sel-cote">x'+s.cote+'</div></div></div>';});
+    folie+='<div class="folie-warn">'+FOLIE.disclaimer+'</div>';
+    el.innerHTML=folie;
+  } else {
+    // Lock screen amélioré
+    var pendingNote = isPending ?
+      '<div style="background:#1A1A00;border:1px solid var(--gold);border-radius:12px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--gold);line-height:1.6">⏳ <strong>Paiement en cours de vérification.</strong><br>Tu recevras ton code d\'accès sous 1-6h.</div>' : '';
+
+    el.innerHTML =
+      '<div class="premium-lock">' +
+        '<div class="premium-badge">PREMIUM ORAK</div>' +
+        '<div style="font-size:26px;font-weight:900;color:#ddd;margin-bottom:8px">Paris Folie</div>' +
+        '<div style="font-size:13px;color:#555;line-height:1.7;margin-bottom:14px">Le paris hebdomadaire 100% IA.<br>Cotes entre 50 et 100 — pour le frisson.</div>' +
+
+        // Prix unique
+        '<div style="background:linear-gradient(135deg,#0D0020,#160030);border:2px solid var(--purple);border-radius:14px;padding:18px;margin-bottom:14px">' +
+          '<div style="font-family:var(--fd);font-size:50px;background:linear-gradient(135deg,var(--purple),#E8A0FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1">$15</div>' +
+          '<div style="font-size:11px;color:#888;margin-top:4px">par mois · 30 jours d\'accès complet</div>' +
+          '<div style="font-size:10px;color:#555;margin-top:8px;line-height:1.8">3 coupons gagnants sur bankroll $50<br>= abonnement rentabilisé</div>' +
+        '</div>' +
+
+        // Promo 1xBet
+        '<div style="background:linear-gradient(135deg,#001810,#001510);border:1.5px solid #2d9e2d;border-radius:12px;padding:14px;margin-bottom:14px;text-align:left">' +
+          '<div style="font-size:12px;font-weight:700;color:#4CAF50;margin-bottom:6px">🎁 1 semaine offerte</div>' +
+          '<div style="font-size:11px;color:#555;line-height:1.6">Crée ton compte 1xBet via ORAK → envoie ton ID 1xBet sur Telegram → <strong style="color:#4CAF50">7 jours premium gratuits</strong>.</div>' +
+        '</div>' +
+
+        pendingNote +
+        '<div style="font-size:11px;color:#444;margin-bottom:12px">💳 AirTM · ₿ Crypto · 🔑 Code d\'activation</div>' +
+        '<button class="trial-btn" onclick="openPremiumModal()">Activer le Premium →</button>' +
+      '</div>' +
+      '<div class="aff-banner" style="border-color:#3A0060">' +
+        '<div class="aff-title" style="color:var(--purple)">🎰 Crée ton compte 1xBet</div>' +
+        '<div class="aff-sub">Inscris-toi via ORAK → envoie ton ID 1xBet sur Telegram <strong style="color:#E8A0FF">@Oraktips</strong> → 7 jours premium offerts.</div>' +
+        '<a class="aff-btn" href="'+AFFILIE+'" target="_blank" rel="noopener" style="background:linear-gradient(135deg,var(--purple),#7D3C98);margin-bottom:0">Créer mon compte 1xBet →</a>' +
+      '</div>';
+  }
+}
+
+// Init
+loadPremiumState();
 buildCoupon();buildTips();buildStats();buildKelly();buildMindset();buildFolie();
 </script>
+
+<!-- ── BOUTON TELEGRAM FLOTTANT ── -->
+<a href="https://t.me/Oraktips" target="_blank" rel="noopener"
+   style="position:fixed;bottom:76px;right:16px;width:46px;height:46px;background:linear-gradient(135deg,#0D5F8A,#1A8DC4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 16px rgba(26,141,196,.4);z-index:200;text-decoration:none;transition:transform .2s"
+   ontouchstart="this.style.transform='scale(.9)'" ontouchend="this.style.transform='scale(1)'">
+  ✈️
+</a>
 </body>
 </html>
