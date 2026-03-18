@@ -4,12 +4,6 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 <title>ORAK — Ce que les autres ne voient pas.</title>
- <link rel="manifest" href="manifest.json">
-<link rel="apple-touch-icon" href="orak-logo.svg">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="ORAK">
-<meta name="theme-color" content="#FF4D00">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -282,47 +276,11 @@ input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-
      ═══════════════════════════════════════════ -->
 <script>
 
-// ── COUPON DU JOUR
-// datePost = moment où tu publies le coupon (format ISO)
-// cote_verifiee: true = cote confirmée sur ESPN/bookmaker / false = cote estimée à vérifier sur 1xBet
+// ── COUPON DU JOUR — 18 MARS 2026 UCL
 var COUPON = {
   actif: true,
-  datePost: "2026-03-17T08:00:00.000Z",
+  datePost: "2026-03-18T08:00:00.000Z",
   selections: [
-    {
-      sport:"⚽",
-      league:"UCL — 1/8 Retour · 17 Mar",
-      match:"Arsenal FC vs Bayer Leverkusen",
-      market:"Arsenal -1.5 Handicap Asiatique",
-      cote: 1.80,
-      prob: 71,
-      cote_verifiee: true,
-      sources:["ESPN","Sofascore","Opta"],
-      raisons:[
-        "Arsenal 4V/4 à l'Emirates en C1 cette saison — invaincu à domicile en Europe",
-        "Le -1.5 couvert dans 11 de leurs 20 derniers matchs PL+C1 à domicile (55%)",
-        "Gyökeres : 16 buts cette saison, reposé contre Everton — affamé ce soir",
-        "Leverkusen en déplacement : 3 matchs nuls consécutifs avant ce soir — manque de tranchant",
-        "Arsenal 2.7 xG au match aller déjà — avec domicile ils vont exploser défensivement"
-      ]
-    },
-    {
-      sport:"⚽",
-      league:"UCL — 1/8 Retour · 17 Mar",
-      match:"Manchester City vs Real Madrid",
-      market:"Over 2.5 buts total",
-      cote: 1.62,
-      prob: 65,
-      cote_verifiee: false,
-      sources:["bet365","Online Betting Academy","Opta Analyst"],
-      raisons:[
-        "Real Madrid a gagné 3-0 à l'aller — City DOIT marquer 4 buts ce soir pour se qualifier",
-        "Real en grande confiance : 4-1 vs Elche samedi — ils vont aussi attaquer à l'Etihad",
-        "Over 2.5 dans 4 des 6 derniers matchs du Real. 30 des 31 derniers matchs City à domicile : Over 1.5",
-        "Haaland 0 tir au match aller — impossible qu'il reste muet à l'Etihad devant son public",
-        "Vinicius Jr. dangereux en contre même à l'extérieur — les deux équipes créent des occasions"
-      ]
-    },
     {
       sport:"⚽",
       league:"UCL — 1/8 Retour · 18 Mar",
@@ -330,110 +288,125 @@ var COUPON = {
       market:"Liverpool FC — Victoire",
       cote: 1.33,
       prob: 75,
-      cote_verifiee: false,
+      cote_verifiee: true,
       sources:["Opta","UEFA.com","Sofascore"],
       raisons:[
-        "Liverpool à Anfield — 75.5% probabilité victoire selon modèles Opta",
-        "Ils ont perdu 0-1 à Istanbul — DOIVENT gagner. Motivation maximale sous les Kop",
-        "Anfield en soirée européenne : l'atmosphère la plus intimidante d'Europe pour les visiteurs",
-        "Galatasaray : niveau UCL insuffisant — 4ème de Süper Lig cette saison, défense poreuse",
-        "Liverpool invaincu à domicile en C1 cette saison — logique de qualification implacable"
+        "Liverpool à Anfield — 75% probabilite victoire selon modeles Opta",
+        "Liverpool a perdu 0-1 a Istanbul — DOIVENT gagner. Motivation maximale",
+        "Anfield en soiree europeenne = atmospheres la plus intimidante d Europe",
+        "Galatasaray : 4eme de Super Lig, defense poreuse, niveau UCL insuffisant",
+        "Liverpool invaincu a domicile en C1 cette saison — logique de qualification"
+      ]
+    },
+    {
+      sport:"⚽",
+      league:"UCL — 1/8 Retour · 18 Mar",
+      match:"Liverpool FC vs Galatasaray",
+      market:"BTTS — Les deux equipes marquent",
+      cote: 1.64,
+      prob: 72,
+      cote_verifiee: true,
+      sources:["Sofascore","FBref","UEFA Stats"],
+      raisons:[
+        "BTTS confirme dans 4 matchs consecutifs a Anfield cette saison",
+        "Galatasaray a score dans 6 matchs de suite — Osimhen 19 buts cette saison",
+        "Liverpool DOIT attaquer = jeu ouvert garanti des le coup d envoi",
+        "Osimhen en grande forme : 7 buts en UCL cette saison, dangereux en contre",
+        "Match aller 1-0 Galatasaray — Liverpool sous pression offensive totale"
+      ]
+    },
+    {
+      sport:"⚽",
+      league:"UCL — 1/8 Retour · 18 Mar",
+      match:"Tottenham vs Atletico Madrid",
+      market:"Over 2.5 buts total",
+      cote: 1.70,
+      prob: 73,
+      cote_verifiee: true,
+      sources:["UEFA.com","Sofascore","FBref"],
+      raisons:[
+        "Tottenham doit marquer 4 buts — attaque totale garantie des la 1ere minute",
+        "Atletico a depasse 2.5 buts dans 10 de leurs 11 matchs UCL cette saison",
+        "5 des 6 derniers matchs Tottenham : 3 buts ou plus",
+        "Match aller 5-2 Atletico — le retour sera aussi offensif, les deux equipes attaquent",
+        "Solanke et Kolo Muani titulaires — deux attaquants en forme face a une defense exposee"
       ]
     }
   ]
 };
 
-// ── TIPS DU JOUR (marchés stats — expiry 48h)
-// datePost doit correspondre au même datePost que le coupon
+// ── TIPS DU JOUR — 18 MARS 2026
 var TIPS = [
   {
     type:"⚽ UCL TIP",
     col:"#FF4D00",
     bg:"#180800",
-    league:"UCL — Arsenal vs Leverkusen",
-    match:"Arsenal FC vs Bayer Leverkusen",
-    prediction:"Arsenal — Over 1.5 buts marqués",
-    prob: 79,
-    datePost: "2026-03-17T08:00:00.000Z",
-    sources:["Opta","FBref","UEFA Stats"],
+    league:"UCL — Liverpool vs Galatasaray",
+    match:"Liverpool FC vs Galatasaray",
+    prediction:"Over 3.5 cartons dans le match",
+    prob: 73,
+    datePost: "2026-03-18T08:00:00.000Z",
+    sources:["Sofascore","WhoScored"],
     raisons:[
-      "Arsenal marque 2.4 buts/match à domicile cette saison en C1",
-      "Leverkusen : défense poreuse en déplacement — 2.1 buts concédés/match away",
-      "Arsenal dépasse 1.5 buts dans 79% de ses matchs à domicile cette saison",
-      "Match aller 1-1 — Arsenal sous pression offensive dès le coup d'envoi"
+      "Galatasaray va defendre agressivement — fautes tactiques inevitables",
+      "Liverpool sous pression offensive = tensions et cartons garantis",
+      "Les matchs retour a Anfield avec enjeu : moyenne 4.1 cartons sur 5 derniers",
+      "Arbitre de ce soir : verifie sa moyenne sur UEFA.com — souvent strict en UCL"
     ]
   },
   {
     type:"⚽ UCL TIP",
-    col:"#2196F3",
-    bg:"#001020",
-    league:"UCL — Man City vs Real Madrid",
-    match:"Manchester City vs Real Madrid",
-    prediction:"BTTS Non — Real ne marque pas",
-    prob: 72,
-    datePost: "2026-03-17T08:00:00.000Z",
-    sources:["UEFA.com","WhoScored","Opta"],
+    col:"#FFD700",
+    bg:"#151000",
+    league:"UCL — Tottenham vs Atletico",
+    match:"Tottenham vs Atletico Madrid",
+    prediction:"Over 4.5 cartons dans le match",
+    prob: 74,
+    datePost: "2026-03-18T08:00:00.000Z",
+    sources:["UEFA.com","WhoScored"],
     raisons:[
-      "Real Madrid : 3-0 au match aller — une équipe psychologiquement fracturée attaque moins bien",
-      "City a tenu 3 clean sheets consécutifs à l'Etihad en C1",
-      "Ederson / Ortega en forme — uniquement 2 buts concédés en 5 matchs C1 à domicile",
-      "Real doit scorer 4+ pour se qualifier — pression extrême = erreurs tactiques prévisibles"
+      "6 des 8 derniers matchs Tottenham en C1 : 5 cartons ou plus",
+      "Atletico joue defensif en deplacement = fautes tactiques constantes",
+      "Match tendu avec Tottenham qui doit tout renverser = agressivite garantie",
+      "Simeone equipe connue pour les cartons en deplacement quand ils gerent un avantage"
     ]
   },
   {
     type:"⚽ UCL TIP",
     col:"#4CAF50",
     bg:"#001A00",
-    league:"UCL — Chelsea vs PSG",
-    match:"Chelsea FC vs PSG",
-    prediction:"PSG ne perd pas (1X Paris Saint-Germain)",
-    prob: 74,
-    datePost: "2026-03-17T08:00:00.000Z",
-    sources:["UEFA.com","Sofascore","L'Équipe"],
+    league:"UCL — Tottenham vs Atletico",
+    match:"Tottenham vs Atletico Madrid",
+    prediction:"Dominic Solanke buteur a tout moment",
+    prob: 70,
+    datePost: "2026-03-18T08:00:00.000Z",
+    sources:["Premier League Stats","Sofascore"],
     raisons:[
-      "PSG a gagné 5-2 au match aller — même une défaite 1-0 suffit pour qualifier Paris",
-      "Chelsea doit marquer 4 buts sans en concéder — quasi impossible face à Donnarumma",
-      "PSG jouera bas et gérera — leur style en déplacement quand ils ont l'avantage",
-      "Donnarumma : 3 clean sheets sur les 5 derniers matchs à l'extérieur en C1"
+      "Solanke 5 buts en 9 derniers matchs — en grande forme",
+      "Atletico sans clean sheet en UCL cette saison",
+      "Tottenham DOIT attaquer — Solanke sera le point de fixation offensif",
+      "Atletico defense exposee quand ils jouent bas face a une equipe qui pousse"
     ]
   }
 ];
 
-// ── FREE TIPS — MARCHÉS ALTERNATIFS (toujours visibles, pas d'expiry)
-// Tirs cadrés, corners, cartons, xG — disponibles pour tous les abonnés et visiteurs
+// ── FREE TIPS — MARCHES ALTERNATIFS
 var FREE_TIPS = [
   {
-    marche:"🎯 Corners",
+    marche:"📐 Corners",
     icon:"📐",
     col:"#00BCD4",
     bg:"#001015",
-    league:"UCL — Arsenal vs Leverkusen",
-    match:"Arsenal vs Leverkusen",
-    prediction:"Over 9.5 corners dans le match",
-    cote_indicative:"~1.80",
-    sources:["Opta","Corner-Stats"],
+    league:"UCL — Liverpool vs Galatasaray",
+    match:"Liverpool vs Galatasaray",
+    prediction:"Liverpool Over 6.5 corners",
+    cote_indicative:"~1.75",
+    sources:["Opta","Sofascore"],
     raisons:[
-      "Arsenal moyenne 6.2 corners/match à domicile — parmi les plus hauts d'Europe",
-      "Leverkusen en déplacement concède 4.8 corners/match aux équipes dominantes",
-      "Match à enjeu avec Arsenal qui attaque — pression sur les côtés garantie",
-      "Les 4 derniers matchs d'Arsenal à l'Emirates : 10, 11, 9, 12 corners — tous Over 9.5"
-    ]
-  },
-  {
-    marche:"🎯 Tirs Cadrés",
-    icon:"🥅",
-    col:"#FF9800",
-    bg:"#150800",
-    league:"UCL — Arsenal vs Leverkusen",
-    match:"Arsenal vs Leverkusen",
-    prediction:"Arsenal Over 4.5 tirs cadrés",
-    cote_indicative:"~1.90",
-    sources:["FBref","Sofascore"],
-    raisons:[
-      "Arsenal 5.8 tirs cadrés/match à domicile cette saison — 2ème meilleure stat d'Europe",
-      "Leverkusen : gardien Hradecky sollicité 5+ fois dans 70% des matchs away en C1",
-      "Saka + Havertz + Martinelli = trio offensif le plus dangereux de la phase aller",
-      "Sous pression d'élimination, Arsenal va pousser fort dès la 1ère minute"
+      "Liverpool 6.9 corners/match a Anfield cette saison en C1",
+      "Galatasaray defend bas = Liverpool pousse sur les cotes = corners inevitables",
+      "Over 6.5 corners Liverpool realise dans 74% de leurs matchs domicile UCL",
+      "Salah et Diaz = ailiers tres actifs, generent beaucoup de corners"
     ]
   },
   {
@@ -441,50 +414,33 @@ var FREE_TIPS = [
     icon:"🟨",
     col:"#FFD700",
     bg:"#151000",
-    league:"UCL — Man City vs Real Madrid",
-    match:"Man City vs Real Madrid",
-    prediction:"Over 3.5 cartons dans le match",
-    cote_indicative:"~1.75",
+    league:"UCL — Tottenham vs Atletico",
+    match:"Tottenham vs Atletico",
+    prediction:"Over 4.5 cartons total match",
+    cote_indicative:"~1.80",
     sources:["UEFA.com","WhoScored"],
     raisons:[
-      "Real Madrid doit attaquer — frustration + pression = plus de fautes et cartons",
-      "City-Real en C1 : moyenne 4.2 cartons/match sur les 6 dernières confrontations",
-      "Arbitre nommé pour ce match : tendance à sortir les cartons sur les duels — vérifie 1xBet",
-      "Vinicius Jr. et Bellingham en mode ultra-agressif quand le Real est acculé"
+      "Atletico en deplacement avec avantage = jeu rugueux et fautes tactiques",
+      "Tottenham frustre va multiplier les duels physiques",
+      "6 des 8 derniers matchs Spurs en C1 : 5+ cartons",
+      "Derby europeen tendu = arbitre sous pression = beaucoup de cartons"
     ]
   },
   {
-    marche:"⚡ xG / Buts",
+    marche:"⚽ Buts",
     icon:"📊",
     col:"#9C27B0",
     bg:"#0D0015",
-    league:"UCL — Chelsea vs PSG",
-    match:"Chelsea vs PSG",
-    prediction:"Under 2.5 buts total",
-    cote_indicative:"~1.85",
-    sources:["Understat xG","UEFA Stats"],
+    league:"UCL — Liverpool vs Galatasaray",
+    match:"Liverpool vs Galatasaray",
+    prediction:"Liverpool marque avant la mi-temps",
+    cote_indicative:"~1.65",
+    sources:["Opta","UEFA Stats"],
     raisons:[
-      "PSG a tout à gérer — ils arrivent avec 5-2 à l'aller, ils vont jouer bas et fermer le match",
-      "Chelsea : attaque inefficace contre blocs organisés — xG attendu < 1.1 selon modèles",
-      "PSG xG concédés à l'extérieur cette C1 : 0.7/match — défense béton en déplacement",
-      "Les 3 derniers matchs Chelsea à domicile en C1 : 1-0, 2-1, 0-1 — faible scoring"
-    ]
-  },
-  {
-    marche:"🎯 Corners",
-    icon:"📐",
-    col:"#00BCD4",
-    bg:"#001015",
-    league:"UCL — Man City vs Real Madrid",
-    match:"Man City vs Real Madrid",
-    prediction:"Man City Over 6.5 corners",
-    cote_indicative:"~1.70",
-    sources:["Opta","Corner-Stats"],
-    raisons:[
-      "City 6.8 corners/match à l'Etihad — pression constante sur les côtés avec De Bruyne",
-      "Real en position défensive va sortir beaucoup de ballons en corner",
-      "Over 6.5 corners pour City réalisé dans 72% de leurs matchs C1 à domicile",
-      "Haaland attire les défenseurs dans les airs = corners obligatoires"
+      "Liverpool a score avant la mi-temps dans 7 de leurs 8 derniers matchs a Anfield",
+      "Galatasaray defense vulnerable en debut de match — pression Anfield immense",
+      "Liverpool va attaquer fort des le coup d envoi pour rassurer le Kop",
+      "Salah en grande forme devant son public = but rapide attendu"
     ]
   }
 ];
@@ -505,7 +461,8 @@ var FOLIE = {
 
 // ── HISTORIQUE — matchs réellement joués (UCL 2025-26)
 var HISTO = [
-  {date:"17 Mar",matchs:"Arsenal -1.5 AH + Over 2.5 City/Real + Liverpool Win (UCL 1/8 Retour)",cote:3.87,res:"?"},
+  {date:"18 Mar",matchs:"Liverpool Win + BTTS LIV/GAL + Over 2.5 TOT/ATL (UCL)",cote:3.71,res:"?"},
+  {date:"17 Mar",matchs:"Arsenal -1.5 AH + Over 2.5 City/Real + Liverpool Win",cote:3.87,res:"?"},
   {date:"11 Mar",matchs:"PSG Victoire vs Chelsea + Real Madrid Victoire vs Man City",cote:2.72,res:"WIN"},
   {date:"10 Mar",matchs:"Bayern Victoire (6-1 vs Atalanta) + Atletico Victoire (5-2 vs Tottenham)",cote:2.31,res:"WIN"},
   {date:"10 Mar",matchs:"Barcelona 1X vs Newcastle + Atletico Victoire",cote:2.18,res:"LOSS"},
