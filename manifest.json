@@ -1,0 +1,16 @@
+{
+  "name": "ORAK — Ce que les autres ne voient pas.",
+  "short_name": "ORAK",
+  "description": "Pronos sportifs NBA et foot europeen. Coupons analyses, tips quotidiens, Kelly Calculator.",
+  "start_url": "/orak-app/",
+  "scope": "/orak-app/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#080808",
+  "theme_color": "#FF4D00",
+  "icons": [
+    {"src": "orak-logo.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"},
+    {"src": "orak-logo.svg", "sizes": "192x192", "type": "image/svg+xml"},
+    {"src": "orak-logo.svg", "sizes": "512x512", "type": "image/svg+xml"}
+  ]
+}
