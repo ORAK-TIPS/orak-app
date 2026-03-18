@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="og1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF4D00"/>
+      <stop offset="100%" stop-color="#FF8C66"/>
+    </linearGradient>
+    <linearGradient id="og2" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FF6A20"/>
+      <stop offset="100%" stop-color="#CC3000"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FF4D00" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#FF4D00" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#FF4D00" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="512" height="512" fill="#080808" rx="80"/>
+  <ellipse cx="256" cy="240" rx="160" ry="160" fill="url(#glow)"/>
+  <polygon points="256,60 390,138 390,294 256,372 122,294 122,138" fill="none" stroke="#FF4D00" stroke-width="2.5" stroke-opacity="0.2"/>
+  <circle cx="256" cy="210" r="105" fill="none" stroke="url(#og1)" stroke-width="30" filter="url(#shadow)"/>
+  <line x1="190" y1="144" x2="322" y2="276" stroke="#080808" stroke-width="24"/>
+  <line x1="190" y1="144" x2="322" y2="276" stroke="url(#og2)" stroke-width="7"/>
+  <polygon points="344,120 362,102 380,120 362,138" fill="url(#og1)" opacity="0.95"/>
+  <text x="256" y="400" font-family="Arial Black,Impact,sans-serif" font-size="74" font-weight="900" fill="url(#og1)" text-anchor="middle" letter-spacing="16">ORAK</text>
+  <rect x="150" y="414" width="212" height="2.5" fill="url(#og1)" opacity="0.35" rx="1"/>
+  <circle cx="220" cy="452" r="3.5" fill="#FF4D00" opacity="0.45"/>
+  <circle cx="256" cy="452" r="3.5" fill="#FF4D00" opacity="0.8"/>
+  <circle cx="292" cy="452" r="3.5" fill="#FF4D00" opacity="0.45"/>
+</svg>
